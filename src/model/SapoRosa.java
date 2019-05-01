@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package haruichiban;
+package model;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author vinny
  */
-public class HaruIchiban {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+public class SapoRosa extends Sapo{
+    
+    public SapoRosa() {
+        super(new ImageIcon("imagens/sapoRosa.png"));
     }
     
 }

@@ -10,13 +10,16 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Adroan
+ * @author vinny
  */
-public abstract class Sapo extends Peca {
-    
-    public Sapo(Icon imagem) {
-        super(imagem);
+public class NenufarClaroComOvoAmarelo extends Nenufar {
+
+    public NenufarClaroComOvoAmarelo() {
+        super(new ImageIcon("imagens/nenufarClaroComOvoAmarelo.png"));
     }
+
+   
+    
     
     
 }

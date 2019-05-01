@@ -3,20 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package control;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 /**
  *
- * @author Adroan
+ * @author vinny
  */
-public abstract class Sapo extends Peca {
+public interface GerenciadorJogo {
     
-    public Sapo(Icon imagem) {
-        super(imagem);
-    }
-    
+    void inicializarTabuleiro() throws Exception;
+    void addObservador(Observador obs);
+    Icon getPeca(int col, int row) throws Exception;
     
 }

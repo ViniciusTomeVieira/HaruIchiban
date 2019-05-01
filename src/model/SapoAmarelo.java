@@ -10,13 +10,12 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Adroan
+ * @author vinny
  */
-public abstract class Sapo extends Peca {
+public class SapoAmarelo extends Sapo{
     
-    public Sapo(Icon imagem) {
-        super(imagem);
+    public SapoAmarelo() {
+        super(new ImageIcon("imagens/sapoAmarelo.png"));
     }
-    
     
 }
