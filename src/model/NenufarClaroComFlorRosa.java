@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
 public class NenufarClaroComFlorRosa extends Nenufar {
 
     public NenufarClaroComFlorRosa() {
-        super(new ImageIcon("imagens/nenufarClaroComFlorRosa.png"));
+        super(new ImageIcon("imagens/nenufarClaroComFlorRosa.jpg"));
     }
 
    

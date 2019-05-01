@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
 public class Agua extends Peca{
     
     public Agua() {
-        super(new ImageIcon("imagens/agua.png"));
+        super(new ImageIcon("imagens/agua.jpg"));
     }
     
 }

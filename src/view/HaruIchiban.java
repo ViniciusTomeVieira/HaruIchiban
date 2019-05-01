@@ -83,7 +83,7 @@ public class HaruIchiban extends JFrame implements Observador {
 		this.gerenciador.addObservador(this);
 		
 		setTitle("HaruIchiban");
-		setSize(1000, 1000);
+		setSize(600, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -99,11 +99,11 @@ public class HaruIchiban extends JFrame implements Observador {
 		tabuleiro = new JTable();
 		tabuleiro.setModel(new HeroiTableModel());
 		for (int x=0;x<tabuleiro.getColumnModel().getColumnCount();x++) {
-			tabuleiro.getColumnModel().getColumn(x).setWidth(100);
-			tabuleiro.getColumnModel().getColumn(x).setMinWidth(100);
-			tabuleiro.getColumnModel().getColumn(x).setMaxWidth(100);
+			tabuleiro.getColumnModel().getColumn(x).setWidth(200);
+			tabuleiro.getColumnModel().getColumn(x).setMinWidth(200);
+			tabuleiro.getColumnModel().getColumn(x).setMaxWidth(200);
 		}
-		tabuleiro.setRowHeight(100);
+		tabuleiro.setRowHeight(200);
 		tabuleiro.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tabuleiro.setShowGrid(false);
 		tabuleiro.setIntercellSpacing(new Dimension(0, 0));

@@ -43,20 +43,20 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 		tabuleiro[2][0] = new NenufarClaro();
 		tabuleiro[2][1] = new NenufarClaro();
 		tabuleiro[2][2] = new Agua();
-		tabuleiro[2][2] = new SapoAmarelo();
-		tabuleiro[2][2] = new NenufarClaro();
+		tabuleiro[2][3] = new SapoAmarelo();
+		tabuleiro[2][4] = new NenufarClaro();
                 
                 tabuleiro[3][0] = new Agua();
 		tabuleiro[3][1] = new NenufarClaro();
 		tabuleiro[3][2] = new NenufarClaro();
-		tabuleiro[3][2] = new NenufarClaro();
-		tabuleiro[3][2] = new Agua();
+		tabuleiro[3][3] = new NenufarClaro();
+		tabuleiro[3][4] = new Agua();
                 
                 tabuleiro[4][0] = new NenufarClaro();
 		tabuleiro[4][1] = new Agua();
 		tabuleiro[4][2] = new NenufarClaro();
-		tabuleiro[4][2] = new Agua();
-		tabuleiro[4][2] = new NenufarClaro();
+		tabuleiro[4][3] = new Agua();
+		tabuleiro[4][4] = new NenufarClaro();
     }
 
     @Override
