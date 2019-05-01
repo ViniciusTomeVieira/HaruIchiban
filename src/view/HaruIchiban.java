@@ -29,7 +29,7 @@ import control.GerenciadorJogoImpl;
 import control.Observador;
 
 
-public class DesafioDoHeroi extends JFrame implements Observador {
+public class HaruIchiban extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -50,7 +50,7 @@ public class DesafioDoHeroi extends JFrame implements Observador {
 		@Override
 		public Object getValueAt(int row, int col) {
 			try {
-				return controle.getPeca(col, row);
+				return gerenciador.getPeca(col, row);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e.toString());
 				return null;
@@ -77,13 +77,13 @@ public class DesafioDoHeroi extends JFrame implements Observador {
 	private GerenciadorJogo gerenciador;
 	private JTable tabuleiro;
 	
-	public DesafioDoHeroi() throws Exception {
+	public HaruIchiban() throws Exception {
 		this.gerenciador = new GerenciadorJogoImpl();
 		this.gerenciador.inicializarTabuleiro();
 		this.gerenciador.addObservador(this);
 		
 		setTitle("HaruIchiban");
-		setSize(500, 500);
+		setSize(1000, 1000);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -114,7 +114,7 @@ public class DesafioDoHeroi extends JFrame implements Observador {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				try {
-					controle.pressTecla( e.getKeyCode() );
+					//gerenciador.pressTecla( e.getKeyCode() );
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, e1.toString());
 				}
@@ -128,7 +128,7 @@ public class DesafioDoHeroi extends JFrame implements Observador {
 		JPanel jp = new JPanel();
 		jp.setLayout(new BorderLayout());
 		
-		// criar os botoes de radio
+		// criar os botoes de radio / ToDo: criar a parte das cartas do usuario
 		JPanel jrGrupo = new JPanel();
 
 		ButtonGroup bgTipoHeroi = new ButtonGroup();
@@ -149,7 +149,7 @@ public class DesafioDoHeroi extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
-					controle.setTipoHeroi(event.getActionCommand());
+					//controle.setTipoHeroi(event.getActionCommand());
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.toString());
 				}
@@ -169,7 +169,7 @@ public class DesafioDoHeroi extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				try {
-					controle.run();
+					//controle.run();
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.toString());
 				}
@@ -190,7 +190,7 @@ public class DesafioDoHeroi extends JFrame implements Observador {
 	
 	public static void main(String[] args) {
 		try {
-			DesafioDoHeroi d = new DesafioDoHeroi();
+			HaruIchiban d = new HaruIchiban();
 			d.setVisible(true);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.toString());
