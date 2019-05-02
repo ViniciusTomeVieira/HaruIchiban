@@ -27,11 +27,27 @@ import javax.swing.table.DefaultTableCellRenderer;
 import control.GerenciadorJogo;
 import control.GerenciadorJogoImpl;
 import control.Observador;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 
 public class HaruIchiban extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
+        
+        //Botoes mao do jogador        
+        private JButton jbCarta1;
+        private JButton jbCarta2;
+        private JButton jbCarta3;
+        
+        //Textos mao do jogador
+        private JLabel jlCarta1;
+        private JLabel jlCarta2;
+        private JLabel jlCarta3;
 	
 	class HeroiTableModel extends AbstractTableModel {
 
@@ -126,25 +142,19 @@ public class HaruIchiban extends JFrame implements Observador {
 		add(tabuleiro, CENTER);
 
 		JPanel jp = new JPanel();
-		jp.setLayout(new BorderLayout());
+		jp.setLayout(new GridLayout(2,1,0,0));
 		
 		// criar os botoes de radio / ToDo: criar a parte das cartas do usuario
-		JPanel jrGrupo = new JPanel();
-
-		ButtonGroup bgTipoHeroi = new ButtonGroup();
+		JPanel jpMensagem = new JPanel();
+                jtaMensagem = new JTextArea(2,2);
+		jtaMensagem.setText("Xesquedeleeeeeeeeeeeeeeeeeeeee");
+                jtaMensagem.setEditable(false);
+                jtaMensagem.setLineWrap(true);
+                jtaMensagem.setFont(new Font("Calibri", 1, 20));
+                jpMensagem.add(jtaMensagem,CENTER);
 		
-		jrMontanha = new JRadioButton("Montanha");
-		jrMontanha.setSelected(true);
-		jrMontanha.setActionCommand("Montanha");
-		jrGrupo.add(jrMontanha);
-		bgTipoHeroi.add(jrMontanha);
-		
-		jrAgua = new JRadioButton("\u00C1gua");
-		jrGrupo.add(jrAgua);
-		jrAgua.setActionCommand("Agua");
-		bgTipoHeroi.add(jrAgua);
-		
-		ActionListener radioAction = new ActionListener() {
+                
+                ActionListener cartaClicadaAction = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -155,14 +165,30 @@ public class HaruIchiban extends JFrame implements Observador {
 				}
 			}
 		};
-		jrMontanha.addActionListener(radioAction);
-		jrAgua.addActionListener(radioAction);
-		radioAction.actionPerformed(new ActionEvent(jrMontanha, ActionEvent.ACTION_PERFORMED, jrMontanha.getActionCommand()));
+		//cartaClicadaAction.actionPerformed(new ActionEvent(jrMontanha, ActionEvent.ACTION_PERFORMED, jrMontanha.getActionCommand()));
 		
-		jp.add(jrGrupo, WEST);
+		jp.add(jpMensagem);
 		
-		// botao criar
-		JPanel jpCriar = new JPanel();
+		// criar mão do jogador
+		JPanel jpMao = new JPanel();
+                jpMao.setLayout(new GridBagLayout());
+                //Criação dos botões
+                jbCarta1 = new JButton();
+                jbCarta1.setIcon(new ImageIcon("imagens/florRosa.png"));
+                jbCarta2 = new JButton();
+                jbCarta2.setIcon(new ImageIcon("imagens/florAmarela.png"));
+                jbCarta3 = new JButton();
+                jbCarta3.setIcon(new ImageIcon("imagens/florRosa.png"));
+                
+                //Criação das labels
+                jlCarta1 = new JLabel();
+                jlCarta1.setText("1");
+                jlCarta2 = new JLabel();
+                jlCarta2.setText("2");
+                jlCarta3 = new JLabel();
+                jlCarta3.setText("3");
+                
+                
 		jbCriar = new JButton("Criar");
 		jbCriar.addActionListener(new ActionListener() {
 
@@ -176,10 +202,18 @@ public class HaruIchiban extends JFrame implements Observador {
 			}
 		});
 		
-		jpCriar.add(jbCriar);
-		jp.add(jpCriar, CENTER);
-		
-		add(jp, SOUTH);
+                jpMao.add(jbCarta1);
+                jpMao.add(jlCarta1);                              
+                jpMao.add(jbCarta2);
+                jpMao.add(jlCarta2);
+                jpMao.add(jbCarta3);
+                jpMao.add(jlCarta3);
+                
+                jpMao.setBackground(Color.white);
+                jpMao.setSize(300,getContentPane().getHeight());
+                jp.setBackground(Color.white);
+		jp.add(jpMao);
+		add(jp,WEST);
 		
 		
 	}
@@ -187,6 +221,11 @@ public class HaruIchiban extends JFrame implements Observador {
 	private JRadioButton jrMontanha;
 	private JRadioButton jrAgua;
 	private JButton jbCriar;
+        private JTextArea jtaMensagem;
+        
+        
+        
+        
 	
 	public static void main(String[] args) {
 		try {
