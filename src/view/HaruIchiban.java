@@ -29,8 +29,10 @@ import control.GerenciadorJogoImpl;
 import control.Observador;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
@@ -48,6 +50,9 @@ public class HaruIchiban extends JFrame implements Observador {
         private JLabel jlCarta1;
         private JLabel jlCarta2;
         private JLabel jlCarta3;
+        
+        private GridBagLayout layout;
+        private GridBagConstraints constraints;
 	
 	class HeroiTableModel extends AbstractTableModel {
 
@@ -171,7 +176,16 @@ public class HaruIchiban extends JFrame implements Observador {
 		
 		// criar mão do jogador
 		JPanel jpMao = new JPanel();
-                jpMao.setLayout(new GridBagLayout());
+                //jpMao.setLayout(new GridLayout(3,2));
+               
+                
+                layout = new GridBagLayout();
+                constraints = new GridBagConstraints();
+                
+               // layout.setConstraints(jpMao, constraints);
+                jpMao.setLayout(layout);
+                
+                
                 //Criação dos botões
                 jbCarta1 = new JButton();
                 jbCarta1.setIcon(new ImageIcon("imagens/florRosa.png"));
@@ -201,13 +215,27 @@ public class HaruIchiban extends JFrame implements Observador {
 				}
 			}
 		});
-		
-                jpMao.add(jbCarta1);
-                jpMao.add(jlCarta1);                              
-                jpMao.add(jbCarta2);
-                jpMao.add(jlCarta2);
-                jpMao.add(jbCarta3);
-                jpMao.add(jlCarta3);
+		constraints.gridx = 0;
+                constraints.gridy = 0;
+                jpMao.add(jbCarta1,constraints);
+                constraints.gridx = 1;
+                constraints.gridy = 0;
+                constraints.gridwidth = 100;
+                jpMao.add(jlCarta1,constraints);
+                constraints.gridx = 0;
+                constraints.gridy = 1;
+                jpMao.add(jbCarta2,constraints);
+                constraints.gridx = 1;
+                constraints.gridy = 1;
+                constraints.gridwidth = 100;
+                jpMao.add(jlCarta2,constraints);
+                constraints.gridx = 0;
+                constraints.gridy = 2;
+                jpMao.add(jbCarta3,constraints);
+                constraints.gridx = 1;
+                constraints.gridy = 2;
+                constraints.gridwidth = 100;
+                jpMao.add(jlCarta3,constraints);
                 
                 jpMao.setBackground(Color.white);
                 jpMao.setSize(300,getContentPane().getHeight());
@@ -215,7 +243,20 @@ public class HaruIchiban extends JFrame implements Observador {
 		jp.add(jpMao);
 		add(jp,WEST);
 		
-		
+                //Criação da panel da direita
+                JPanel jpDireita = new JPanel();
+                jpDireita.setLayout(new GridLayout(3,1,0,0));
+                
+                //Criação do placar
+                JPanel jpPlacar = new JPanel();
+                JLabel jlPlacar = new JLabel();
+                jlPlacar.setText("2x2");
+                
+                jpPlacar.add(jlPlacar);
+                jpDireita.add(jpPlacar);
+                
+                add(jpDireita,BorderLayout.EAST);
+                
 	}
 
 	private JRadioButton jrMontanha;
