@@ -63,11 +63,11 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     }
     @Override
     public void inicializarFlores() throws Exception {
-        flores = new Peca[3][3];
+        flores = new Peca[4][2];
         Random valor = new Random();
         List<String> numerosSorteados = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; i < 2; i++) {
                 while (flores[i][j] == null) {
                     int numero = valor.nextInt(8);
                     if (numerosSorteados.contains(numero + "")) {
