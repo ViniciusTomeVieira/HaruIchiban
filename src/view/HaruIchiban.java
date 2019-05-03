@@ -114,7 +114,7 @@ public class HaruIchiban extends JFrame implements Observador {
         @Override
         public Object getValueAt(int row, int col) {
             try {
-                return gerenciador.getFlor(col, row, );
+                return gerenciador.getFlor(col, row,gerenciador.getJogador1().getFlores() );
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.toString());
                 return null;
@@ -145,8 +145,8 @@ public class HaruIchiban extends JFrame implements Observador {
     public HaruIchiban() throws Exception {
         this.gerenciador = new GerenciadorJogoImpl();
         this.gerenciador.inicializarTabuleiro();
-        this.gerenciador.inicializarFlores(gerenciador.getFloresJog1());
-        this.gerenciador.inicializarFlores(gerenciador.getFloresJog2());
+        this.gerenciador.inicializarFlores(gerenciador.getJogador1().getFlores());
+        this.gerenciador.inicializarFlores(gerenciador.getJogador2().getFlores());
         this.gerenciador.addObservador(this);
 
         setTitle("HaruIchiban");
@@ -161,6 +161,11 @@ public class HaruIchiban extends JFrame implements Observador {
     }
 
     private void initComponents() {
+        
+        //Iniciar jogadores
+        int opcao = JOptionPane.showConfirmDialog(getParent(), "chama no reskein", "Xesq", 1);
+        gerenciador.getJogador1().setCorDaFlor("Rosa");
+        
 
         // criar o tabuleiro e seus componentes
         Tbtabuleiro = new JTable();

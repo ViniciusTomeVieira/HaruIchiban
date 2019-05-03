@@ -6,6 +6,7 @@
 package control;
 
 import javax.swing.Icon;
+import model.Jogador;
 import model.Peca;
 
 /**
@@ -19,5 +20,11 @@ public interface GerenciadorJogo {
     void addObservador(Observador obs);
     Icon getPeca(int col, int row) throws Exception;
     Icon getFlor(int col, int row, Peca[][] floresJogador) throws Exception;
+    public Jogador getJogador1();     
+    public void setJogador1(Jogador jogador1) ;    
+    public Jogador getJogador2();  
+    public void setJogador2(Jogador jogador2);
+
+    
     
 }

@@ -11,6 +11,7 @@ import java.util.Random;
 import javax.swing.Icon;
 import model.Agua;
 import model.FlorRosa;
+import model.Jogador;
 import model.NenufarClaro;
 import model.NenufarEscuro;
 import model.Peca;
@@ -24,8 +25,8 @@ import model.SapoRosa;
 public class GerenciadorJogoImpl implements GerenciadorJogo {
     
     private Peca[][] tabuleiro;
-    private Peca[][] floresJog1;
-    private Peca[][] floresJog2;
+    private Jogador jogador1 = new Jogador();
+    private Jogador jogador2 = new Jogador();
     private List<Observador> observadores = new ArrayList<>();
     private String estadoJogo; // SelecionarCor / EscolherFlores /   JogarFlor    /  JuniorEscuro    /    SeniorEscolhe  /   JuniorMovePeças /   SeniorEscolheEscuro     
                                //    Jogador1   / Jogador 1 e 2  / Jogador 1 e 2  /  JogadorJunior   /    Jogador Senior /   JogadorJunior   /   Jogador Senior
@@ -108,6 +109,23 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         }
         return null;
     }
+
+    public Jogador getJogador1() {
+        return jogador1;
+    }
+
+    public void setJogador1(Jogador jogador1) {
+        this.jogador1 = jogador1;
+    }
+
+    public Jogador getJogador2() {
+        return jogador2;
+    }
+
+    public void setJogador2(Jogador jogador2) {
+        this.jogador2 = jogador2;
+    }
+    
 
     
     
