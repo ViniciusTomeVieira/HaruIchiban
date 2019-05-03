@@ -6,6 +6,7 @@
 package control;
 
 import javax.swing.Icon;
+import model.Peca;
 
 /**
  *
@@ -14,9 +15,9 @@ import javax.swing.Icon;
 public interface GerenciadorJogo {
     
     void inicializarTabuleiro() throws Exception;
-    void inicializarFlores() throws Exception;
+    void inicializarFlores(Peca[][] floresJogador) throws Exception;
     void addObservador(Observador obs);
     Icon getPeca(int col, int row) throws Exception;
-    Icon getFlor(int col, int row) throws Exception;
+    Icon getFlor(int col, int row, Peca[][] floresJogador) throws Exception;
     
 }

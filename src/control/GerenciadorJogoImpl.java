@@ -24,8 +24,11 @@ import model.SapoRosa;
 public class GerenciadorJogoImpl implements GerenciadorJogo {
     
     private Peca[][] tabuleiro;
-    private Peca[][] flores;
+    private Peca[][] floresJog1;
+    private Peca[][] floresJog2;
     private List<Observador> observadores = new ArrayList<>();
+    private String estadoJogo; // SelecionarCor / EscolherFlores /   JogarFlor    /  JuniorEscuro    /    SeniorEscolhe  /   JuniorMovePeças /   SeniorEscolheEscuro     
+                               //    Jogador1   / Jogador 1 e 2  / Jogador 1 e 2  /  JogadorJunior   /    Jogador Senior /   JogadorJunior   /   Jogador Senior
 
     @Override
     public void inicializarTabuleiro() throws Exception {
@@ -62,18 +65,18 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 		tabuleiro[4][4] = new NenufarClaro();
     }
     @Override
-    public void inicializarFlores() throws Exception {
-        flores = new Peca[2][4];
+    public void inicializarFlores(Peca[][] floresJogador) throws Exception {
+        floresJogador = new Peca[2][4];
         Random valor = new Random();
         List<String> numerosSorteados = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 4; j++) {
-                while (flores[i][j] == null) {
+                while (floresJogador[i][j] == null) {
                     int numero = valor.nextInt(8);
                     if (numerosSorteados.contains(numero + "")) {
                         System.out.println("Ja tem esse numero porra");
                     } else {
-                        flores[i][j] = new FlorRosa(numero + 1);
+                        floresJogador[i][j] = new FlorRosa(numero + 1);
                         numerosSorteados.add(numero + "");
                         System.out.println("Flor inserida nessa porra");
                         System.out.println("Numero da flor: " + (numero+1));
@@ -99,9 +102,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     }
 
     @Override
-    public Icon getFlor(int coluna, int linha) throws Exception {
-        if(flores[coluna][linha] != null){
-            return flores[coluna][linha].getImagem();
+    public Icon getFlor(int coluna, int linha, Peca[][] floresJogador) throws Exception {
+        if(floresJogador[coluna][linha] != null){
+            return floresJogador[coluna][linha].getImagem();
         }
         return null;
     }
