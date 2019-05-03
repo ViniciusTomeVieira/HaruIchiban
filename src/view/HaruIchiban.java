@@ -79,33 +79,7 @@ public class HaruIchiban extends JFrame implements Observador {
 
     }
 
-    class FloresTableModel extends AbstractTableModel {
-
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        public int getColumnCount() {
-            return 4;
-        }
-
-        @Override
-        public int getRowCount() {
-            return 2;
-        }
-
-        @Override
-        public Object getValueAt(int row, int col) {
-            try {
-                return gerenciador.getFlor(col, row);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.toString());
-                return null;
-            }
-        }
-
-    }
-
-    class HeroiRenderer extends DefaultTableCellRenderer {
+      class HeroiRenderer extends DefaultTableCellRenderer {
 
         private static final long serialVersionUID = 1L;
 
@@ -119,6 +93,47 @@ public class HaruIchiban extends JFrame implements Observador {
         }
 
     }
+    
+    class FloresTableModel extends AbstractTableModel {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public int getColumnCount() {
+            return 2;
+        }
+
+        @Override
+        public int getRowCount() {
+            return 4;
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            try {
+                return gerenciador.getFlor(col, row);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.toString());
+                return null;
+            }
+        }
+
+    }
+  class FloresRenderer extends DefaultTableCellRenderer {
+
+        private static final long serialVersionUID = 1L;
+
+        public Component getTableCellRendererComponent(JTable table,
+                Object value, boolean isSelected, boolean hasFocus, int row,
+                int column) {
+
+            setIcon((ImageIcon) value);
+
+            return this;
+        }
+
+    }
+  
 
     private GerenciadorJogo gerenciador;
     private JTable Tbtabuleiro;
@@ -276,8 +291,38 @@ public class HaruIchiban extends JFrame implements Observador {
 
         jpPlacar.add(jlPlacar);
         jpDireita.add(jpPlacar);
+        
+        //Table de flores do lado direito
         TbFlores = new JTable();
         TbFlores.setModel(new FloresTableModel());
+        for (int x = 0; x < TbFlores.getColumnModel().getColumnCount(); x++) {
+            TbFlores.getColumnModel().getColumn(x).setWidth(50);
+            TbFlores.getColumnModel().getColumn(x).setMinWidth(50);
+            TbFlores.getColumnModel().getColumn(x).setMaxWidth(50);
+        }
+        TbFlores.setRowHeight(50);
+        TbFlores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        TbFlores.setShowGrid(false);
+        TbFlores.setIntercellSpacing(new Dimension(0, 0));
+        TbFlores.setDefaultRenderer(Object.class, new FloresRenderer());
+
+        TbFlores.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                try {
+                    //gerenciador.pressTecla( e.getKeyCode() );
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(null, e1.toString());
+                }
+            }
+
+        });
+        
+        
+        
+        
+        
         jpDireita.add(TbFlores);
 
         add(jpDireita, BorderLayout.EAST);

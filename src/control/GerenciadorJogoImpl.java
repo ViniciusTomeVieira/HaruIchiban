@@ -66,8 +66,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         flores = new Peca[2][4];
         Random valor = new Random();
         List<String> numerosSorteados = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; i < 2; i++) {
                 while (flores[i][j] == null) {
                     int numero = valor.nextInt(8);
                     if (numerosSorteados.contains(numero + "")) {
