@@ -7,8 +7,10 @@ package control;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javax.swing.Icon;
 import model.Agua;
+import model.FlorRosa;
 import model.NenufarClaro;
 import model.NenufarEscuro;
 import model.Peca;
@@ -22,6 +24,7 @@ import model.SapoRosa;
 public class GerenciadorJogoImpl implements GerenciadorJogo {
     
     private Peca[][] tabuleiro;
+    private Peca[][] flores;
     private List<Observador> observadores = new ArrayList<>();
 
     @Override
@@ -58,6 +61,27 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 		tabuleiro[4][3] = new Agua();
 		tabuleiro[4][4] = new NenufarClaro();
     }
+    @Override
+    public void inicializarFlores() throws Exception {
+        flores = new Peca[3][3];
+        Random valor = new Random();
+        List<String> numerosSorteados = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; i < 3; i++) {
+                while (flores[i][j] == null) {
+                    int numero = valor.nextInt(8);
+                    if (numerosSorteados.contains(numero + "")) {
+
+                    } else {
+                        flores[i][j] = new FlorRosa(numero + 1);
+                        numerosSorteados.add(numero + "");
+                    }
+                }
+
+            }
+        }
+
+    }
 
     @Override
     public void addObservador(Observador obs) {
@@ -71,5 +95,15 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         }
         return null;
     }
+
+    @Override
+    public Icon getFlor(int coluna, int linha) throws Exception {
+        if(flores[coluna][linha] != null){
+            return flores[coluna][linha].getImagem();
+        }
+        return null;
+    }
+
+    
     
 }

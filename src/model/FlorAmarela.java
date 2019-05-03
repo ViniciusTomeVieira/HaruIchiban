@@ -14,8 +14,8 @@ import javax.swing.ImageIcon;
  */
 public class FlorAmarela extends Flor {
     
-    public FlorAmarela() {
-        super(new ImageIcon("imagens/florAmarela.png"));
+    public FlorAmarela(int numero) {
+        super(new ImageIcon("imagens/florAmarela.png"),numero);       
     }
     
 }

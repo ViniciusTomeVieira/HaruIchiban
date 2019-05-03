@@ -13,8 +13,11 @@ import javax.swing.Icon;
  */
 public abstract class Flor extends Peca {
     
-    public Flor(Icon imagem) {
+    protected int numero;
+    
+    public Flor(Icon imagem, int numero) {
         super(imagem);
+        this.numero = numero;
     }
     
 }
