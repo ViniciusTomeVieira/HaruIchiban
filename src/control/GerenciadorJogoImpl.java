@@ -66,15 +66,17 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         flores = new Peca[2][4];
         Random valor = new Random();
         List<String> numerosSorteados = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 4; j++) {
                 while (flores[i][j] == null) {
                     int numero = valor.nextInt(8);
                     if (numerosSorteados.contains(numero + "")) {
-
+                        System.out.println("Ja tem esse numero porra");
                     } else {
                         flores[i][j] = new FlorRosa(numero + 1);
                         numerosSorteados.add(numero + "");
+                        System.out.println("Flor inserida nessa porra");
+                        System.out.println("Numero da flor: " + (numero+1));
                     }
                 }
 
