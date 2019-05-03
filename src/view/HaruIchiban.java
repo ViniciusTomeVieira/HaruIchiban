@@ -3,6 +3,7 @@ package view;
 import static java.awt.BorderLayout.CENTER;
 import static java.awt.BorderLayout.SOUTH;
 import static java.awt.BorderLayout.WEST;
+import static java.awt.BorderLayout.EAST;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -33,8 +34,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.plaf.basic.BasicButtonListener;
 
 public class HaruIchiban extends JFrame implements Observador {
 
@@ -111,7 +114,7 @@ public class HaruIchiban extends JFrame implements Observador {
         @Override
         public Object getValueAt(int row, int col) {
             try {
-                return gerenciador.getFlor(col, row);
+                return gerenciador.getFlor(col, row, );
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.toString());
                 return null;
@@ -142,7 +145,8 @@ public class HaruIchiban extends JFrame implements Observador {
     public HaruIchiban() throws Exception {
         this.gerenciador = new GerenciadorJogoImpl();
         this.gerenciador.inicializarTabuleiro();
-        this.gerenciador.inicializarFlores();
+        this.gerenciador.inicializarFlores(gerenciador.getFloresJog1());
+        this.gerenciador.inicializarFlores(gerenciador.getFloresJog2());
         this.gerenciador.addObservador(this);
 
         setTitle("HaruIchiban");
@@ -172,18 +176,14 @@ public class HaruIchiban extends JFrame implements Observador {
         Tbtabuleiro.setIntercellSpacing(new Dimension(0, 0));
         Tbtabuleiro.setDefaultRenderer(Object.class, new HeroiRenderer());
 
-        Tbtabuleiro.addKeyListener(new KeyAdapter() {
-
+        Tbtabuleiro.addMouseListener(new java.awt.event.MouseAdapter(){
             @Override
-            public void keyReleased(KeyEvent e) {
-                try {
-                    //gerenciador.pressTecla( e.getKeyCode() );
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(null, e1.toString());
-                }
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Clicou");
+                
             }
-
-        });
+            
+        }); 
 
         add(Tbtabuleiro, CENTER);
 
@@ -296,36 +296,27 @@ public class HaruIchiban extends JFrame implements Observador {
         TbFlores = new JTable();
         TbFlores.setModel(new FloresTableModel());
         for (int x = 0; x < TbFlores.getColumnModel().getColumnCount(); x++) {
-            TbFlores.getColumnModel().getColumn(x).setWidth(50);
-            TbFlores.getColumnModel().getColumn(x).setMinWidth(50);
-            TbFlores.getColumnModel().getColumn(x).setMaxWidth(50);
+            TbFlores.getColumnModel().getColumn(x).setWidth(100);
+            TbFlores.getColumnModel().getColumn(x).setMinWidth(100);
+            TbFlores.getColumnModel().getColumn(x).setMaxWidth(100);
         }
-        TbFlores.setRowHeight(50);
+        TbFlores.setRowHeight(100);
         TbFlores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        TbFlores.setShowGrid(false);
+        TbFlores.setShowGrid(true);
         TbFlores.setIntercellSpacing(new Dimension(0, 0));
         TbFlores.setDefaultRenderer(Object.class, new FloresRenderer());
-
-        TbFlores.addKeyListener(new KeyAdapter() {
-
+        
+        TbFlores.addMouseListener(new java.awt.event.MouseAdapter(){
             @Override
-            public void keyReleased(KeyEvent e) {
-                try {
-                    //gerenciador.pressTecla( e.getKeyCode() );
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(null, e1.toString());
-                }
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Clicou");
+                
             }
-
-        });
-        
-        
-        
-        
-        
+            
+        }); 
         jpDireita.add(TbFlores);
 
-        add(jpDireita, BorderLayout.EAST);
+        add(jpDireita,EAST);
 
     }
 
