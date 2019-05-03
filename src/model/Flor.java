@@ -19,5 +19,9 @@ public abstract class Flor extends Peca {
         super(imagem);
         this.numero = numero;
     }
+
+    public int getNumero() {
+        return numero;
+    }
     
 }

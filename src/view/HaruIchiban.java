@@ -96,7 +96,7 @@ public class HaruIchiban extends JFrame implements Observador {
         @Override
         public Object getValueAt(int row, int col) {
             try {
-                return gerenciador.getPeca(col, row);
+                return gerenciador.getFlor(col, row);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.toString());
                 return null;
@@ -127,6 +127,7 @@ public class HaruIchiban extends JFrame implements Observador {
     public HaruIchiban() throws Exception {
         this.gerenciador = new GerenciadorJogoImpl();
         this.gerenciador.inicializarTabuleiro();
+        this.gerenciador.inicializarFlores();
         this.gerenciador.addObservador(this);
 
         setTitle("HaruIchiban");
