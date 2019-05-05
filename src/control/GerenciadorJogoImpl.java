@@ -32,6 +32,18 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private String estadoJogo; // SelecionarCor / EscolherFlores /   JogarFlor    /  JuniorEscuro    /    SeniorEscolhe  /   JuniorMovePeças /   SeniorEscolheEscuro     
                                //    Jogador1   / Jogador 1 e 2  / Jogador 1 e 2  /  JogadorJunior   /    Jogador Senior /   JogadorJunior   /   Jogador Senior
 
+    private GerenciadorJogoImpl() {}
+    
+    private static GerenciadorJogoImpl instance;
+    
+    public synchronized static GerenciadorJogoImpl getInstance(){
+        if(instance==null)
+            instance = new GerenciadorJogoImpl();
+        
+        return instance;
+    }
+    
+    
     @Override
     public void inicializarTabuleiro() throws Exception {
         tabuleiro = new Peca[5][5];

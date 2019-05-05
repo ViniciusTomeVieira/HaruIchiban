@@ -143,7 +143,7 @@ public class HaruIchiban extends JFrame implements Observador {
     private JTable TbFlores;
 
     public HaruIchiban() throws Exception {
-        this.gerenciador = new GerenciadorJogoImpl();
+        this.gerenciador = GerenciadorJogoImpl.getInstance();
         this.gerenciador.inicializarTabuleiro();
         this.gerenciador.inicializarFlores(gerenciador.getJogador1().getFlores());
         this.gerenciador.inicializarFlores(gerenciador.getJogador2().getFlores());
