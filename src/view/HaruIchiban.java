@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import control.GerenciadorJogo;
 import control.GerenciadorJogoImpl;
-import control.Observador;
+import Observer.Observador;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;

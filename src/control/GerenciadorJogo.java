@@ -5,6 +5,7 @@
  */
 package control;
 
+import Observer.Observador;
 import javax.swing.Icon;
 import model.Jogador;
 import model.Peca;
