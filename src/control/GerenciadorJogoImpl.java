@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.Icon;
 import model.Agua;
+import model.Flor;
 import model.FlorRosa;
 import model.Jogador;
 import model.NenufarClaro;
@@ -26,11 +27,15 @@ import model.SapoRosa;
 public class GerenciadorJogoImpl implements GerenciadorJogo {
     
     private Peca[][] tabuleiro;
+    private int corDasFlores;
+    private int jogadorDaVez;
+    private Flor florEscolhidaDeck; //Flor que o jgoador escolhe quando clica nas cartas da direita
+    private Flor florEscolhidaMao; // Flor que o jogador vai escolher para jogar no jogo
     private Jogador jogador1 = new Jogador();
     private Jogador jogador2 = new Jogador();
     private List<Observador> observadores = new ArrayList<>();
-    private String estadoJogo; // SelecionarCor / EscolherFlores /   JogarFlor    /  JuniorEscuro    /    SeniorEscolhe  /   JuniorMovePeças /   SeniorEscolheEscuro     
-                               //    Jogador1   / Jogador 1 e 2  / Jogador 1 e 2  /  JogadorJunior   /    Jogador Senior /   JogadorJunior   /   Jogador Senior
+    private String estadoJogo = "SelecionarCor"; // SelecionarCor / EscolherFlores /   JogarFlor    /  JuniorEscuro    /    SeniorEscolhe  /   JuniorMovePeças /   SeniorEscolheEscuro     
+                                                //    Jogador1   / Jogador 1 e 2  / Jogador 1 e 2  /  JogadorJunior   /    Jogador Senior /   JogadorJunior   /   Jogador Senior
 
     private GerenciadorJogoImpl() {}
     
@@ -42,6 +47,75 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         
         return instance;
     }
+    
+    @Override
+    public void fluxoJogo() {
+        switch(estadoJogo){
+            case "SelecionarCor": selecionarCores();
+            case "EscolherFlores": escolherFlores();
+            case "JogarFlor": //jogarFlor();
+            case "JuniorEscuro": 
+            case "SeniorEscolhe":
+            case "JuniorMovePeças":
+            case "SeniorEscolheEscuro":
+        }
+    }
+
+    @Override
+    public int getCorDasFlores() {
+        return corDasFlores;
+    }
+    @Override
+    public void setCorDasFlores(int corDasFlores) {
+        this.corDasFlores = corDasFlores;
+    }
+
+    @Override
+    public Peca getFlorEscolhidaDeck() {
+        return florEscolhidaDeck;
+    }
+
+    @Override
+    public void setFlorEscolhidaDeck(Flor florEscolhidaDeck) {
+        this.florEscolhidaDeck = florEscolhidaDeck;
+    }
+
+    @Override
+    public Peca getFlorEscolhidaMao() {
+        return florEscolhidaMao;
+    }
+
+    @Override
+    public void setFlorEscolhidaMao(Flor florEscolhidaMao) {
+        this.florEscolhidaMao = florEscolhidaMao;
+    }
+    
+    
+
+    @Override
+    public String getEstadoJogo() {
+        return estadoJogo;
+    }
+
+    @Override
+    public void setEstadoJogo(String estadoJogo) {
+        this.estadoJogo = estadoJogo;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public int getJogadorDaVez() {
+        return jogadorDaVez;
+    }
+
+    @Override
+    public void setJogadorDaVez(int jogadorDaVez) {
+        this.jogadorDaVez = jogadorDaVez;
+    }
+    
     
     
     @Override
@@ -123,21 +197,69 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         return null;
     }
 
+    @Override
     public Jogador getJogador1() {
         return jogador1;
     }
 
+    @Override
     public void setJogador1(Jogador jogador1) {
         this.jogador1 = jogador1;
     }
 
+    @Override
     public Jogador getJogador2() {
         return jogador2;
     }
 
+    @Override
     public void setJogador2(Jogador jogador2) {
         this.jogador2 = jogador2;
     }
+
+    @Override
+    public void selecionarCores() {
+        switch(corDasFlores){
+            case 1: jogador1.setCorDaFlor("Rosa"); jogador2.setCorDaFlor("Amarela");
+            case 2: jogador1.setCorDaFlor("Amarela"); jogador2.setCorDaFlor("Rosa");
+            default: jogador1.setCorDaFlor("Rosa"); jogador2.setCorDaFlor("Amarela");
+        }                                                    
+        estadoJogo = "EscolherFlores";
+    }
+    int cartasRemovidas = 0;
+    //Remove a flor que o jogador escolheu de seu deck e adiciona em sua mão
+    @Override
+    public void escolherFlores() {
+        if(jogadorDaVez == 1){
+            Flor[][] flores = jogador1.getFlores();
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 4; j++) {
+                    if(flores[i][j].getNumero() == florEscolhidaDeck.getNumero()){
+                        jogador1.getMao().add(florEscolhidaDeck);
+                        flores[i][j] = null; // remove a flor do deck
+                        jogador1.setFlores(flores);
+                        //Fazer o controle da quantidade de cartas removidas do deck
+                    }
+                }
+            }
+        }else{
+            Flor[][] flores = jogador2.getFlores();
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 4; j++) {
+                    if(flores[i][j].getNumero() == florEscolhidaDeck.getNumero()){
+                        jogador2.getMao().add(florEscolhidaDeck);
+                        flores[i][j] = null; // remove a flor do deck
+                        jogador2.setFlores(flores);
+                    }
+                }
+            }
+        }
+        // Notificar o observer
+    }
+
+   
+
+    
     
 
     

@@ -47,15 +47,27 @@ public class HaruIchiban extends JFrame implements Observador {
     private JButton jbCarta1;
     private JButton jbCarta2;
     private JButton jbCarta3;
+    
+    //Mensagens no canto superior esquerdo
+    private JTextArea jtaMensagem;
 
     //Textos mao do jogador
     private JLabel jlCarta1;
     private JLabel jlCarta2;
     private JLabel jlCarta3;
 
+    //Layouts
     private GridBagLayout layout;
     private GridBagConstraints constraints;
+    
+    //Mecanica do jogo
+    private GerenciadorJogo gerenciador;
+    
+    //Tabelas
+    private JTable Tbtabuleiro;
+    private JTable TbFlores;
 
+    // Modelo de tabela visual do tabuleiro
     class HeroiTableModel extends AbstractTableModel {
 
         private static final long serialVersionUID = 1L;
@@ -81,7 +93,7 @@ public class HaruIchiban extends JFrame implements Observador {
         }
 
     }
-
+      // Renderizador de celulas do tabuleiro
       class HeroiRenderer extends DefaultTableCellRenderer {
 
         private static final long serialVersionUID = 1L;
@@ -96,7 +108,7 @@ public class HaruIchiban extends JFrame implements Observador {
         }
 
     }
-    
+    // Modelo de tabela visual das cartas do jogador
     class FloresTableModel extends AbstractTableModel {
 
         private static final long serialVersionUID = 1L;
@@ -122,6 +134,8 @@ public class HaruIchiban extends JFrame implements Observador {
         }
 
     }
+    
+  // Renderizador de celulas do tabuleiro  
   class FloresRenderer extends DefaultTableCellRenderer {
 
         private static final long serialVersionUID = 1L;
@@ -135,13 +149,9 @@ public class HaruIchiban extends JFrame implements Observador {
             return this;
         }
 
-    }
-  
+    }    
 
-    private GerenciadorJogo gerenciador;
-    private JTable Tbtabuleiro;
-    private JTable TbFlores;
-
+    //Construtor da view
     public HaruIchiban() throws Exception {
         this.gerenciador = GerenciadorJogoImpl.getInstance();
         this.gerenciador.inicializarTabuleiro();
@@ -156,17 +166,17 @@ public class HaruIchiban extends JFrame implements Observador {
         setResizable(false);
 
         initComponents();
+        
+        //Selecionar Cores / int opcao é má prática, mudar depois
+        int opcao = JOptionPane.showConfirmDialog(getParent(), "chama no reskein", "Xesq", 1);
+        gerenciador.setCorDasFlores(opcao);
+        gerenciador.fluxoJogo();
         pack();
 
     }
 
-    private void initComponents() {
-        
-        //Iniciar jogadores
-        int opcao = JOptionPane.showConfirmDialog(getParent(), "chama no reskein", "Xesq", 1);
-        gerenciador.getJogador1().setCorDaFlor("Rosa");
-        
-
+    //Inicia todos os componentes da interface
+    private void initComponents() {                             
         // criar o tabuleiro e seus componentes
         Tbtabuleiro = new JTable();
         Tbtabuleiro.setModel(new HeroiTableModel());
@@ -245,18 +255,18 @@ public class HaruIchiban extends JFrame implements Observador {
         jlCarta3 = new JLabel();
         jlCarta3.setText("3");
 
-        jbCriar = new JButton("Criar");
-        jbCriar.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                try {
-                    //controle.run();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e.toString());
-                }
-            }
-        });
+//        jbCriar = new JButton("Criar");
+//        jbCriar.addActionListener(new ActionListener() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent event) {
+//                try {
+//                    //controle.run();
+//                } catch (Exception e) {
+//                    JOptionPane.showMessageDialog(null, e.toString());
+//                }
+//            }
+//        });
         constraints.gridx = 0;
         constraints.gridy = 0;
         jpMao.add(jbCarta1, constraints);
@@ -325,11 +335,8 @@ public class HaruIchiban extends JFrame implements Observador {
 
     }
 
-    private JRadioButton jrMontanha;
-    private JRadioButton jrAgua;
-    private JButton jbCriar;
-    private JTextArea jtaMensagem;
-
+    
+    //Metodo MAIN
     public static void main(String[] args) {
         try {
             HaruIchiban d = new HaruIchiban();
@@ -340,18 +347,21 @@ public class HaruIchiban extends JFrame implements Observador {
 
     }
 
+    //Metodo executado na primeira execucao do jogo
     @Override
     public void iniciouJogo() {
-        jbCriar.setEnabled(false);
-        jrMontanha.setEnabled(false);
-        jrAgua.setEnabled(false);
+//        jbCriar.setEnabled(false);
+//        jrMontanha.setEnabled(false);
+//        jrAgua.setEnabled(false);
     }
 
+    //Atualizar o tabuleiro principal
     @Override
     public void mudouTabuleiro() {
         Tbtabuleiro.repaint();
     }
 
+    //Metodo executado ao final do jogo
     @Override
     public void fimDeJogo(String msgErro) {
         JOptionPane.showMessageDialog(null, msgErro);

@@ -14,17 +14,17 @@ import java.util.List;
  */
 public class Jogador {
     
-    private Peca[][] flores;
+    private Flor[][] flores;
     private String corDaFlor;
     private List<Flor> mao = new ArrayList<>();
     private int pontuacao = 0;
     private boolean jogando;
 
-    public Peca[][] getFlores() {
+    public Flor[][] getFlores() {
         return flores;
     }
 
-    public void setFlores(Peca[][] flores) {
+    public void setFlores(Flor[][] flores) {
         this.flores = flores;
     }
 
