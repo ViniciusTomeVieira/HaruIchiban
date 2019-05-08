@@ -126,7 +126,7 @@ public class HaruIchiban extends JFrame implements Observador {
         @Override
         public Object getValueAt(int row, int col) {
             try {
-                return gerenciador.getFlor(col, row,gerenciador.getJogador1().getFlores() );
+                return gerenciador.getFlor(col, row);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.toString());
                 return null;
@@ -171,6 +171,7 @@ public class HaruIchiban extends JFrame implements Observador {
         int opcao = JOptionPane.showConfirmDialog(getParent(), "chama no reskein", "Xesq", 1);
         gerenciador.setCorDasFlores(opcao);
         gerenciador.fluxoJogo();
+        gerenciador.setJogadorDaVez(1);
         pack();
 
     }

@@ -21,7 +21,7 @@ public interface GerenciadorJogo {
     void inicializarFlores(Peca[][] floresJogador) throws Exception;
     void addObservador(Observador obs);
     Icon getPeca(int col, int row) throws Exception;
-    Icon getFlor(int col, int row, Peca[][] floresJogador) throws Exception;
+    Icon getFlor(int col, int row) throws Exception;
     public Jogador getJogador1();     
     public void setJogador1(Jogador jogador1) ;    
     public Jogador getJogador2();  
@@ -38,5 +38,7 @@ public interface GerenciadorJogo {
     public Peca getFlorEscolhidaDeck();
     public void setFlorEscolhidaDeck(Flor florEscolhidaDeck);
     public Peca getFlorEscolhidaMao();
-     public void setFlorEscolhidaMao(Flor florEscolhidaMao);
+    public void setFlorEscolhidaMao(Flor florEscolhidaMao);
+    public Flor[][] getFlorDaVez();
+    public void setFlorDaVez(Flor[][] florDaVez);
 }

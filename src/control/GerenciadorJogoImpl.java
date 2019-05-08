@@ -26,14 +26,24 @@ import model.SapoRosa;
  */
 public class GerenciadorJogoImpl implements GerenciadorJogo {
     
-    private Peca[][] tabuleiro;
-    private int corDasFlores;
-    private int jogadorDaVez;
+    //Tabuleiro
+    private Peca[][] tabuleiro;          
+    
+    //Flores
+    private Flor[][] florDaVez;
     private Flor florEscolhidaDeck; //Flor que o jgoador escolhe quando clica nas cartas da direita
     private Flor florEscolhidaMao; // Flor que o jogador vai escolher para jogar no jogo
+    private int corDasFlores;
+    
+    //Jogadores
     private Jogador jogador1 = new Jogador();
     private Jogador jogador2 = new Jogador();
+    private int jogadorDaVez;
+    
+    //Observadores
     private List<Observador> observadores = new ArrayList<>();
+    
+    //Estado do jogo
     private String estadoJogo = "SelecionarCor"; // SelecionarCor / EscolherFlores /   JogarFlor    /  JuniorEscuro    /    SeniorEscolhe  /   JuniorMovePeças /   SeniorEscolheEscuro     
                                                 //    Jogador1   / Jogador 1 e 2  / Jogador 1 e 2  /  JogadorJunior   /    Jogador Senior /   JogadorJunior   /   Jogador Senior
 
@@ -60,6 +70,18 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             case "SeniorEscolheEscuro":
         }
     }
+
+    @Override
+    public Flor[][] getFlorDaVez() {
+        return florDaVez;
+    }
+
+    @Override
+    public void setFlorDaVez(Flor[][] florDaVez) {
+        this.florDaVez = florDaVez;
+    }
+    
+    
 
     @Override
     public int getCorDasFlores() {
@@ -190,9 +212,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     }
 
     @Override
-    public Icon getFlor(int coluna, int linha, Peca[][] floresJogador) throws Exception {
-        if(floresJogador[coluna][linha] != null){
-            return floresJogador[coluna][linha].getImagem();
+    public Icon getFlor(int coluna, int linha) throws Exception {
+        if(florDaVez[coluna][linha] != null){
+            return florDaVez[coluna][linha].getImagem();
         }
         return null;
     }
