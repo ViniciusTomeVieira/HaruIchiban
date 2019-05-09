@@ -37,6 +37,7 @@ import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicButtonListener;
 
 public class HaruIchiban extends JFrame implements Observador {
@@ -47,14 +48,15 @@ public class HaruIchiban extends JFrame implements Observador {
     private JButton jbCarta1;
     private JButton jbCarta2;
     private JButton jbCarta3;
+    private JButton jbCoachar;
     
     //Mensagens no canto superior esquerdo
     private JTextArea jtaMensagem;
 
     //Textos mao do jogador
-    private JLabel jlCarta1;
-    private JLabel jlCarta2;
-    private JLabel jlCarta3;
+    private JTextArea jtaCarta1;
+    private JTextArea jtaCarta2;
+    private JTextArea jtaCarta3;
 
     //Layouts
     private GridBagLayout layout;
@@ -154,24 +156,30 @@ public class HaruIchiban extends JFrame implements Observador {
 
     //Construtor da view
     public HaruIchiban() throws Exception {
-        layout = new GridBagLayout();
+        
+        //Inicia gerenciador e faz algumas operações
         this.gerenciador = GerenciadorJogoImpl.getInstance();
         this.gerenciador.inicializarTabuleiro();
         this.gerenciador.inicializarFlores(gerenciador.getJogador1().getFlores());
         this.gerenciador.inicializarFlores(gerenciador.getJogador2().getFlores());
         this.gerenciador.addObservador(this);
 
+        
+        //Configura a view
         setTitle("HaruIchiban");
-        setBounds(200,200,700,100);
+        setBounds(200,200,900,100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        getContentPane().setLayout(layout);
+        getContentPane().setLayout(new BorderLayout());
 
+        //Inicia os componentes da tela
         initComponents();
         
         //Selecionar Cores / int opcao é má prática, mudar depois
         //int opcao = JOptionPane.showConfirmDialog(getParent(), "chama no reskein", "Xesq", 1);
+        
+        //Testes...
         int opcao = 1;
         gerenciador.setCorDasFlores(opcao);
         gerenciador.fluxoJogo();
@@ -181,7 +189,14 @@ public class HaruIchiban extends JFrame implements Observador {
     }
 
     //Inicia todos os componentes da interface
-    private void initComponents() {                             
+    private void initComponents() { 
+        
+                
+        //Inicia os componentes de layout
+        constraints = new GridBagConstraints();
+        layout = new GridBagLayout();
+        
+        
         // criar o tabuleiro e seus componentes
         Tbtabuleiro = new JTable();
         Tbtabuleiro.setModel(new HeroiTableModel());
@@ -205,7 +220,8 @@ public class HaruIchiban extends JFrame implements Observador {
             
         }); 
 
-        add(Tbtabuleiro, CENTER);
+        //Adiciona o tabuleiro no centro da tela
+        add("Center",Tbtabuleiro);
 
         
 
@@ -226,11 +242,11 @@ public class HaruIchiban extends JFrame implements Observador {
 
 
         // criar mão do jogador
-        JPanel jpMao = new JPanel();
+        
         //jpMao.setLayout(new GridLayout(3,2));
 
        
-        constraints = new GridBagConstraints();
+        
         
         // criar os botoes de radio / ToDo: criar a parte das cartas do usuario
         JPanel jpMensagem = new JPanel();
@@ -242,88 +258,96 @@ public class HaruIchiban extends JFrame implements Observador {
         jtaMensagem.setFont(new Font("Calibri", 1, 20));
         
         
-        constraints.gridx = 0;
+        //Adiciona a mensagem no panel da mensagem
+        constraints.gridx = 1;
         constraints.gridy = 0;
         jpMensagem.add(jtaMensagem, constraints);
 
         
         
-        
+        //Inicia o panel da esquerda
         JPanel panelEsquerda = new JPanel();
         panelEsquerda.setLayout(layout);
 
-        // layout.setConstraints(jpMao, constraints);
-        jpMao.setLayout(layout);
-
-        //Criação dos botões
-        jbCarta1 = new JButton();
-        jbCarta1.setIcon(new ImageIcon("imagens/florRosa.png"));
-        jbCarta2 = new JButton();
-        jbCarta2.setIcon(new ImageIcon("imagens/florAmarela.png"));
-        jbCarta3 = new JButton();
-        jbCarta3.setIcon(new ImageIcon("imagens/florRosa.png"));
-
-        //Criação das labels
-        jlCarta1 = new JLabel();
-        jlCarta1.setText("1");
-        jlCarta2 = new JLabel();
-        jlCarta2.setText("2");
-        jlCarta3 = new JLabel();
-        jlCarta3.setText("3");
-
-//        jbCriar = new JButton("Criar");
-//        jbCriar.addActionListener(new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent event) {
-//                try {
-//                    //controle.run();
-//                } catch (Exception e) {
-//                    JOptionPane.showMessageDialog(null, e.toString());
-//                }
-//            }
-//        });
 
         
+        //Criação dos botões da mão do jogador
+        jbCarta1 = new JButton();
+        jbCarta1.setIcon(new ImageIcon("imagens/florRosa.png"));
+        jbCarta1.setMargin(new Insets(10,0,10,0));
+        jbCarta2 = new JButton();
+        jbCarta2.setIcon(new ImageIcon("imagens/florAmarela.png"));
+        jbCarta2.setMargin(new Insets(10,0,10,0));
+        jbCarta3 = new JButton();
+        jbCarta3.setIcon(new ImageIcon("imagens/florRosa.png"));
+        jbCarta3.setMargin(new Insets(10,0,10,0));
 
+        //Criação das labels da mão do jogador
+        jtaCarta1 = new JTextArea();
+        jtaCarta1.setText("1");
+        jtaCarta1.setFont(new Font("Calibri", 1, 20));
+        jtaCarta1.setMargin(new Insets(10,10,10,10));
+        jtaCarta2 = new JTextArea();
+        jtaCarta2.setText("2");
+        jtaCarta2.setFont(new Font("Calibri", 1, 20));
+        jtaCarta3 = new JTextArea();
+        jtaCarta3.setText("3");
+        jtaCarta3.setFont(new Font("Calibri", 1, 20));
+
+
+
+        
+        //Cria a panel da mao do jogador
+        JPanel jpMao = new JPanel();
+        jpMao.setLayout(layout);
+
+        // Faz a adição das cartas na mão do jogador
         constraints.gridx = 0;
         constraints.gridy = 0;
         jpMao.add(jbCarta1, constraints);
         constraints.gridx = 1;
         constraints.gridy = 0;
-        constraints.gridwidth = 100;
-        jpMao.add(jlCarta1, constraints);
+        jpMao.add(jtaCarta1, constraints);
         constraints.gridx = 0;
         constraints.gridy = 1;
+        constraints.weighty = 10;
         jpMao.add(jbCarta2, constraints);
         constraints.gridx = 1;
         constraints.gridy = 1;
-        constraints.gridwidth = 100;
-        jpMao.add(jlCarta2, constraints);
+        constraints.weightx = 10;
+        jpMao.add(jtaCarta2, constraints);
         constraints.gridx = 0;
         constraints.gridy = 2;
+        constraints.weightx = 10;
         jpMao.add(jbCarta3, constraints);
         constraints.gridx = 1;
         constraints.gridy = 2;
-        constraints.gridwidth = 100;
-        jpMao.add(jlCarta3, constraints);
+        constraints.weightx = 10;
+        jpMao.add(jtaCarta3, constraints);
+        constraints.weighty = 0;
 
+        //Configuração visual dos paineis
         jpMao.setBackground(Color.white);
         panelEsquerda.setBackground(Color.white);
         
 
         //Criação da panel da direita
-        JPanel jpDireita = new JPanel();
-        jpDireita.setLayout(new GridLayout(3, 1, 0, 0));
+        JPanel panelDireita = new JPanel();
+        panelDireita.setLayout(layout);
 
         //Criação do placar
         JPanel jpPlacar = new JPanel();
         JLabel jlPlacar = new JLabel();
         jlPlacar.setText("2x2");
+        jlPlacar.setFont(new Font("Calibri", 1, 20));
 
+        //Adiciona o placar no painel do placar
         jpPlacar.add(jlPlacar);
-        jpDireita.add(jpPlacar);
+        
+        //Testes...
         gerenciador.setFlorDaVez(gerenciador.getJogador1().getFlores());
+        
+
         //Table de flores do lado direito
         TbFlores = new JTable();
         TbFlores.setModel(new FloresTableModel());
@@ -346,20 +370,38 @@ public class HaruIchiban extends JFrame implements Observador {
             }
             
         }); 
-        jpDireita.add(TbFlores);
         
         
-        //Configura o layout do painel da esquerda
+        jbCoachar = new JButton("Coachar");
+        
+        //Adiciona o painel placar, tabela de flores e o botao coachar no painel da direita
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weighty = 10;
+        panelDireita.add(jpPlacar,constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        constraints.weighty = 0;
+        panelDireita.add(TbFlores,constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        constraints.weighty = 10;
+        panelDireita.add(jbCoachar,constraints); // Botao coachar
+        
+        
+        //Adiciona o painel de mensagem e o painel da mao no painel da esquerda
         constraints.gridx = 0;
         constraints.gridy = 0;
         panelEsquerda.add(jpMensagem, constraints);
         constraints.gridx = 0;
         constraints.gridy = 1;
-        constraints.gridwidth = 100;
         panelEsquerda.add(jpMao, constraints);
         
-        add(panelEsquerda, WEST);
-        add(jpDireita,EAST);
+        
+        //Adiciona o painel da esquerda na esquerda da tela
+        add("West",panelEsquerda);
+        //Adiciona o painel da direita na direita da tela
+        add("East",panelDireita);
         
 
     }
