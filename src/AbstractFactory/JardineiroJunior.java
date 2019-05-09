@@ -9,9 +9,7 @@ package AbstractFactory;
  *
  * @author Adroan
  */
-public abstract class FabricaPecas {
-    
-    public abstract Flor criarFlor();
-    public abstract Nenufar criarNenufar();
-    public abstract Sapo criarSapo();
+public interface JardineiroJunior {
+    void jogarNenufarEscura();
+    void soprarPrimeiroVento();
 }

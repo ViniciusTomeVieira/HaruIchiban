@@ -9,6 +9,7 @@ package AbstractFactory;
  *
  * @author Adroan
  */
-public interface Nenufar {
-    
+public abstract class FabricaJardineiro {
+    public abstract JardineiroSenior criarJardineiroSenior();
+    public abstract JardineiroJunior criarJardineiroJunior();
 }
