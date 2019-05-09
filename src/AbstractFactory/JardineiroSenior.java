@@ -9,6 +9,7 @@ package AbstractFactory;
  *
  * @author Adroan
  */
-public interface Sapo {
-    
+public interface JardineiroSenior {
+    void escolherNenufarFlor();
+    void escolherNenufarEscura();
 }
