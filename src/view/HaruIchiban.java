@@ -59,6 +59,7 @@ public class HaruIchiban extends JFrame implements Observador {
     //Layouts
     private GridBagLayout layout;
     private GridBagConstraints constraints;
+
     
     //Mecanica do jogo
     private GerenciadorJogo gerenciador;
@@ -128,7 +129,7 @@ public class HaruIchiban extends JFrame implements Observador {
             try {
                 return gerenciador.getFlor(col, row);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.toString());
+                e.printStackTrace();
                 return null;
             }
         }
@@ -153,6 +154,7 @@ public class HaruIchiban extends JFrame implements Observador {
 
     //Construtor da view
     public HaruIchiban() throws Exception {
+        layout = new GridBagLayout();
         this.gerenciador = GerenciadorJogoImpl.getInstance();
         this.gerenciador.inicializarTabuleiro();
         this.gerenciador.inicializarFlores(gerenciador.getJogador1().getFlores());
@@ -160,15 +162,17 @@ public class HaruIchiban extends JFrame implements Observador {
         this.gerenciador.addObservador(this);
 
         setTitle("HaruIchiban");
-        setSize(600, 600);
+        setBounds(200,200,700,100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
+        getContentPane().setLayout(layout);
 
         initComponents();
         
         //Selecionar Cores / int opcao é má prática, mudar depois
-        int opcao = JOptionPane.showConfirmDialog(getParent(), "chama no reskein", "Xesq", 1);
+        //int opcao = JOptionPane.showConfirmDialog(getParent(), "chama no reskein", "Xesq", 1);
+        int opcao = 1;
         gerenciador.setCorDasFlores(opcao);
         gerenciador.fluxoJogo();
         gerenciador.setJogadorDaVez(1);
@@ -182,11 +186,11 @@ public class HaruIchiban extends JFrame implements Observador {
         Tbtabuleiro = new JTable();
         Tbtabuleiro.setModel(new HeroiTableModel());
         for (int x = 0; x < Tbtabuleiro.getColumnModel().getColumnCount(); x++) {
-            Tbtabuleiro.getColumnModel().getColumn(x).setWidth(200);
-            Tbtabuleiro.getColumnModel().getColumn(x).setMinWidth(200);
-            Tbtabuleiro.getColumnModel().getColumn(x).setMaxWidth(200);
+            Tbtabuleiro.getColumnModel().getColumn(x).setWidth(100);
+            Tbtabuleiro.getColumnModel().getColumn(x).setMinWidth(100);
+            Tbtabuleiro.getColumnModel().getColumn(x).setMaxWidth(100);
         }
-        Tbtabuleiro.setRowHeight(200);
+        Tbtabuleiro.setRowHeight(100);
         Tbtabuleiro.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         Tbtabuleiro.setShowGrid(false);
         Tbtabuleiro.setIntercellSpacing(new Dimension(0, 0));
@@ -203,17 +207,9 @@ public class HaruIchiban extends JFrame implements Observador {
 
         add(Tbtabuleiro, CENTER);
 
-        JPanel jp = new JPanel();
-        jp.setLayout(new GridLayout(2, 1, 0, 0));
+        
 
-        // criar os botoes de radio / ToDo: criar a parte das cartas do usuario
-        JPanel jpMensagem = new JPanel();
-        jtaMensagem = new JTextArea(2, 2);
-        jtaMensagem.setText("Xesquedeleeeeeeeeeeeeeeeeeeeee");
-        jtaMensagem.setEditable(false);
-        jtaMensagem.setLineWrap(true);
-        jtaMensagem.setFont(new Font("Calibri", 1, 20));
-        jpMensagem.add(jtaMensagem, CENTER);
+        
 
         ActionListener cartaClicadaAction = new ActionListener() {
 
@@ -228,14 +224,33 @@ public class HaruIchiban extends JFrame implements Observador {
         };
         //cartaClicadaAction.actionPerformed(new ActionEvent(jrMontanha, ActionEvent.ACTION_PERFORMED, jrMontanha.getActionCommand()));
 
-        jp.add(jpMensagem);
 
         // criar mão do jogador
         JPanel jpMao = new JPanel();
         //jpMao.setLayout(new GridLayout(3,2));
 
-        layout = new GridBagLayout();
+       
         constraints = new GridBagConstraints();
+        
+        // criar os botoes de radio / ToDo: criar a parte das cartas do usuario
+        JPanel jpMensagem = new JPanel();
+        jpMensagem.setLayout(layout);
+        jtaMensagem = new JTextArea(2, 2);
+        jtaMensagem.setText("Xesquedeleeeeeeeeeeeeeeeeeeeee");
+        jtaMensagem.setEditable(false);
+        jtaMensagem.setLineWrap(true);
+        jtaMensagem.setFont(new Font("Calibri", 1, 20));
+        
+        
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        jpMensagem.add(jtaMensagem, constraints);
+
+        
+        
+        
+        JPanel panelEsquerda = new JPanel();
+        panelEsquerda.setLayout(layout);
 
         // layout.setConstraints(jpMao, constraints);
         jpMao.setLayout(layout);
@@ -268,6 +283,9 @@ public class HaruIchiban extends JFrame implements Observador {
 //                }
 //            }
 //        });
+
+        
+
         constraints.gridx = 0;
         constraints.gridy = 0;
         jpMao.add(jbCarta1, constraints);
@@ -291,10 +309,8 @@ public class HaruIchiban extends JFrame implements Observador {
         jpMao.add(jlCarta3, constraints);
 
         jpMao.setBackground(Color.white);
-        jpMao.setSize(300, getContentPane().getHeight());
-        jp.setBackground(Color.white);
-        jp.add(jpMao);
-        add(jp, WEST);
+        panelEsquerda.setBackground(Color.white);
+        
 
         //Criação da panel da direita
         JPanel jpDireita = new JPanel();
@@ -307,7 +323,7 @@ public class HaruIchiban extends JFrame implements Observador {
 
         jpPlacar.add(jlPlacar);
         jpDireita.add(jpPlacar);
-        
+        gerenciador.setFlorDaVez(gerenciador.getJogador1().getFlores());
         //Table de flores do lado direito
         TbFlores = new JTable();
         TbFlores.setModel(new FloresTableModel());
@@ -331,8 +347,20 @@ public class HaruIchiban extends JFrame implements Observador {
             
         }); 
         jpDireita.add(TbFlores);
-
+        
+        
+        //Configura o layout do painel da esquerda
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        panelEsquerda.add(jpMensagem, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        constraints.gridwidth = 100;
+        panelEsquerda.add(jpMao, constraints);
+        
+        add(panelEsquerda, WEST);
         add(jpDireita,EAST);
+        
 
     }
 
@@ -343,7 +371,7 @@ public class HaruIchiban extends JFrame implements Observador {
             HaruIchiban d = new HaruIchiban();
             d.setVisible(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.toString());
+            e.printStackTrace();
         }
 
     }

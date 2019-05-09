@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Jogador {
     
-    private Flor[][] flores;
+    private Flor[][] flores = new Flor[2][4];
     private String corDaFlor;
     private List<Flor> mao = new ArrayList<>();
     private int pontuacao = 0;

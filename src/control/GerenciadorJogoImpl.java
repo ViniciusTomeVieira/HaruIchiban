@@ -30,7 +30,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private Peca[][] tabuleiro;          
     
     //Flores
-    private Flor[][] florDaVez;
+    private Flor[][] florDaVez = new Flor[2][4];
     private Flor florEscolhidaDeck; //Flor que o jgoador escolhe quando clica nas cartas da direita
     private Flor florEscolhidaMao; // Flor que o jogador vai escolher para jogar no jogo
     private int corDasFlores;
@@ -62,7 +62,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public void fluxoJogo() {
         switch(estadoJogo){
             case "SelecionarCor": selecionarCores();
-            case "EscolherFlores": escolherFlores();
+            case "EscolherFlores": //escolherFlores();
             case "JogarFlor": //jogarFlor();
             case "JuniorEscuro": 
             case "SeniorEscolhe":
