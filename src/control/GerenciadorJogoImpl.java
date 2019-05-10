@@ -190,7 +190,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                             floresJogador[i][j] = new FlorRosa(numero + 1);
                             }else{
                                 floresJogador[i][j] = new FlorAmarela(numero + 1);
-                                System.out.println("adicionou amarela");
                             }
                                 numerosSorteados.add(numero + "");
                     }
