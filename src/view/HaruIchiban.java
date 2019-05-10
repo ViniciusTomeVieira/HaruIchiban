@@ -173,15 +173,15 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         
         //Inicia gerenciador e faz algumas operações
         this.gerenciador = GerenciadorJogoImpl.getInstance();
-        this.gerenciador.inicializarTabuleiro();
-        int opcao = 2;
-        gerenciador.setCorDasFlores(opcao);
+        this.gerenciador.inicializarTabuleiro(); // Vai mudar e receber novas formas de inicio(Builder)       
+        String[] opcoes = {"Rosa","Amarela"};
+        gerenciador.setCorDasFlores(JOptionPane.showOptionDialog(rootPane, "Jogador 1: escolha sua cor", "Escolha de cor", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,opcoes,null));
         gerenciador.fluxoJogo();
         gerenciador.setJogadorDaVez(1);        
         gerenciador.getJogador1().setFlores(this.gerenciador.inicializarFlores(gerenciador.getJogador1().getFlores(),gerenciador.getJogador1()));
         gerenciador.getJogador2().setFlores(this.gerenciador.inicializarFlores(gerenciador.getJogador2().getFlores(),gerenciador.getJogador2()));
         this.gerenciador.addObservador(this);
-        this.gerenciador.setFlorDaVez(gerenciador.getJogador2().getFlores());
+        this.gerenciador.setFlorDaVez(gerenciador.getJogador1().getFlores());
         
 
 
@@ -203,8 +203,8 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         //Testes...
 
         
-        initComponents();
-        pack();
+        initComponents();        
+        pack();       
 
     }
 

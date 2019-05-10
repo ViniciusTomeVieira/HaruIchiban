@@ -245,8 +245,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     @Override
     public void selecionarCores() {
         switch(corDasFlores){
-            case 1: jogador1.setCorDaFlor("Rosa"); jogador2.setCorDaFlor("Amarela");
-            case 2: jogador1.setCorDaFlor("Amarela"); jogador2.setCorDaFlor("Rosa");
+            case 0: jogador1.setCorDaFlor("Rosa"); jogador2.setCorDaFlor("Amarela"); break;
+            case 1: jogador1.setCorDaFlor("Amarela"); jogador2.setCorDaFlor("Rosa"); break;
             default: jogador1.setCorDaFlor("Rosa"); jogador2.setCorDaFlor("Amarela");
         }       
         System.out.println("Cor da flor jogador 1: " + jogador1.getCorDaFlor());
