@@ -36,11 +36,15 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicButtonListener;
 
-public class HaruIchiban extends JFrame implements Observador {
+
+public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     private static final long serialVersionUID = 1L;
 
@@ -49,6 +53,11 @@ public class HaruIchiban extends JFrame implements Observador {
     private JButton jbCarta2;
     private JButton jbCarta3;
     private JButton jbCoachar;
+    
+    //Menu superior
+    private JMenuBar menuBarSuperior;
+    private JMenu menuMenu;
+    private JMenuItem miNovo, miSair;
     
     //Mensagens no canto superior esquerdo
     private JTextArea jtaMensagem;
@@ -69,6 +78,8 @@ public class HaruIchiban extends JFrame implements Observador {
     //Tabelas
     private JTable Tbtabuleiro;
     private JTable TbFlores;
+
+    
 
     // Modelo de tabela visual do tabuleiro
     class HeroiTableModel extends AbstractTableModel {
@@ -129,9 +140,12 @@ public class HaruIchiban extends JFrame implements Observador {
         @Override
         public Object getValueAt(int row, int col) {
             try {
+                
+                if(gerenciador.getFlor(col, row) == null){
+                    System.out.println("Ta nulo essa caralhas");
+                }
                 return gerenciador.getFlor(col, row);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception e) {               
                 return null;
             }
         }
@@ -160,9 +174,12 @@ public class HaruIchiban extends JFrame implements Observador {
         //Inicia gerenciador e faz algumas operações
         this.gerenciador = GerenciadorJogoImpl.getInstance();
         this.gerenciador.inicializarTabuleiro();
-        this.gerenciador.inicializarFlores(gerenciador.getJogador1().getFlores());
-        this.gerenciador.inicializarFlores(gerenciador.getJogador2().getFlores());
+        gerenciador.getJogador1().setFlores(this.gerenciador.inicializarFlores(gerenciador.getJogador1().getFlores()));
+        gerenciador.getJogador2().setFlores(this.gerenciador.inicializarFlores(gerenciador.getJogador2().getFlores()));
         this.gerenciador.addObservador(this);
+        this.gerenciador.setFlorDaVez(gerenciador.getJogador1().getFlores());
+        
+
 
         
         //Configura a view
@@ -174,7 +191,7 @@ public class HaruIchiban extends JFrame implements Observador {
         getContentPane().setLayout(new BorderLayout());
 
         //Inicia os componentes da tela
-        initComponents();
+        
         
         //Selecionar Cores / int opcao é má prática, mudar depois
         //int opcao = JOptionPane.showConfirmDialog(getParent(), "chama no reskein", "Xesq", 1);
@@ -184,6 +201,8 @@ public class HaruIchiban extends JFrame implements Observador {
         gerenciador.setCorDasFlores(opcao);
         gerenciador.fluxoJogo();
         gerenciador.setJogadorDaVez(1);
+        
+        initComponents();
         pack();
 
     }
@@ -191,7 +210,16 @@ public class HaruIchiban extends JFrame implements Observador {
     //Inicia todos os componentes da interface
     private void initComponents() { 
         
-                
+        //Inicia e adiciona os menus
+        menuBarSuperior = new JMenuBar();
+        menuMenu = new JMenu("Menu");
+        miNovo = new JMenuItem("Novo jogo"); miSair = new JMenuItem("Sair");
+        miSair.addActionListener(this);miNovo.addActionListener(this);
+        menuMenu.add(miNovo); menuMenu.add(miSair);
+        menuBarSuperior.add(menuMenu);
+        setJMenuBar(menuBarSuperior);
+        
+        
         //Inicia os componentes de layout
         constraints = new GridBagConstraints();
         layout = new GridBagLayout();
@@ -345,7 +373,7 @@ public class HaruIchiban extends JFrame implements Observador {
         jpPlacar.add(jlPlacar);
         
         //Testes...
-        gerenciador.setFlorDaVez(gerenciador.getJogador1().getFlores());
+        
         
 
         //Table de flores do lado direito
@@ -431,7 +459,16 @@ public class HaruIchiban extends JFrame implements Observador {
     public void mudouTabuleiro() {
         Tbtabuleiro.repaint();
     }
-
+    //Faz as ações do menu superior
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == miNovo){
+            //Command
+        }
+        if(e.getSource() == miSair){
+            System.exit(0);
+        }
+    }
     //Metodo executado ao final do jogo
     @Override
     public void fimDeJogo(String msgErro) {

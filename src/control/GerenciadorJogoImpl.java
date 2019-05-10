@@ -175,8 +175,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 		tabuleiro[4][4] = new NenufarClaro();
     }
     @Override
-    public void inicializarFlores(Peca[][] floresJogador) throws Exception {
-        floresJogador = new Peca[2][4];
+    public Flor[][] inicializarFlores(Flor[][] floresJogador) throws Exception {
+        floresJogador = new Flor[2][4];
         Random valor = new Random();
         List<String> numerosSorteados = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
@@ -195,6 +195,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
             }
         }
+        return floresJogador;
 
     }
 
