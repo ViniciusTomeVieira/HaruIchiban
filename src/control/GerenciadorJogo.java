@@ -18,7 +18,7 @@ import model.Peca;
 public interface GerenciadorJogo {
     
     void inicializarTabuleiro() throws Exception;
-    Flor[][] inicializarFlores(Flor[][] floresJogador) throws Exception;
+    Flor[][] inicializarFlores(Flor[][] floresJogador,Jogador jogador) throws Exception;
     void addObservador(Observador obs);
     Icon getPeca(int col, int row) throws Exception;
     Icon getFlor(int col, int row) throws Exception;

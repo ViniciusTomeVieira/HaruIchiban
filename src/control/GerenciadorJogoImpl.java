@@ -12,6 +12,7 @@ import java.util.Random;
 import javax.swing.Icon;
 import model.Agua;
 import model.Flor;
+import model.FlorAmarela;
 import model.FlorRosa;
 import model.Jogador;
 import model.NenufarClaro;
@@ -33,7 +34,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private Flor[][] florDaVez = new Flor[2][4];
     private Flor florEscolhidaDeck; //Flor que o jgoador escolhe quando clica nas cartas da direita
     private Flor florEscolhidaMao; // Flor que o jogador vai escolher para jogar no jogo
-    private int corDasFlores;
+    private int corDasFlores = 0;
     
     //Jogadores
     private Jogador jogador1 = new Jogador();
@@ -175,7 +176,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 		tabuleiro[4][4] = new NenufarClaro();
     }
     @Override
-    public Flor[][] inicializarFlores(Flor[][] floresJogador) throws Exception {
+    public Flor[][] inicializarFlores(Flor[][] floresJogador, Jogador jogador) throws Exception {
         floresJogador = new Flor[2][4];
         Random valor = new Random();
         List<String> numerosSorteados = new ArrayList<>();
@@ -184,12 +185,14 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 while (floresJogador[i][j] == null) {
                     int numero = valor.nextInt(8);
                     if (numerosSorteados.contains(numero + "")) {
-                        System.out.println("Ja tem esse numero porra");
                     } else {
-                        floresJogador[i][j] = new FlorRosa(numero + 1);
-                        numerosSorteados.add(numero + "");
-                        System.out.println("Flor inserida nessa porra");
-                        System.out.println("Numero da flor: " + (numero+1));
+                        if(jogador.getCorDaFlor().equals("Rosa")){
+                            floresJogador[i][j] = new FlorRosa(numero + 1);
+                            }else{
+                                floresJogador[i][j] = new FlorAmarela(numero + 1);
+                                System.out.println("adicionou amarela");
+                            }
+                                numerosSorteados.add(numero + "");
                     }
                 }
 
@@ -246,7 +249,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             case 1: jogador1.setCorDaFlor("Rosa"); jogador2.setCorDaFlor("Amarela");
             case 2: jogador1.setCorDaFlor("Amarela"); jogador2.setCorDaFlor("Rosa");
             default: jogador1.setCorDaFlor("Rosa"); jogador2.setCorDaFlor("Amarela");
-        }                                                    
+        }       
+        System.out.println("Cor da flor jogador 1: " + jogador1.getCorDaFlor());
+        System.out.println("Cor da flor jogador 2: " + jogador2.getCorDaFlor());
         estadoJogo = "EscolherFlores";
     }
     int cartasRemovidas = 0;
