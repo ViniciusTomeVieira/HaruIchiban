@@ -45,4 +45,5 @@ public interface GerenciadorJogo {
     public String[] getOpcoesDeTabuleiro();
     public List<Flor> getMaoDaVez();
     public void setMaoDaVez(List<Flor> maoDaVez);
+    public Icon getFlorMao(int coluna, int linha) throws Exception;
 }
