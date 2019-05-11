@@ -97,7 +97,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     @Override
     public void notificarJuniorSenior() {
-        JOptionPane.showMessageDialog(rootPane, "chamaaaa");
+        JOptionPane.showMessageDialog(rootPane, "Jogador 1: "+ gerenciador.getJogador1().getJuniorOuSenior()+"\n Jogador 2: "+ gerenciador.getJogador2().getJuniorOuSenior());
     }
 
     // Modelo de tabela visual do tabuleiro
@@ -390,7 +390,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         TbMao.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                gerenciador.escolherFloresDeck(TbMao.rowAtPoint(e.getPoint()), TbMao.columnAtPoint(e.getPoint()));
+                gerenciador.escolherFlorParaJogar(TbMao.columnAtPoint(e.getPoint()));
 
             }
 

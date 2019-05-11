@@ -233,8 +233,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     
     private void avancarEstadoJogo(String estadoJogo) {
         switch(estadoJogo){
-            case "EscolherFlores": this.estadoJogo = "JogarFlor"; indiceMensagens = 1;
-            case "JogarFlor": this.estadoJogo = "CompararFlores"; fluxoJogo();
+            case "EscolherFlores": this.estadoJogo = "JogarFlor"; indiceMensagens = 1; break;
+            case "JogarFlor": this.estadoJogo = "CompararFlores"; fluxoJogo();break;
         }
     }
     
