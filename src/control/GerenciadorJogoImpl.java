@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Agua;
 import model.Flor;
@@ -46,6 +47,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private Jogador jogador1 = new Jogador();
     private Jogador jogador2 = new Jogador();
     private Jogador jogadorDaVez;
+    private int indiceMensagens = 0;
+    private String[] mensagens = {"  pegue suas cartas","  escolha uma carta para jogar"," selecione uma carta"," jogue no nenufar escuro"," escolha um nenufar para jogar"," escolha um nenufar para mover", " escolha a direcao a mover"," escolha a nenufar que ficara escura"};
 
     //Observadores
     private List<Observador> observadores = new ArrayList<>();
@@ -55,7 +58,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     //    Jogador1   / Jogador 1 e 2  / Jogador 1 e 2  /  JogadorJunior   /    Jogador Senior /   JogadorJunior   /   Jogador Senior
 
     private String[] opcoesDeFlor = {"Rosa", "Amarela"};
-    private String[] opcoesDeTabuleiro = {"Padrão 1", "Padrão 2"};
+    private final String[] opcoesDeTabuleiro = {"Padrão 1", "Padrão 2"};
 
     private GerenciadorJogoImpl() {
     }
@@ -73,10 +76,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     @Override
     public void fluxoJogo() {
         switch (estadoJogo) {
-            case "SelecionarCor":
-                selecionarCores();
-            case "EscolherFlores": //escolherFloresIniciais();
-            case "JogarFlor": //jogarFlor();
+            case "SelecionarCor": selecionarCores(); break;
+            case "EscolherFlores": 
+            case "JogarFlor": //jogarFlor(); break;
             case "JuniorEscuro":
             case "SeniorEscolhe":
             case "JuniorMovePeças":
@@ -157,13 +159,16 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public Icon getFlorMao(int coluna, int linha) throws Exception{
         if(maoDaVez.get(linha) != null){
             if(coluna > 0){
-            
+                return verificarNumeroFlor(maoDaVez.get(linha));
             }else{
                 return maoDaVez.get(linha).getImagem();
             }
             
         }
         return null;
+    }
+     private Icon verificarNumeroFlor(Flor flor) {        
+         return new ImageIcon("imagens/" + flor.getNumero() + ".png");
     }
 
     @Override
@@ -181,24 +186,23 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 jogador1.setCorDaFlor("Rosa");
                 jogador2.setCorDaFlor("Amarela");
         }
-        System.out.println("Cor da flor jogador 1: " + jogador1.getCorDaFlor());
-        System.out.println("Cor da flor jogador 2: " + jogador2.getCorDaFlor());
         estadoJogo = "EscolherFlores";
-
-        // Chamar o observer e notificar a view para mostrar a borda e atualizar o texto de dica
     }
 
     //Remove a flor que o jogador escolheu de seu deck e adiciona em sua mão
     @Override
     public void escolherFloresDeck(int row, int col) {
-        Flor cartaEscolhida = florDaVez[col][row]; // Talvez tenha que inverter
-        if (maoDaVez.size() < 3 && florDaVez.length > 0) {
-            enviarCartaParaMao(cartaEscolhida);
-            florDaVez[col][row] = null;
-            jogadorDaVez.setMao(maoDaVez);
-            jogadorDaVez.setFlores(florDaVez);
-        } else {
-            trocarJogadorDaVez();
+
+        if (estadoJogo.equals("EscolherFlores")) {
+            Flor cartaEscolhida = florDaVez[col][row]; // Talvez tenha que inverter
+            if (maoDaVez.size() < 3 && florDaVez.length > 0) {
+                enviarCartaParaMao(cartaEscolhida);
+                florDaVez[col][row] = null;
+                jogadorDaVez.setMao(maoDaVez);
+                jogadorDaVez.setFlores(florDaVez);
+            } else {
+                trocarJogadorDaVez();
+            }
         }
 
         for (Observador obs : observadores) {
@@ -213,13 +217,31 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private void trocarJogadorDaVez() {
         if (jogadorDaVez.getNome().equals("Jogador 1")) {
             jogadorDaVez = jogador2;
+            maoDaVez = jogador2.getMao();
+            florDaVez = jogador2.getFlores();
         } else {
             jogadorDaVez = jogador1;
+            maoDaVez = jogador1.getMao();
+            florDaVez = jogador1.getFlores();
+            avancarEstadoJogo(estadoJogo);
         }
         for (Observador obs : observadores) {
             obs.notificarJogadorDaVezAlterado();
         }
     }
+    
+    private void avancarEstadoJogo(String estadoJogo) {
+        switch(estadoJogo){
+            case "EscolherFlores": this.estadoJogo = "JogarFlor"; indiceMensagens = 1;
+            case "JogarFlor": this.estadoJogo = "JuniorEscuro";           
+        }
+    }
+    
+    @Override
+    public String getMensagemAtual(){
+        return mensagens[indiceMensagens];
+    }
+    
 
     public void escolherFlorParaJogar(int index) {
         jogadorDaVez.setFlorEscolhida(maoDaVez.get(index));
@@ -348,11 +370,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         return opcoesDeFlor;
     }
 
-    @Override
-    public void setOpcoesDeFlor(String[] opcoesDeFlor) {
-        this.opcoesDeFlor = opcoesDeFlor;
-    }
+    
 
+    @Override
     public String[] getOpcoesDeTabuleiro() {
         return opcoesDeTabuleiro;
     }
@@ -364,6 +384,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public void setTabuleiroGerenciador(Peca[][] tabuleiroGerenciador) {
         this.tabuleiroGerenciador = tabuleiroGerenciador;
     }
+
+   
+
     
 
 }

@@ -91,6 +91,8 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     @Override
     public void notificarJogadorDaVezAlterado() {
         // Atualizar deck e mao que mostra na tela
+        repaint();
+        jtaMensagem.setText(gerenciador.getJogadorDaVez().getNome() + gerenciador.getMensagemAtual());
     }
 
     @Override

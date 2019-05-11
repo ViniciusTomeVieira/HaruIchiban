@@ -40,10 +40,10 @@ public interface GerenciadorJogo {
     public void setFlorEscolhidaMao(Flor florEscolhidaMao);
     public Flor[][] getFlorDaVez();
     public void setFlorDaVez(Flor[][] florDaVez);
-    public void setOpcoesDeFlor(String[] opcoes);
     public String[] getOpcoesDeFlor();
     public String[] getOpcoesDeTabuleiro();
     public List<Flor> getMaoDaVez();
     public void setMaoDaVez(List<Flor> maoDaVez);
     public Icon getFlorMao(int coluna, int linha) throws Exception;
+    public String getMensagemAtual();
 }
