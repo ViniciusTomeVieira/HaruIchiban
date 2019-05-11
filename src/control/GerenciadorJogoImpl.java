@@ -244,6 +244,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     }
     
 
+    @Override
     public void escolherFlorParaJogar(int index) {
         jogadorDaVez.setFlorEscolhida(maoDaVez.get(index));
         trocarJogadorDaVez();
