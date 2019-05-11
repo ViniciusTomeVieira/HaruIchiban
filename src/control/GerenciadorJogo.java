@@ -18,7 +18,7 @@ import model.Peca;
  */
 public interface GerenciadorJogo {
     
-    void inicializarTabuleiro() throws Exception;
+    void inicializarTabuleiro(int opcao) throws Exception;
     Flor[][] inicializarFlores(Flor[][] floresJogador,Jogador jogador) throws Exception;
     void addObservador(Observador obs);
     Icon getPeca(int col, int row) throws Exception;
@@ -40,8 +40,9 @@ public interface GerenciadorJogo {
     public void setFlorEscolhidaMao(Flor florEscolhidaMao);
     public Flor[][] getFlorDaVez();
     public void setFlorDaVez(Flor[][] florDaVez);
-    public void setOpcoes(String[] opcoes);
-    public String[] getOpcoes();
+    public void setOpcoesDeFlor(String[] opcoes);
+    public String[] getOpcoesDeFlor();
+    public String[] getOpcoesDeTabuleiro();
     public List<Flor> getMaoDaVez();
     public void setMaoDaVez(List<Flor> maoDaVez);
 }
