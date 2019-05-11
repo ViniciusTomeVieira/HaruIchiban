@@ -89,10 +89,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         CriadorDeTabuleiro builder;
 
         switch (opcao) {
-            case 1:
+            case 0:
                 builder = new ConstruirPadrão();
                 break;
-            case 2:
+            case 1:
                 builder = new ConstruirPadrão2();
                 break;
             default:
