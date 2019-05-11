@@ -97,7 +97,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     @Override
     public void notificarJuniorSenior() {
-
+        JOptionPane.showMessageDialog(rootPane, "chamaaaa");
     }
 
     // Modelo de tabela visual do tabuleiro

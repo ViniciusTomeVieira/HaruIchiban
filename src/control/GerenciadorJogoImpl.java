@@ -78,6 +78,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         switch (estadoJogo) {
             case "SelecionarCor": selecionarCores(); break;
             case "EscolherFlores": 
+            case "CompararFlores": compararFlores(); break;
             case "JogarFlor": //jogarFlor(); break;
             case "JuniorEscuro":
             case "SeniorEscolhe":
@@ -233,7 +234,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private void avancarEstadoJogo(String estadoJogo) {
         switch(estadoJogo){
             case "EscolherFlores": this.estadoJogo = "JogarFlor"; indiceMensagens = 1;
-            case "JogarFlor": this.estadoJogo = "JuniorEscuro";           
+            case "JogarFlor": this.estadoJogo = "CompararFlores"; fluxoJogo();
         }
     }
     
@@ -279,6 +280,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             return jogador2;
         }
     }
+    
+    
 
     //Getters e Setters
     @Override
@@ -384,6 +387,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public void setTabuleiroGerenciador(Peca[][] tabuleiroGerenciador) {
         this.tabuleiroGerenciador = tabuleiroGerenciador;
     }
+
+   
 
    
 
