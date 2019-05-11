@@ -81,6 +81,25 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     
 
+//Notificadores    
+    @Override
+    public void notificarFlorEscolhida() {
+        //Atualizar deck e mao
+        repaint();
+    }
+
+    @Override
+    public void notificarJogadorDaVezAlterado() {
+        // Atualizar deck e mao que mostra na tela
+    }
+
+    @Override
+    public void notificarJuniorSenior() {
+        
+    }
+
+    
+
     // Modelo de tabela visual do tabuleiro
     class HeroiTableModel extends AbstractTableModel {
 
@@ -174,14 +193,15 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         //Inicia gerenciador e faz algumas operações
         this.gerenciador = GerenciadorJogoImpl.getInstance();
         this.gerenciador.inicializarTabuleiro(); // Vai mudar e receber novas formas de inicio(Builder)       
-        String[] opcoes = {"Rosa","Amarela"};
-        gerenciador.setCorDasFlores(JOptionPane.showOptionDialog(rootPane, "Jogador 1: escolha sua cor", "Escolha de cor", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,opcoes,null));
+        gerenciador.setCorDasFlores(JOptionPane.showOptionDialog(rootPane, "Jogador 1: escolha sua cor", "Escolha de cor", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,gerenciador.getOpcoes(),null));
         gerenciador.fluxoJogo();
-        gerenciador.setJogadorDaVez(1);        
+        gerenciador.setJogadorDaVez(gerenciador.getJogador1());        
         gerenciador.getJogador1().setFlores(this.gerenciador.inicializarFlores(gerenciador.getJogador1().getFlores(),gerenciador.getJogador1()));
         gerenciador.getJogador2().setFlores(this.gerenciador.inicializarFlores(gerenciador.getJogador2().getFlores(),gerenciador.getJogador2()));
         this.gerenciador.addObservador(this);
         this.gerenciador.setFlorDaVez(gerenciador.getJogador1().getFlores());
+        this.gerenciador.getJogador1().setNome("Jogador 1");
+        this.gerenciador.getJogador2().setNome("Jogador 2");
         
 
 
@@ -243,8 +263,8 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         Tbtabuleiro.addMouseListener(new java.awt.event.MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Clicou");
-                
+                 int row = Tbtabuleiro.rowAtPoint(e.getPoint());
+                 int col = Tbtabuleiro.columnAtPoint(e.getPoint());              
             }
             
         }); 
@@ -281,7 +301,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         JPanel jpMensagem = new JPanel();
         jpMensagem.setLayout(layout);
         jtaMensagem = new JTextArea(2, 2);
-        jtaMensagem.setText("Xesquedeleeeeeeeeeeeeeeeeeeeee");
+        jtaMensagem.setText(gerenciador.getJogadorDaVez().getNome() + "  pegue suas cartas");
         jtaMensagem.setEditable(false);
         jtaMensagem.setLineWrap(true);
         jtaMensagem.setFont(new Font("Calibri", 1, 20));

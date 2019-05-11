@@ -19,6 +19,39 @@ public class Jogador {
     private List<Flor> mao = new ArrayList<>();
     private int pontuacao = 0;
     private boolean jogando;
+    private String nome;
+    private Flor florEscolhida;
+    private String juniorOuSenior;
+
+    public String getJuniorOuSenior() {
+        return juniorOuSenior;
+    }
+
+    public void setJuniorOuSenior(String juniorOuSenior) {
+        this.juniorOuSenior = juniorOuSenior;
+    }
+    
+    
+
+    public Flor getFlorEscolhida() {
+        return florEscolhida;
+    }
+
+    public void setFlorEscolhida(Flor florEscolhida) {
+        this.florEscolhida = florEscolhida;
+    }
+    
+    
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    
 
     public Flor[][] getFlores() {
         return flores;

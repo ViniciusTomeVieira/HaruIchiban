@@ -6,6 +6,7 @@
 package control;
 
 import Observer.Observador;
+import java.util.List;
 import javax.swing.Icon;
 import model.Flor;
 import model.Jogador;
@@ -32,13 +33,15 @@ public interface GerenciadorJogo {
     public int getCorDasFlores();
     public String getEstadoJogo();
     public void setEstadoJogo(String estadoJogo);
-    public int getJogadorDaVez();
-    public void setJogadorDaVez(int jogadorDaVez);
-    public void escolherFlores();
-    public Peca getFlorEscolhidaDeck();
-    public void setFlorEscolhidaDeck(Flor florEscolhidaDeck);
+    public Jogador getJogadorDaVez();
+    public void setJogadorDaVez(Jogador jogadorDaVez);
+    public void escolherFloresDeck(int row, int col);
     public Peca getFlorEscolhidaMao();
     public void setFlorEscolhidaMao(Flor florEscolhidaMao);
     public Flor[][] getFlorDaVez();
     public void setFlorDaVez(Flor[][] florDaVez);
+    public void setOpcoes(String[] opcoes);
+    public String[] getOpcoes();
+    public List<Flor> getMaoDaVez();
+    public void setMaoDaVez(List<Flor> maoDaVez);
 }

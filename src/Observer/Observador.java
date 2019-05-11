@@ -7,5 +7,9 @@ public interface Observador {
 	void iniciouJogo();
 
 	void fimDeJogo(String msgErro);
+        void notificarFlorEscolhida();
 
+    public void notificarJogadorDaVezAlterado();
+
+    public void notificarJuniorSenior();
 }
