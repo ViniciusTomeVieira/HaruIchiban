@@ -156,7 +156,12 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     @Override
     public Icon getFlorMao(int coluna, int linha) throws Exception{
         if(maoDaVez.get(linha) != null){
-            return maoDaVez.get(linha).getImagem();
+            if(coluna > 0){
+            
+            }else{
+                return maoDaVez.get(linha).getImagem();
+            }
+            
         }
         return null;
     }
