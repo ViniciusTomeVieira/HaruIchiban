@@ -47,6 +47,9 @@ public interface GerenciadorJogo {
     public Icon getFlorMao(int coluna, int linha) throws Exception;
     public String getMensagemAtual();
     public void escolherFlorParaJogar(int index);
-
+    public void setFlorEscolhidaParaMover(int numero);
     public void clicouNoTabuleiro(int rowAtPoint, int columnAtPoint);
+    public String[] getOpcoesDeMover();
+    public String getMensagemErro();
+    public void juniorMovePecas();
 }

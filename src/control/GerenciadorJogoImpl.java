@@ -10,6 +10,7 @@ import Builder.ConstruirPadrão2;
 import Builder.CriadorDeTabuleiro;
 import Observer.Observador;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import javax.swing.Icon;
@@ -41,6 +42,16 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private Peca[][] tabuleiroGerenciador = new Peca[5][5];
     private Tabuleiro tabuleiro;
     private Peca sapo;
+    private int posicaoMover; // 1 = esquerda, 2 = direita, 3 = cima, 4 = baixo
+    private int posicaoNenufarX;
+    private int posicaoNenufarY;
+    private boolean escolheuFlorMover;
+    private String mensagemErro;
+    private boolean terminouMoverNenufar;
+    
+    //Metodos de mover pecas
+    private List<Peca> nenufaresParaRealocar = new ArrayList<>();
+    private int indexParaRealocar = 1;
 
     //Flores
     private Flor[][] florDaVez = new Flor[2][4];
@@ -60,9 +71,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     //Estado do jogo
     private String estadoJogo = "SelecionarCor"; // SelecionarCor / EscolherFlores /   JogarFlor    /  JuniorEscuro    /    SeniorEscolhe  /   JuniorMovePeças /   SeniorEscolheEscuro     
-    //    Jogador1   / Jogador 1 e 2  / Jogador 1 e 2  /  JogadorJunior   /    Jogador Senior /   JogadorJunior   /   Jogador Senior
+                                                //    Jogador1   / Jogador 1 e 2  / Jogador 1 e 2  /  JogadorJunior   /    Jogador Senior /   JogadorJunior   /   Jogador Senior
 
     private String[] opcoesDeFlor = {"Rosa", "Amarela"};
+    private String[] opcoesDeMover = {"Esquerda","Direita","Cima","Baixo"};
     private final String[] opcoesDeTabuleiro = {"Padrão 1", "Padrão 2"};
 
     private GerenciadorJogoImpl() {
@@ -82,13 +94,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public void fluxoJogo() {
         switch (estadoJogo) {
             case "SelecionarCor": selecionarCores(); break;
-            case "EscolherFlores": 
             case "CompararFlores": compararFlores(); break;
-            case "JogarFlor": //jogarFlor(); break;
-            case "JuniorEscuro":
-            case "SeniorEscolhe":
-            case "JuniorMovePeças":
-            case "SeniorEscolheEscuro":
         }
     }
 
@@ -200,14 +206,15 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public void escolherFloresDeck(int row, int col) {
 
         if (estadoJogo.equals("EscolherFlores")) {
-            Flor cartaEscolhida = florDaVez[col][row]; // Talvez tenha que inverter
+            Flor cartaEscolhida = florDaVez[col][row];
             if (maoDaVez.size() < 3 && florDaVez.length > 0) {
                 enviarCartaParaMao(cartaEscolhida);
                 florDaVez[col][row] = null;
                 jogadorDaVez.setMao(maoDaVez);
                 jogadorDaVez.setFlores(florDaVez);
-            } else {
-                trocarJogadorDaVez();
+                if(maoDaVez.size() == 3){
+                   trocarJogadorDaVez(); 
+                }
             }
         }
 
@@ -368,12 +375,53 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         }
         
         
-        if(estadoJogo.equals("JuniorMovePecas")){
-            
-        }
+         if (estadoJogo.equals("JuniorMovePecas")) {           
+                 if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class) {
+                     posicaoNenufarX = columnAtPoint;
+                     posicaoNenufarY = rowAtPoint;
+                     escolheuFlorMover = true;
+                     indiceMensagens = 7;
+                     for (Observador obs : observadores) {
+                         obs.notificarFlorEscolhidaParaMover();
+                     }
+                 }
+             }
+         
+         if(estadoJogo.equals("SeniorEscolheEscuro")){
+             if(tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class){
+                 tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
+                 indiceMensagens = 0;
+                 estadoJogo = "EscolherFlores";
+                 recomecarComJogador1();
+                 for(Observador obs: observadores){
+                     obs.notificarTabuleiroAlterado();
+                 }
+             }
+         }
+
+         
     }
     
-    
+    @Override
+    public void juniorMovePecas() {
+        if (escolheuFlorMover) {
+            switch (posicaoMover) {
+                case 0:
+                    moverNenufarEsquerda();
+                    break;
+                case 1:
+                    moverNenufarDireita();
+                    break;
+                case 2:
+                    moverNenufarCima();
+                    break;
+                case 3:
+                    moverNenufarBaixo();
+                    break;
+            }
+        } else {
+        }
+    }
 
     //Getters e Setters
     @Override
@@ -465,6 +513,13 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         return opcoesDeFlor;
     }
 
+    @Override
+    public String getMensagemErro() {
+        return mensagemErro;
+    }
+    
+    
+
     
 
     @Override
@@ -479,6 +534,192 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public void setTabuleiroGerenciador(Peca[][] tabuleiroGerenciador) {
         this.tabuleiroGerenciador = tabuleiroGerenciador;
     }
+
+    @Override
+    public String[] getOpcoesDeMover() {
+        return opcoesDeMover;
+    }
+    
+    
+
+    
+    
+    //Mover nenufares
+    private void moverNenufarEsquerda() throws ArrayIndexOutOfBoundsException {
+
+        try {
+            if (tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY].getClass() != null && tabuleiroGerenciador[posicaoNenufarX - 1][posicaoNenufarY].getClass() != Agua.class) {
+                nenufaresParaRealocar.add(tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY]);
+                System.out.println(tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY]);
+                indexParaRealocar++;
+                System.out.println(indexParaRealocar);
+                moverNenufarEsquerda();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            indexParaRealocar--;
+        }
+        if (!terminouMoverNenufar) {
+            if (tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY].getClass() == Agua.class || tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY].getClass() != null) {
+                //Logica do array
+                if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
+                    Peca p = tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar + 1][posicaoNenufarY];
+                    tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY] = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY];
+                    tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY] = p;
+                    terminouMoverNenufar();
+                } else { //Faz a troca de todas as posicoes
+                    for (int i = indexParaRealocar; i > 0; i--) {
+                        Peca p = tabuleiroGerenciador[posicaoNenufarX - i][posicaoNenufarY]; // Comeca com Agua
+                        tabuleiroGerenciador[posicaoNenufarX - i][posicaoNenufarY] = tabuleiroGerenciador[posicaoNenufarX - i + 1][posicaoNenufarY];
+                        tabuleiroGerenciador[posicaoNenufarX - i + 1][posicaoNenufarY] = p;
+                    }
+                    terminouMoverNenufar();
+                }
+            } else if (tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY].getClass() == null) {
+                mensagemErro = "Você não pode mover um nenufar nessa direção!!!";
+                notificarErro();
+            }
+        }
+    }
+
+    private void moverNenufarDireita() {
+          try {
+            if (tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY].getClass() != null && tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY].getClass() != Agua.class) {
+                nenufaresParaRealocar.add(tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY]);
+                System.out.println(tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY]);
+                indexParaRealocar++;
+                System.out.println(indexParaRealocar);
+                moverNenufarDireita();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            indexParaRealocar--;
+        }
+        if (!terminouMoverNenufar) {
+            if (tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY].getClass() == Agua.class || tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY].getClass() != null) {
+                //Logica do array
+                if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
+                    Peca p = tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar - 1][posicaoNenufarY];
+                    tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY] = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY];
+                    tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY] = p;
+                    terminouMoverNenufar();
+                } else { //Faz a troca de todas as posicoes
+                    for (int i = indexParaRealocar; i > 0; i--) {
+                        Peca p = tabuleiroGerenciador[posicaoNenufarX + i][posicaoNenufarY]; // Comeca com Agua
+                        tabuleiroGerenciador[posicaoNenufarX + i][posicaoNenufarY] = tabuleiroGerenciador[posicaoNenufarX + i - 1][posicaoNenufarY];
+                        tabuleiroGerenciador[posicaoNenufarX + i - 1][posicaoNenufarY] = p;
+                    }
+                    terminouMoverNenufar();
+                }
+            } else if (tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY].getClass() == null) {
+                mensagemErro = "Você não pode mover um nenufar nessa direção!!!";
+                notificarErro();
+            }
+        }
+    }
+
+    private void moverNenufarCima() {
+        System.out.println("Entrou no cima");
+         try {
+            if (tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar].getClass() != null && tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar].getClass() != Agua.class) {
+                nenufaresParaRealocar.add(tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar]);
+                System.out.println(tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar]);
+                indexParaRealocar++;
+                System.out.println(indexParaRealocar);
+                moverNenufarCima();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            indexParaRealocar--;
+        }
+        if (!terminouMoverNenufar) {
+            if (tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar].getClass() == Agua.class || tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar].getClass() != null) {
+                //Logica do array
+                if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
+                    Peca p = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar];
+                    tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar] = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY];
+                    tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY] = p;
+                    terminouMoverNenufar();
+                } else { //Faz a troca de todas as posicoes
+                    for (int i = indexParaRealocar; i > 0; i--) {
+                        Peca p = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - i]; // Comeca com Agua
+                        tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - i] = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - i + 1];
+                        tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - i + 1] = p;
+                    }
+                    terminouMoverNenufar();
+                }
+            } else if (tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar].getClass() == null) {
+                mensagemErro = "Você não pode mover um nenufar nessa direção!!!";
+                notificarErro();
+            }
+        }
+    }
+
+    private void moverNenufarBaixo() {
+        try {
+            if (tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + indexParaRealocar].getClass() != null && tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + indexParaRealocar].getClass() != Agua.class) {
+                nenufaresParaRealocar.add(tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + indexParaRealocar]);
+                System.out.println(tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + indexParaRealocar]);
+                indexParaRealocar++;
+                System.out.println(indexParaRealocar);
+                moverNenufarBaixo();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            indexParaRealocar--;
+        }
+        if (!terminouMoverNenufar) {
+            if (tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + indexParaRealocar].getClass() == Agua.class || (posicaoNenufarY + indexParaRealocar) < 4) {
+                //Logica do array
+                if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
+                    Peca p = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + indexParaRealocar - 1];
+                    tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + indexParaRealocar] = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY];
+                    tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY] = p;
+                    terminouMoverNenufar();
+                } else { //Faz a troca de todas as posicoes
+                    for (int i = indexParaRealocar; i > 0; i--) {
+                        Peca p = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + i]; // Comeca com Agua
+                        tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + i] = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + i - 1];
+                        tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + i - 1] = p;
+                    }
+                    terminouMoverNenufar();
+                }
+            } else if ((posicaoNenufarY + indexParaRealocar) > 4) {
+                mensagemErro = "Você não pode mover um nenufar nessa direção!!!";
+                notificarErro();
+            }
+        }
+    }
+
+    @Override
+    public void setFlorEscolhidaParaMover(int numero) {
+        posicaoMover = numero;
+        juniorMovePecas();
+    }
+    
+    private void notificarErro(){
+        for(Observador obs: observadores){
+                obs.notificarErro();
+            }
+    }
+
+    private void terminouMoverNenufar() {
+        terminouMoverNenufar = true;
+        indiceMensagens = 8;
+        indexParaRealocar = 1;
+        estadoJogo = "SeniorEscolheEscuro";
+        trocarJogadorDaVez();
+        for(Observador obs: observadores){
+            obs.notificarTabuleiroAlterado();
+        }
+        
+    }
+
+    private void recomecarComJogador1() {
+        jogadorDaVez = jogador1;
+        maoDaVez = jogador1.getMao();
+        florDaVez = jogador1.getFlores();
+        indexParaRealocar = 1;
+        terminouMoverNenufar = false;
+    }
+
+   
 
    
 

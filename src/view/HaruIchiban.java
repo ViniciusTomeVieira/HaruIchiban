@@ -109,6 +109,17 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     }
 
+    @Override
+    public void notificarFlorEscolhidaParaMover() {
+        gerenciador.setFlorEscolhidaParaMover(JOptionPane.showOptionDialog(rootPane, gerenciador.getJogadorDaVez().getNome() + " escolha uma direcao para mover o nenufar", "Escolha de direcao", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getOpcoesDeMover(), null));
+        gerenciador.juniorMovePecas();
+    }
+
+    @Override
+    public void notificarErro() {
+        JOptionPane.showMessageDialog(rootPane, gerenciador.getMensagemErro());
+    }
+
     // Modelo de tabela visual do tabuleiro
     class HeroiTableModel extends AbstractTableModel {
 
@@ -170,10 +181,6 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         @Override
         public Object getValueAt(int row, int col) {
             try {
-
-                if (gerenciador.getFlor(col, row) == null) {
-                    System.out.println("Ta nulo essa caralhas");
-                }
                 return gerenciador.getFlor(col, row);
             } catch (Exception e) {
                 return null;

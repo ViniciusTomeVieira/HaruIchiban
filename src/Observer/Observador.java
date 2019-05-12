@@ -14,4 +14,8 @@ public interface Observador {
     public void notificarJuniorSenior();
 
     public void notificarTabuleiroAlterado();
+
+    public void notificarFlorEscolhidaParaMover();
+
+    public void notificarErro();
 }
