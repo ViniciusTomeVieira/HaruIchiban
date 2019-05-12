@@ -12,4 +12,6 @@ public interface Observador {
     public void notificarJogadorDaVezAlterado();
 
     public void notificarJuniorSenior();
+
+    public void notificarTabuleiroAlterado();
 }
