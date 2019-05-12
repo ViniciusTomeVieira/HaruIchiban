@@ -559,7 +559,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             indexParaRealocar--;
         }
         if (!terminouMoverNenufar) {
-            if (tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY].getClass() == Agua.class || tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY].getClass() != null) {
+            if (tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY].getClass() == Agua.class || (posicaoNenufarX - indexParaRealocar) < 0) {
                 //Logica do array
                 if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
                     Peca p = tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar + 1][posicaoNenufarY];
@@ -574,8 +574,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     }
                     terminouMoverNenufar();
                 }
-            } else if (tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY].getClass() == null) {
+            } else if ((posicaoNenufarX - indexParaRealocar) <= 0) {
                 mensagemErro = "Você não pode mover um nenufar nessa direção!!!";
+                indexParaRealocar = 1;
+                terminouMoverNenufar = false;
                 notificarErro();
             }
         }
@@ -594,7 +596,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             indexParaRealocar--;
         }
         if (!terminouMoverNenufar) {
-            if (tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY].getClass() == Agua.class || tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY].getClass() != null) {
+            if (tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY].getClass() == Agua.class || (posicaoNenufarX + indexParaRealocar) > 4) {
                 //Logica do array
                 if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
                     Peca p = tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar - 1][posicaoNenufarY];
@@ -609,8 +611,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     }
                     terminouMoverNenufar();
                 }
-            } else if (tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY].getClass() == null) {
+            } else if ((posicaoNenufarX + indexParaRealocar) >= 4) {
                 mensagemErro = "Você não pode mover um nenufar nessa direção!!!";
+                indexParaRealocar = 1;
+                terminouMoverNenufar = false;
                 notificarErro();
             }
         }
@@ -630,7 +634,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             indexParaRealocar--;
         }
         if (!terminouMoverNenufar) {
-            if (tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar].getClass() == Agua.class || tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar].getClass() != null) {
+            if (tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar].getClass() == Agua.class || (posicaoNenufarY - indexParaRealocar) > 0) {
                 //Logica do array
                 if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
                     Peca p = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar];
@@ -645,8 +649,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     }
                     terminouMoverNenufar();
                 }
-            } else if (tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar].getClass() == null) {
+            } else if ((posicaoNenufarY - indexParaRealocar) <= 0) {
                 mensagemErro = "Você não pode mover um nenufar nessa direção!!!";
+                indexParaRealocar = 1;
+                terminouMoverNenufar = false;
                 notificarErro();
             }
         }
@@ -680,8 +686,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     }
                     terminouMoverNenufar();
                 }
-            } else if ((posicaoNenufarY + indexParaRealocar) > 4) {
+            } else if ((posicaoNenufarY + indexParaRealocar) >= 4) {
                 mensagemErro = "Você não pode mover um nenufar nessa direção!!!";
+                indexParaRealocar = 1;
+                terminouMoverNenufar = false;
                 notificarErro();
             }
         }
