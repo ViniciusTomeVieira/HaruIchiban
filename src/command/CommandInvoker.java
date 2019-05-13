@@ -7,9 +7,9 @@ public class CommandInvoker {
 
 	private List<Command> todos = new ArrayList<>();
 		
-	public void execute(Command comm, String args[]) {
+	public void execute(Command comm, int linha, int coluna) {
 	
-		comm.execute(args);
+		comm.execute(linha,coluna);
 		todos.add(comm);
 	}
 	

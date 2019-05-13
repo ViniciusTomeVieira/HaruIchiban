@@ -19,6 +19,6 @@ public abstract class Command {
 		this.observador = observer;
 	}
 	
-	public abstract void execute(String args[]);
+	public abstract void execute(int linha, int coluna);
     
 }

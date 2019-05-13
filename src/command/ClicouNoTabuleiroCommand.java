@@ -6,22 +6,26 @@
 package command;
 
 import Observer.Observador;
+import control.GerenciadorJogo;
 import control.GerenciadorJogoImpl;
 
 /**
  *
- * @author vinny
+ * @author Jogos
  */
-public class EscolherCorCommand extends Command{
-
-    public EscolherCorCommand(Observador observer) {
+public class ClicouNoTabuleiroCommand extends Command{
+    GerenciadorJogo gerenciador;
+    public ClicouNoTabuleiroCommand(Observador observer) {
         super(observer);
+        gerenciador = GerenciadorJogoImpl.getInstance();
     }
 
     @Override
     public void execute(int linha, int coluna) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gerenciador.clicouNoTabuleiro(linha, coluna);
     }
 
+    
 
+    
 }
