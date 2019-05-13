@@ -18,4 +18,8 @@ public interface Observador {
     public void notificarFlorEscolhidaParaMover();
 
     public void notificarErro();
+
+    public void notificarRodadaEncerado();
+
+    public void notificarJogoEncerado(String vencedor);
 }

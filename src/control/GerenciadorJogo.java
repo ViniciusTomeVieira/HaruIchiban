@@ -52,4 +52,6 @@ public interface GerenciadorJogo {
     public String[] getOpcoesDeMover();
     public String getMensagemErro();
     public void juniorMovePecas();
+    public void novaRodada();
+
 }

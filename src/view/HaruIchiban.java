@@ -1,25 +1,16 @@
 package view;
 
-import static java.awt.BorderLayout.CENTER;
-import static java.awt.BorderLayout.SOUTH;
-import static java.awt.BorderLayout.WEST;
-import static java.awt.BorderLayout.EAST;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
@@ -32,29 +23,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.HeadlessException;
-import java.awt.Insets;
-import java.awt.color.ColorSpace;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.plaf.basic.BasicButtonListener;
 
 public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     private static final long serialVersionUID = 1L;
 
     //Botoes mao do jogador        
-    private JButton jbCarta1;
-    private JButton jbCarta2;
-    private JButton jbCarta3;
     private JButton jbCoachar;
 
     //Menu superior
@@ -81,6 +61,9 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     private JTable Tbtabuleiro;
     private JTable TbFlores;
     private JTable TbMao;
+    
+    //Placar
+    private JLabel jlPlacar; 
 
 //Notificadores    
     @Override
@@ -119,6 +102,20 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     public void notificarErro() {
         JOptionPane.showMessageDialog(rootPane, gerenciador.getMensagemErro());
     }
+
+    @Override
+    public void notificarRodadaEncerado() {
+        JOptionPane.showMessageDialog(rootPane,"Rodada encerrada");
+        jlPlacar.setText(gerenciador.getJogador1().getPontuacao() + " x " + gerenciador.getJogador2().getPontuacao());
+        gerenciador.novaRodada();
+        
+    }
+
+    @Override
+    public void notificarJogoEncerado(String vencedor) {
+        JOptionPane.showMessageDialog(rootPane, vencedor);
+    }
+
 
     // Modelo de tabela visual do tabuleiro
     class HeroiTableModel extends AbstractTableModel {
@@ -425,8 +422,8 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
         //Criação do placar
         JPanel jpPlacar = new JPanel();
-        JLabel jlPlacar = new JLabel();
-        jlPlacar.setText("0x0");
+        jlPlacar = new JLabel();
+        jlPlacar.setText(gerenciador.getJogador1().getPontuacao() + " x " + gerenciador.getJogador2().getPontuacao());
         jlPlacar.setFont(new Font("Calibri", 1, 20));
 
         //Adiciona o placar no painel do placar
