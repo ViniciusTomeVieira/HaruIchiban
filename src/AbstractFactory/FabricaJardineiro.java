@@ -5,11 +5,13 @@
  */
 package AbstractFactory;
 
+import model.Jogador;
+
 /**
  *
  * @author Adroan
  */
 public abstract class FabricaJardineiro {
-    public abstract JardineiroSenior criarJardineiroSenior();
-    public abstract JardineiroJunior criarJardineiroJunior();
+    public abstract JardineiroSenior criarJardineiroSenior(Jogador jogador);
+    public abstract JardineiroJunior criarJardineiroJunior(Jogador jogador);
 }

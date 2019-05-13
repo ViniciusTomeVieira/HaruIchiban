@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -412,7 +414,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 }
             }
         }
-        verificarVencedor();
+//        verificarVencedor();
 
     }
 
@@ -896,7 +898,26 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     @Override
     public void novaRodada() {
-        
+        getJogador1().setFlores(null);
+        getJogador2().setFlores(null);
+        getJogador1().setMao(null);
+        getJogador2().setMao(null);
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                tabuleiroGerenciador[i][j]=null;
+            }
+        }
+        fluxoJogo();
+        setJogadorDaVez(getJogador1());
+        try {
+            getJogador1().setFlores(inicializarFlores(getJogador1().getFlores(),getJogador1()));
+            getJogador2().setFlores(inicializarFlores(getJogador2().getFlores(),getJogador2()));
+            inicializarTabuleiro(0);
+        } catch (Exception ex) {
+            Logger.getLogger(GerenciadorJogoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  
+       
     }
 
 }
