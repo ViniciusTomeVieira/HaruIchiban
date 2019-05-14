@@ -256,13 +256,14 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         gerenciador.setCorDasFlores(JOptionPane.showOptionDialog(rootPane, "Jogador 1: escolha sua cor", "Escolha de cor", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getOpcoesDeFlor(), null));
         gerenciador.fluxoJogo();
         gerenciador.setJogadorDaVez(gerenciador.getJogador1());
+        this.gerenciador.getJogador1().setNome("Jogador 1");
+        this.gerenciador.getJogador2().setNome("Jogador 2");
         gerenciador.getJogador1().setFlores(this.gerenciador.inicializarFlores(gerenciador.getJogador1().getFlores(), gerenciador.getJogador1()));
         gerenciador.getJogador2().setFlores(this.gerenciador.inicializarFlores(gerenciador.getJogador2().getFlores(), gerenciador.getJogador2()));
         this.gerenciador.addObservador(this);
         this.gerenciador.setFlorDaVez(gerenciador.getJogador1().getFlores());
         this.gerenciador.setMaoDaVez(gerenciador.getJogador1().getMao());
-        this.gerenciador.getJogador1().setNome("Jogador 1");
-        this.gerenciador.getJogador2().setNome("Jogador 2");
+        
 
         //Configura a view
         setTitle("HaruIchiban");
@@ -402,7 +403,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         TbMao.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                gerenciador.escolherFlorParaJogar(TbMao.columnAtPoint(e.getPoint()));
+                gerenciador.escolherFlorParaJogar(TbMao.rowAtPoint(e.getPoint()));
 
             }
 

@@ -50,6 +50,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private boolean escolheuFlorMover;
     private String mensagemErro;
     private boolean terminouMoverNenufar;
+    private int contadorFloresMao;
 
     //Metodos de mover pecas
     private List<Peca> nenufaresParaRealocar = new ArrayList<>();
@@ -143,8 +144,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     } else {
                         if (jogador.getCorDaFlor().equals("Rosa")) {
                             floresJogador[i][j] = new FlorRosa(numero + 1);
+                            System.out.println("Flor inserida no deck do :" + jogador.getNome() + " " + (floresJogador[i][j].getNumero()) );
                         } else {
                             floresJogador[i][j] = new FlorAmarela(numero + 1);
+                            System.out.println("Flor inserida no deck do :" + jogador.getNome() + " " + (floresJogador[i][j].getNumero()) );
                         }
                         numerosSorteados.add(numero + "");
                     }
@@ -182,7 +185,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public Icon getFlorMao(int coluna, int linha) throws Exception {
         if (maoDaVez.get(linha) != null) {
             if (coluna > 0) {
-                return verificarNumeroFlor(maoDaVez.get(linha));
+                System.out.println(maoDaVez.get(linha).getNumero());
+                return verificarNumeroFlor(maoDaVez.get(linha));               
             } else {
                 return maoDaVez.get(linha).getImagem();
             }
@@ -219,7 +223,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
         if (estadoJogo.equals("EscolherFlores")) {
             Flor cartaEscolhida = florDaVez[col][row];
-            if (maoDaVez.size() < 3 && florDaVez.length > 0) {
+            if (maoDaVez.size() < 3 && verificarTamanhoDeck() > 0) {
                 enviarCartaParaMao(cartaEscolhida);
                 florDaVez[col][row] = null;
                 jogadorDaVez.setMao(maoDaVez);
@@ -227,6 +231,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 if (maoDaVez.size() == 3) {
                     trocarJogadorDaVez();
                 }
+            }else{
+                trocarJogadorDaVez();
             }
         }
 
@@ -288,19 +294,29 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     @Override
     public void escolherFlorParaJogar(int index) {
-        jogadorDaVez.setFlorEscolhida(maoDaVez.get(index));
-        trocarJogadorDaVez();
+        if(estadoJogo.equals("JogarFlor")){
+            jogadorDaVez.setFlorEscolhida(maoDaVez.get(index));                        
+            trocarJogadorDaVez();
+        }     
     }
 
     public void compararFlores() {
-        if (jogador1.getFlorEscolhida().getNumero() > jogador2.getFlorEscolhida().getNumero()) {
+        if (jogador1.getFlorEscolhida().getNumero() < jogador2.getFlorEscolhida().getNumero()) {
             jogador1.setJuniorOuSenior("Junior");
             jogador2.setJuniorOuSenior("Senior");
             System.out.println("Jogador 1 é o junior");
-        } else if (jogador1.getFlorEscolhida().getNumero() < jogador2.getFlorEscolhida().getNumero()) {
+            System.out.println("Carta do jogador 1: " +jogador1.getFlorEscolhida().getNumero());
+            System.out.println("Carta do jogador 2: " +jogador2.getFlorEscolhida().getNumero());
+            jogador1.getMao().remove(jogador1.getFlorEscolhida());
+            jogador2.getMao().remove(jogador2.getFlorEscolhida());
+        } else if (jogador1.getFlorEscolhida().getNumero() > jogador2.getFlorEscolhida().getNumero()) {
             jogador1.setJuniorOuSenior("Senior");
             jogador2.setJuniorOuSenior("Junior");
             System.out.println("Jogador 2 é o junior");
+            System.out.println("Carta do jogador 1: " +jogador1.getFlorEscolhida().getNumero());
+            System.out.println("Carta do jogador 2: " +jogador2.getFlorEscolhida().getNumero());
+            jogador1.getMao().remove(jogador1.getFlorEscolhida());
+            jogador2.getMao().remove(jogador2.getFlorEscolhida());
         } else { //Empate
             Random random = new Random();
             int numero = random.nextInt(2);
@@ -312,12 +328,14 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 jogador2.setJuniorOuSenior("Junior");
             }
         }
-        estadoJogo = "JuniorEscuro";
-        trocarJogadorDaVez();
-        indiceMensagens = 3;
+        
         for (Observador obs : observadores) {
             obs.notificarJuniorSenior();
         }
+        
+        estadoJogo = "JuniorEscuro";
+        trocarJogadorDaVez();
+        indiceMensagens = 3;
 
     }
 
@@ -393,7 +411,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         }
 
         if (estadoJogo.equals("JuniorMovePecas")) {
-            if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class) {
+            if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() != Agua.class ) {
                 posicaoNenufarX = columnAtPoint;
                 posicaoNenufarY = rowAtPoint;
                 escolheuFlorMover = true;
@@ -410,6 +428,12 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 indiceMensagens = 0;
                 estadoJogo = "EscolherFlores";
                 recomecarComJogador1();
+                if(verificarTamanhoDeck() == 0){
+                    trocarJogadorDaVez();
+                }
+                if(verificarTamanhoDeck() == 0){
+                    trocarJogadorDaVez();
+                }
                 verificarPontuação();
                 for (Observador obs : observadores) {
                     obs.notificarTabuleiroAlterado();
@@ -559,7 +583,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private void moverNenufarEsquerda() throws ArrayIndexOutOfBoundsException {
 
         try {
-            if (tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY].getClass() != null && tabuleiroGerenciador[posicaoNenufarX - 1][posicaoNenufarY].getClass() != Agua.class) {
+            if (tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY].getClass() != null && tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY].getClass() != Agua.class) {
                 nenufaresParaRealocar.add(tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY]);
                 System.out.println(tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY]);
                 indexParaRealocar++;
@@ -573,7 +597,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             if (tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY].getClass() == Agua.class || (posicaoNenufarX - indexParaRealocar) < 0) {
                 //Logica do array
                 if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
-                    Peca p = tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar + 1][posicaoNenufarY];
+                    Peca p = tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY];
                     tabuleiroGerenciador[posicaoNenufarX - indexParaRealocar][posicaoNenufarY] = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY];
                     tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY] = p;
                     terminouMoverNenufar();
@@ -611,7 +635,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             if (tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY].getClass() == Agua.class || (posicaoNenufarX + indexParaRealocar) > 4) {
                 //Logica do array
                 if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
-                    Peca p = tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar - 1][posicaoNenufarY];
+                    Peca p = tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY];
                     tabuleiroGerenciador[posicaoNenufarX + indexParaRealocar][posicaoNenufarY] = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY];
                     tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY] = p;
                     terminouMoverNenufar();
@@ -646,7 +670,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             indexParaRealocar--;
         }
         if (!terminouMoverNenufar) {
-            if (tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar].getClass() == Agua.class || (posicaoNenufarY - indexParaRealocar) > 0) {
+            if (tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar].getClass() == Agua.class || (posicaoNenufarY - indexParaRealocar) < 0) {
                 //Logica do array
                 if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
                     Peca p = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY - indexParaRealocar];
@@ -683,10 +707,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             indexParaRealocar--;
         }
         if (!terminouMoverNenufar) {
-            if (tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + indexParaRealocar].getClass() == Agua.class || (posicaoNenufarY + indexParaRealocar) < 4) {
+            if (tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + indexParaRealocar].getClass() == Agua.class || (posicaoNenufarY + indexParaRealocar) > 4) {
                 //Logica do array
                 if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
-                    Peca p = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + indexParaRealocar - 1];
+                    Peca p = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + indexParaRealocar];
                     tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY + indexParaRealocar] = tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY];
                     tabuleiroGerenciador[posicaoNenufarX][posicaoNenufarY] = p;
                     terminouMoverNenufar();
@@ -698,7 +722,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     }
                     terminouMoverNenufar();
                 }
-            } else if ((posicaoNenufarY + indexParaRealocar) >= 4) {
+            } else if ((posicaoNenufarY + indexParaRealocar) >= 4) { 
                 mensagemErro = "Você não pode mover um nenufar nessa direção!!!";
                 indexParaRealocar = 1;
                 terminouMoverNenufar = false;
@@ -919,6 +943,18 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             Logger.getLogger(GerenciadorJogoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private int verificarTamanhoDeck() {
+        int qtd = 0;
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (florDaVez[i][j] != null) {
+                    qtd++;
+                }
+            }
+        }
+        return qtd;
     }
 
 }
