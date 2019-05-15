@@ -27,6 +27,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.color.ColorSpace;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -230,6 +231,8 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         public int getColumnCount() {
             return 2;
         }
+        
+        
 
         @Override
         public int getRowCount() {
@@ -389,10 +392,11 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         }
         TbMao.setRowHeight(100);
         TbMao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        TbMao.setShowGrid(true);
+        TbMao.setShowGrid(false);
         TbMao.setIntercellSpacing(new Dimension(0, 0));
         TbMao.setDefaultRenderer(Object.class, new MaoRenderer());
-        TbMao.setGridColor(Color.red);
+        TbMao.setOpaque(false);
+        ((MaoRenderer)TbMao.getDefaultRenderer(Object.class)).setOpaque(false);
         TbMao.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
