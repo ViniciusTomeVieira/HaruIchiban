@@ -421,10 +421,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             if(sapo !=  null){
                 if(tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class){
                     tabuleiroGerenciador[columnAtPoint][rowAtPoint] = sapo;
-                    sapo = null;
                 }
             }
-            if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class) {
+            if ((tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class) && sapo == null) {
                 if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class) {
                     sapo = tabuleiroGerenciador[columnAtPoint][rowAtPoint];
                     tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
@@ -433,6 +432,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                         obs.notificarTabuleiroAlterado();
                     }
                 }else{
+                sapo = null;
                 tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
                 indiceMensagens = 0;
                 estadoJogo = "EscolherFlores";
