@@ -7,15 +7,18 @@ package AbstractFactory;
 
 import java.util.List;
 import model.Flor;
+import model.FlorAmarela;
+
 
 /**
  *
  * @author Adroan
  */
-public class JogadorSenior extends Jogador{
+public class FabricaNormal extends FabricaJogador{
 
-    public JogadorSenior(String corDaFlor, String nome, Flor florEscolhida, Flor[][] flores, List<Flor> mao,String juniorSenior) {
-        super(corDaFlor, nome, florEscolhida, flores, mao,juniorSenior);
+    @Override
+    public Jogador criarJogador(Jogador jogador) {
+        return new JogadorNormal("", "",null, null, null,"");
     }
 
     

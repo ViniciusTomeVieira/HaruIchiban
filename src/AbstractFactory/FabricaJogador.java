@@ -14,5 +14,5 @@ import model.Flor;
  * @author Adroan
  */
 public abstract class FabricaJogador {
-    public abstract Jogador criarJogador(String corDaFlor, boolean jogando, String nome, Flor florEscolhida, String juniorOuSenior, Flor[][] flores,List<Flor> mao);
+    public abstract Jogador criarJogador(Jogador Jogador);
 }

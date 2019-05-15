@@ -18,20 +18,29 @@ public abstract class Jogador{
     private String corDaFlor;
     private List<Flor> mao = new ArrayList<>();
     private int pontuacao = 0;
-    private boolean jogando;
     private String nome;
     private Flor florEscolhida;
-    private String juniorOuSenior;
+    private String juniorSenior;
 
-    public Jogador(String corDaFlor, boolean jogando, String nome, Flor florEscolhida, String juniorOuSenior, Flor[][] flores,List<Flor> mao) {
+
+    public Jogador(String corDaFlor, String nome, Flor florEscolhida,Flor[][] flores,List<Flor> mao, String juniorSenior) {
         this.corDaFlor = corDaFlor;
-        this.jogando = jogando;
         this.nome = nome;
         this.florEscolhida = florEscolhida;
-        this.juniorOuSenior = juniorOuSenior;
         this.flores = flores;
         this.mao = mao;
+        this.juniorSenior = juniorSenior;
     }
+
+    public String getJuniorSenior() {
+        return juniorSenior;
+    }
+
+    public void setJuniorSenior(String juniorSenior) {
+        this.juniorSenior = juniorSenior;
+    }
+    
+    
     
     
 
@@ -67,13 +76,7 @@ public abstract class Jogador{
         this.pontuacao = pontuacao;
     }
 
-    public boolean isJogando() {
-        return jogando;
-    }
-
-    public void setJogando(boolean jogando) {
-        this.jogando = jogando;
-    }
+   
 
     public String getNome() {
         return nome;
@@ -91,13 +94,7 @@ public abstract class Jogador{
         this.florEscolhida = florEscolhida;
     }
 
-    public String getJuniorOuSenior() {
-        return juniorOuSenior;
-    }
-
-    public void setJuniorOuSenior(String juniorOuSenior) {
-        this.juniorOuSenior = juniorOuSenior;
-    }
+   
     
     
     

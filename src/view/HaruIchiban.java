@@ -20,7 +20,6 @@ import control.GerenciadorJogo;
 import control.GerenciadorJogoImpl;
 import Observer.Observador;
 import command.ClicouNoTabuleiroCommand;
-import command.Command;
 import command.CommandInvoker;
 import command.EscolharFloresDeckCommand;
 import command.EscolherFloresParaJogarCommand;
@@ -29,8 +28,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -56,6 +53,8 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     private JTextArea jtaCarta1;
     private JTextArea jtaCarta2;
     private JTextArea jtaCarta3;
+    
+
 
     //Layouts
     private GridBagLayout layout;
@@ -95,7 +94,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     @Override
     public void notificarJuniorSenior() {
-        JOptionPane.showMessageDialog(rootPane, "Jogador 1: "+ gerenciador.getJogador1().getJuniorOuSenior()+"\n Jogador 2: "+ gerenciador.getJogador2().getJuniorOuSenior());
+        JOptionPane.showMessageDialog(rootPane, "Jogador 1: "+ gerenciador.getJogador1().getJuniorSenior()+"\n Jogador 2: "+ gerenciador.getJogador2().getJuniorSenior());
         jtaMensagem.setText(gerenciador.getJogadorDaVez().getNome() + gerenciador.getMensagemAtual());
 
     }
@@ -139,7 +138,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
 
     // Modelo de tabela visual do tabuleiro
-    class HeroiTableModel extends AbstractTableModel {
+    class TabuleiroTableModel extends AbstractTableModel {
 
         private static final long serialVersionUID = 1L;
 
@@ -166,7 +165,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     }
     // Renderizador de celulas do tabuleiro
 
-    class HeroiRenderer extends DefaultTableCellRenderer {
+    class TabuleiroRenderer extends DefaultTableCellRenderer {
 
         private static final long serialVersionUID = 1L;
 
@@ -274,6 +273,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         //Inicia gerenciador e faz algumas operações
         this.gerenciador = GerenciadorJogoImpl.getInstance();
         this.gerenciador.inicializarTabuleiro(JOptionPane.showOptionDialog(rootPane, "Escolha a forma do tabuleiro", "FORMA DO TABULEIRO", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getOpcoesDeTabuleiro(), null)); // Vai mudar e receber novas formas de inicio(Builder)       
+        gerenciador.inicializarJogadores();
         gerenciador.setCorDasFlores(JOptionPane.showOptionDialog(rootPane, "Jogador 1: escolha sua cor", "Escolha de cor", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getOpcoesDeFlor(), null));
         gerenciador.fluxoJogo();
         gerenciador.setJogadorDaVez(gerenciador.getJogador1());
@@ -322,7 +322,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
         // criar o tabuleiro e seus componentes
         Tbtabuleiro = new JTable();
-        Tbtabuleiro.setModel(new HeroiTableModel());
+        Tbtabuleiro.setModel(new TabuleiroTableModel());
         for (int x = 0; x < Tbtabuleiro.getColumnModel().getColumnCount(); x++) {
             Tbtabuleiro.getColumnModel().getColumn(x).setWidth(100);
             Tbtabuleiro.getColumnModel().getColumn(x).setMinWidth(100);
@@ -333,7 +333,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         Tbtabuleiro.setShowGrid(false);
         Tbtabuleiro.setGridColor(Color.red);
         Tbtabuleiro.setIntercellSpacing(new Dimension(0, 0));
-        Tbtabuleiro.setDefaultRenderer(Object.class, new HeroiRenderer());
+        Tbtabuleiro.setDefaultRenderer(Object.class, new TabuleiroRenderer());
 
         Tbtabuleiro.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -358,10 +358,9 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
                 }
             }
         };
-        //cartaClicadaAction.actionPerformed(new ActionEvent(jrMontanha, ActionEvent.ACTION_PERFORMED, jrMontanha.getActionCommand()));
+        
 
-        // criar mão do jogador
-        //jpMao.setLayout(new GridLayout(3,2));
+        // criar mão do jogador       
         // criar os botoes de radio / ToDo: criar a parte das cartas do usuario
         JPanel jpMensagem = new JPanel();
         jpMensagem.setLayout(layout);
@@ -425,7 +424,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         //Adiciona o placar no painel do placar
         jpPlacar.add(jlPlacar);
 
-        //Testes...
+       
         //Table de flores do lado direito
         TbFlores = new JTable();
         TbFlores.setModel(new FloresTableModel());

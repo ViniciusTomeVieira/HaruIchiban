@@ -5,11 +5,11 @@
  */
 package control;
 
+import AbstractFactory.Jogador;
 import Observer.Observador;
 import java.util.List;
 import javax.swing.Icon;
 import model.Flor;
-import model.JogadorModel;
 import model.Peca;
 
 /**
@@ -19,22 +19,22 @@ import model.Peca;
 public interface GerenciadorJogo {
     
     void inicializarTabuleiro(int opcao) throws Exception;
-    Flor[][] inicializarFlores(Flor[][] floresJogador,JogadorModel jogador) throws Exception;
+    Flor[][] inicializarFlores(Flor[][] floresJogador,Jogador jogador) throws Exception;
     void addObservador(Observador obs);
     Icon getPeca(int col, int row) throws Exception;
     Icon getFlor(int col, int row) throws Exception;
-    public JogadorModel getJogador1();     
-    public void setJogador1(JogadorModel jogador1);    
-    public JogadorModel getJogador2();  
-    public void setJogador2(JogadorModel jogador2);
+    public Jogador getJogador1();     
+    public void setJogador1(Jogador jogador1);    
+    public Jogador getJogador2();  
+    public void setJogador2(Jogador jogador2);
     public void fluxoJogo();
     public void selecionarCores();
     public void setCorDasFlores(int corDasFlores);
     public int getCorDasFlores();
     public String getEstadoJogo();
     public void setEstadoJogo(String estadoJogo);
-    public JogadorModel getJogadorDaVez();
-    public void setJogadorDaVez(JogadorModel jogadorDaVez);
+    public Jogador getJogadorDaVez();
+    public void setJogadorDaVez(Jogador jogadorDaVez);
     public void escolherFloresDeck(int row, int col);
     public Peca getFlorEscolhidaMao();
     public void setFlorEscolhidaMao(Flor florEscolhidaMao);
@@ -53,5 +53,5 @@ public interface GerenciadorJogo {
     public String getMensagemErro();
     public void juniorMovePecas();
     public void novaRodada();
-
+    public void inicializarJogadores();
 }

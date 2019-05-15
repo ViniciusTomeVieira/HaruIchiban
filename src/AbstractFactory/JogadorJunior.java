@@ -14,8 +14,8 @@ import model.Flor;
  */
 public class JogadorJunior extends Jogador {
     
-    public JogadorJunior(String corDaFlor, boolean jogando, String nome, Flor florEscolhida, String juniorOuSenior, Flor[][] flores, List<Flor> mao) {
-        super(corDaFlor, jogando, nome, florEscolhida, juniorOuSenior, flores, mao);
+    public JogadorJunior(String corDaFlor,String nome, Flor florEscolhida, Flor[][] flores, List<Flor> mao, String juniorSenior) {
+        super(corDaFlor,nome, florEscolhida,flores, mao,juniorSenior);
     }
     
     

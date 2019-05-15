@@ -5,6 +5,12 @@
  */
 package control;
 
+import AbstractFactory.FabricaJogador;
+import AbstractFactory.FabricaJunior;
+import AbstractFactory.FabricaNormal;
+import AbstractFactory.FabricaSenior;
+import AbstractFactory.Jogador;
+import AbstractFactory.JogadorJunior;
 import Builder.ConstruirPadrão;
 import Builder.ConstruirPadrão2;
 import Builder.CriadorDeTabuleiro;
@@ -67,11 +73,14 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private boolean temQuadrado, temLinhaHorVer4, temLinhaDia4, temLinha5 = false;
     private List<Peca> formacaoDeFlores = new ArrayList<>();
     private int indexOfPontuacao;
+    
+    //Abstract Factory
+    private FabricaJogador fabricaJogador;
 
     //Jogadores
-    private JogadorModel jogador1 = new JogadorModel();
-    private JogadorModel jogador2 = new JogadorModel();
-    private JogadorModel jogadorDaVez;
+    private Jogador jogador1;
+    private Jogador jogador2;
+    private Jogador jogadorDaVez;
     private int indiceMensagens = 0;
     private String[] mensagens = {"  pegue suas cartas", "  escolha uma carta para jogar", " selecione uma carta", " jogue no nenufar escuro", " escolha um nenufar para jogar", " escolha um nenufar para mover", " escolha um nenufar para o sapo", " escolha a direcao a mover", " escolha a nenufar que ficara escura"};
 
@@ -95,8 +104,14 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         if (instance == null) {
             instance = new GerenciadorJogoImpl();
         }
-
         return instance;
+    }
+    
+    @Override
+    public void inicializarJogadores(){
+        fabricaJogador = new FabricaNormal();
+        jogador1 = fabricaJogador.criarJogador(jogador1);
+        jogador2 = fabricaJogador.criarJogador(jogador2);
     }
 
     @Override
@@ -133,7 +148,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     }
 
     @Override
-    public Flor[][] inicializarFlores(Flor[][] floresJogador, JogadorModel jogador) throws Exception { // Pronto
+    public Flor[][] inicializarFlores(Flor[][] floresJogador, Jogador jogador) throws Exception { // Pronto
         floresJogador = new Flor[2][4];
         Random valor = new Random();
         List<String> numerosSorteados = new ArrayList<>();
@@ -249,7 +264,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private void trocarJogadorDaVez() {
 
         if (estadoJogo.equals("JuniorEscuro")) {
-            if (jogador1.getJuniorOuSenior().equals("Junior")) {
+            if (jogador1.getClass() == JogadorJunior.class) { 
                 jogadorDaVez = jogador1;
                 maoDaVez = jogador1.getMao();
                 florDaVez = jogador1.getFlores();
@@ -303,8 +318,12 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     public void compararFlores() {
         if (jogador1.getFlorEscolhida().getNumero() < jogador2.getFlorEscolhida().getNumero()) {
-            jogador1.setJuniorOuSenior("Junior");
-            jogador2.setJuniorOuSenior("Senior");
+            fabricaJogador = new FabricaJunior();
+            jogador1 = fabricaJogador.criarJogador(jogador1);
+            fabricaJogador = new FabricaSenior();
+            jogador2 = fabricaJogador.criarJogador(jogador2);
+            jogador1.setJuniorSenior("Junior");
+            jogador2.setJuniorSenior("Senior");
             jogador1.getMao().remove(jogador1.getFlorEscolhida());
             jogador2.getMao().remove(jogador2.getFlorEscolhida());
             estadoJogo = "JuniorEscuro";
@@ -314,8 +333,12 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             obs.notificarJuniorSenior();
         }
         } else if (jogador1.getFlorEscolhida().getNumero() > jogador2.getFlorEscolhida().getNumero()) {
-            jogador1.setJuniorOuSenior("Senior");
-            jogador2.setJuniorOuSenior("Junior");           
+            fabricaJogador = new FabricaSenior();
+            jogador1 = fabricaJogador.criarJogador(jogador1);
+            fabricaJogador = new FabricaJunior();
+            jogador2 = fabricaJogador.criarJogador(jogador2);
+            jogador1.setJuniorSenior("Senior");
+            jogador2.setJuniorSenior("Junior");           
             jogador1.getMao().remove(jogador1.getFlorEscolhida());
             jogador2.getMao().remove(jogador2.getFlorEscolhida());
             estadoJogo = "JuniorEscuro";
@@ -336,13 +359,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     }
 
-    public JogadorModel verificarJunior() {
-        if (jogador1.getJuniorOuSenior().equals("Junior")) {
-            return jogador1;
-        } else {
-            return jogador2;
-        }
-    }
+  
 
     @Override
     public void clicouNoTabuleiro(int rowAtPoint, int columnAtPoint) {
@@ -480,22 +497,22 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     //Getters e Setters
     @Override
-    public JogadorModel getJogador1() {
+    public Jogador getJogador1() {
         return jogador1;
     }
 
     @Override
-    public void setJogador1(JogadorModel jogador1) {
+    public void setJogador1(Jogador jogador1) {
         this.jogador1 = jogador1;
     }
 
     @Override
-    public JogadorModel getJogador2() {
+    public Jogador getJogador2() {
         return jogador2;
     }
 
     @Override
-    public void setJogador2(JogadorModel jogador2) {
+    public void setJogador2(Jogador jogador2) {
         this.jogador2 = jogador2;
     }
 
@@ -544,12 +561,12 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
      * @return
      */
     @Override
-    public JogadorModel getJogadorDaVez() {
+    public Jogador getJogadorDaVez() {
         return jogadorDaVez;
     }
 
     @Override
-    public void setJogadorDaVez(JogadorModel jogadorDaVez) {
+    public void setJogadorDaVez(Jogador jogadorDaVez) {
         this.jogadorDaVez = jogadorDaVez;
     }
 
@@ -939,8 +956,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         return qtd;
     }
 
-    public void sucide() {
-        instance = null;
-    }
+   
 
 }

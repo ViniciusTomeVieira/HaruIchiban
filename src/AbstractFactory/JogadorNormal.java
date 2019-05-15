@@ -10,13 +10,12 @@ import model.Flor;
 
 /**
  *
- * @author Adroan
+ * @author vinny
  */
-public class JogadorSenior extends Jogador{
+public class JogadorNormal extends Jogador {
 
-    public JogadorSenior(String corDaFlor, String nome, Flor florEscolhida, Flor[][] flores, List<Flor> mao,String juniorSenior) {
+    public JogadorNormal(String corDaFlor, String nome, Flor florEscolhida, Flor[][] flores, List<Flor> mao,String juniorSenior) {
         super(corDaFlor, nome, florEscolhida, flores, mao,juniorSenior);
     }
-
     
 }

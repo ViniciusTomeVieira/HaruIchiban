@@ -19,9 +19,10 @@ import model.Flor;
 public class FabricaSenior extends FabricaJogador{
 
     @Override
-    public Jogador criarJogador(String corDaFlor, boolean jogando, String nome, Flor florEscolhida, String juniorOuSenior, Flor[][] flores,List<Flor> mao) {
-        return new JogadorSenior(corDaFlor, jogando, nome, florEscolhida, juniorOuSenior, flores, mao);
+    public Jogador criarJogador(Jogador jogador) {
+        return new JogadorSenior(jogador.getCorDaFlor(), jogador.getNome(), jogador.getFlorEscolhida(), jogador.getFlores(), jogador.getMao(),jogador.getJuniorSenior());
     }
 
+    
     
 }
