@@ -381,8 +381,8 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         //Inicia o panel da esquerda
         JPanel panelEsquerda = new JPanel();
         panelEsquerda.setLayout(layout);
-         panelEsquerda.setBackground(new Color(51, 15, 18, 100));
-         panelEsquerda.setOpaque(true);
+
+
 
 
         TbMao = new JTable();
@@ -421,6 +421,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         JPanel panelDireita = new JPanel();
         panelDireita.setLayout(layout);
 
+
         //Criação do placar
         JPanel jpPlacar = new JPanel();
         jlPlacar = new JLabel();
@@ -441,11 +442,12 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         }
         TbFlores.setRowHeight(100);
         TbFlores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        TbFlores.setShowGrid(true);
+        TbFlores.setShowGrid(false);
         TbFlores.setIntercellSpacing(new Dimension(0, 0));
+        
+        TbFlores.setDefaultRenderer(Object.class, new FloresRenderer());
         TbFlores.setOpaque(false);
         ((FloresRenderer)TbFlores.getDefaultRenderer(Object.class)).setOpaque(false);
-        TbFlores.setDefaultRenderer(Object.class, new FloresRenderer());
         TbFlores.setGridColor(Color.red);
         TbFlores.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
