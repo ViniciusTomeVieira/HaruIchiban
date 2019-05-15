@@ -27,7 +27,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.color.ColorSpace;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -75,6 +74,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     //Command
     private final CommandInvoker invk = new CommandInvoker();
 
+    
 //Notificadores    
     @Override
     public void notificarFlorEscolhida() {
@@ -381,6 +381,8 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         //Inicia o panel da esquerda
         JPanel panelEsquerda = new JPanel();
         panelEsquerda.setLayout(layout);
+         panelEsquerda.setBackground(new Color(51, 15, 18, 100));
+         panelEsquerda.setOpaque(true);
 
 
         TbMao = new JTable();
@@ -441,6 +443,8 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         TbFlores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         TbFlores.setShowGrid(true);
         TbFlores.setIntercellSpacing(new Dimension(0, 0));
+        TbFlores.setOpaque(false);
+        ((FloresRenderer)TbFlores.getDefaultRenderer(Object.class)).setOpaque(false);
         TbFlores.setDefaultRenderer(Object.class, new FloresRenderer());
         TbFlores.setGridColor(Color.red);
         TbFlores.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -517,5 +521,9 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         JOptionPane.showMessageDialog(null, msgErro);
         System.exit(0);
     }
+
+    
+    
+    
 
 }
