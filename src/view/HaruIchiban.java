@@ -22,6 +22,8 @@ import Observer.Observador;
 import command.ClicouNoTabuleiroCommand;
 import command.Command;
 import command.CommandInvoker;
+import command.EscolharFloresDeckCommand;
+import command.EscolherFloresParaJogarCommand;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -382,7 +384,8 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         TbMao.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                gerenciador.escolherFlorParaJogar(TbMao.rowAtPoint(e.getPoint()));
+                invk.add(new EscolherFloresParaJogarCommand(gerenciador ,TbMao.rowAtPoint(e.getPoint()), TbMao.columnAtPoint(e.getPoint())));
+               invk.execute(TbMao.rowAtPoint(e.getPoint()), TbMao.columnAtPoint(e.getPoint()));
 
             }
 
@@ -427,8 +430,8 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         TbFlores.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                gerenciador.escolherFloresDeck(Tbtabuleiro.rowAtPoint(e.getPoint()), Tbtabuleiro.columnAtPoint(e.getPoint()));
-
+               invk.add(new EscolharFloresDeckCommand(gerenciador ,TbFlores.rowAtPoint(e.getPoint()), TbFlores.columnAtPoint(e.getPoint())));
+               invk.execute(TbFlores.rowAtPoint(e.getPoint()), TbFlores.columnAtPoint(e.getPoint()));
             }
 
         });
