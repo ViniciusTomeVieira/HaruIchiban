@@ -23,7 +23,7 @@ import model.Agua;
 import model.Flor;
 import model.FlorAmarela;
 import model.FlorRosa;
-import model.Jogador;
+import model.JogadorModel;
 import model.NenufarClaro;
 import model.NenufarClaroComFlorAmarela;
 import model.NenufarClaroComFlorRosa;
@@ -69,9 +69,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private int indexOfPontuacao;
 
     //Jogadores
-    private Jogador jogador1 = new Jogador();
-    private Jogador jogador2 = new Jogador();
-    private Jogador jogadorDaVez;
+    private JogadorModel jogador1 = new JogadorModel();
+    private JogadorModel jogador2 = new JogadorModel();
+    private JogadorModel jogadorDaVez;
     private int indiceMensagens = 0;
     private String[] mensagens = {"  pegue suas cartas", "  escolha uma carta para jogar", " selecione uma carta", " jogue no nenufar escuro", " escolha um nenufar para jogar", " escolha um nenufar para mover", " escolha um nenufar para o sapo", " escolha a direcao a mover", " escolha a nenufar que ficara escura"};
 
@@ -80,7 +80,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     //Estado do jogo
     private String estadoJogo = "SelecionarCor"; // SelecionarCor / EscolherFlores /   JogarFlor    /  JuniorEscuro    /    SeniorEscolhe  /   JuniorMovePeças /   SeniorEscolheEscuro     
-    //    Jogador1   / Jogador 1 e 2  / Jogador 1 e 2  /  JogadorJunior   /    Jogador Senior /   JogadorJunior   /   Jogador Senior
+    //    Jogador1   / JogadorModel 1 e 2  / JogadorModel 1 e 2  /  JogadorJunior   /    JogadorModel Senior /   JogadorJunior   /   JogadorModel Senior
 
     private String[] opcoesDeFlor = {"Rosa", "Amarela"};
     private String[] opcoesDeMover = {"Esquerda", "Direita", "Cima", "Baixo"};
@@ -133,7 +133,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     }
 
     @Override
-    public Flor[][] inicializarFlores(Flor[][] floresJogador, Jogador jogador) throws Exception { // Pronto
+    public Flor[][] inicializarFlores(Flor[][] floresJogador, JogadorModel jogador) throws Exception { // Pronto
         floresJogador = new Flor[2][4];
         Random valor = new Random();
         List<String> numerosSorteados = new ArrayList<>();
@@ -336,7 +336,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     }
 
-    public Jogador verificarJunior() {
+    public JogadorModel verificarJunior() {
         if (jogador1.getJuniorOuSenior().equals("Junior")) {
             return jogador1;
         } else {
@@ -425,15 +425,14 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             }
             if ((tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class)) {
                 if ((tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class)  && sapo == null) {
-                    sapo = tabuleiroGerenciador[columnAtPoint][rowAtPoint];
+                    sapo = tabuleiroGerenciador[columnAtPoint][rowAtPoint];                   
                     tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
                     indiceMensagens = 6;
                     for (Observador obs : observadores) {
                         obs.notificarTabuleiroAlterado();
                     }
                 }else{
-                sapo = null;
-                tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
+                sapo = null;                
                 indiceMensagens = 0;
                 estadoJogo = "EscolherFlores";
                 recomecarComJogador1();
@@ -481,22 +480,22 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     //Getters e Setters
     @Override
-    public Jogador getJogador1() {
+    public JogadorModel getJogador1() {
         return jogador1;
     }
 
     @Override
-    public void setJogador1(Jogador jogador1) {
+    public void setJogador1(JogadorModel jogador1) {
         this.jogador1 = jogador1;
     }
 
     @Override
-    public Jogador getJogador2() {
+    public JogadorModel getJogador2() {
         return jogador2;
     }
 
     @Override
-    public void setJogador2(Jogador jogador2) {
+    public void setJogador2(JogadorModel jogador2) {
         this.jogador2 = jogador2;
     }
 
@@ -545,12 +544,12 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
      * @return
      */
     @Override
-    public Jogador getJogadorDaVez() {
+    public JogadorModel getJogadorDaVez() {
         return jogadorDaVez;
     }
 
     @Override
-    public void setJogadorDaVez(Jogador jogadorDaVez) {
+    public void setJogadorDaVez(JogadorModel jogadorDaVez) {
         this.jogadorDaVez = jogadorDaVez;
     }
 

@@ -83,12 +83,13 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     @Override
     public void notificarJogadorDaVezAlterado() {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(HaruIchiban.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        repaint();
+            repaint();
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(HaruIchiban.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+    
         jtaMensagem.setText(gerenciador.getJogadorDaVez().getNome() + gerenciador.getMensagemAtual());
     }
 
