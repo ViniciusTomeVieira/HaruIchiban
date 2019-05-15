@@ -125,6 +125,11 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         JOptionPane.showMessageDialog(rootPane, vencedor);
     }
 
+    @Override
+    public void notificarEmpateComparacao() {
+        JOptionPane.showMessageDialog(rootPane, "Empate!!!");
+    }
+
 
     // Modelo de tabela visual do tabuleiro
     class HeroiTableModel extends AbstractTableModel {

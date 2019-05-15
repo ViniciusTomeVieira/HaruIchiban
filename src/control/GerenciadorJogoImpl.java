@@ -325,6 +325,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             obs.notificarJuniorSenior();
         }
         } else { //Empate
+            for(Observador obs: observadores){
+                obs.notificarEmpateComparacao();
+            }
             estadoJogo = "JogarFlor";
         }
 
