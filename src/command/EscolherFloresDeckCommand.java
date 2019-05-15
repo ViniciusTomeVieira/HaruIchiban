@@ -11,9 +11,9 @@ import control.GerenciadorJogo;
  *
  * @author Adroan
  */
-public class EscolharFloresDeckCommand extends Command{
+public class EscolherFloresDeckCommand extends Command{
 
-    public EscolharFloresDeckCommand(GerenciadorJogo gerenciador, int linha, int coluna) {
+    public EscolherFloresDeckCommand(GerenciadorJogo gerenciador, int linha, int coluna) {
         super(gerenciador, linha, coluna);
     }
 

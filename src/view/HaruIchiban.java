@@ -21,7 +21,7 @@ import control.GerenciadorJogoImpl;
 import Observer.Observador;
 import command.ClicouNoTabuleiroCommand;
 import command.CommandInvoker;
-import command.EscolharFloresDeckCommand;
+import command.EscolherFloresDeckCommand;
 import command.EscolherFloresParaJogarCommand;
 import java.awt.Color;
 import java.awt.Font;
@@ -442,7 +442,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         TbFlores.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-               invk.add(new EscolharFloresDeckCommand(gerenciador ,TbFlores.rowAtPoint(e.getPoint()), TbFlores.columnAtPoint(e.getPoint())));
+               invk.add(new EscolherFloresDeckCommand(gerenciador ,TbFlores.rowAtPoint(e.getPoint()), TbFlores.columnAtPoint(e.getPoint())));
                invk.execute(TbFlores.rowAtPoint(e.getPoint()), TbFlores.columnAtPoint(e.getPoint()));
             }
 

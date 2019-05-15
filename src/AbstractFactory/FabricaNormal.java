@@ -5,6 +5,7 @@
  */
 package AbstractFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.Flor;
 import model.FlorAmarela;
@@ -18,7 +19,7 @@ public class FabricaNormal extends FabricaJogador{
 
     @Override
     public Jogador criarJogador(Jogador jogador) {
-        return new JogadorNormal("", "",null, null, null,"");
+        return new JogadorNormal("", "",null, new Flor[2][4], new ArrayList<>(),"");
     }
 
     
