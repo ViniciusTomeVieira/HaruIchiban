@@ -5,20 +5,21 @@
  */
 package command;
 
-import Observer.Observador;
+
 import control.GerenciadorJogo;
-import control.GerenciadorJogoImpl;
+
 
 /**
  *
  * @author Jogos
  */
 public class ClicouNoTabuleiroCommand extends Command{
-    GerenciadorJogo gerenciador;
-    public ClicouNoTabuleiroCommand(Observador observer) {
-        super(observer);
-        gerenciador = GerenciadorJogoImpl.getInstance();
+
+    public ClicouNoTabuleiroCommand(GerenciadorJogo gerenciador, int linha, int coluna) {
+        super(gerenciador, linha, coluna);
     }
+    
+
 
     @Override
     public void execute(int linha, int coluna) {

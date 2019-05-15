@@ -5,7 +5,9 @@
  */
 package command;
 
-import Observer.Observador;
+
+import control.GerenciadorJogo;
+
 
 /**
  *
@@ -13,10 +15,10 @@ import Observer.Observador;
  */
 public abstract class Command {
     
-    protected Observador observador;
+    protected GerenciadorJogo gerenciador;
 
-	public Command(Observador observer) {
-		this.observador = observer;
+	public Command(GerenciadorJogo gerenciador, int linha, int coluna) {
+		this.gerenciador = gerenciador;
 	}
 	
 	public abstract void execute(int linha, int coluna);

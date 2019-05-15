@@ -19,6 +19,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import control.GerenciadorJogo;
 import control.GerenciadorJogoImpl;
 import Observer.Observador;
+import command.ClicouNoTabuleiroCommand;
+import command.Command;
+import command.CommandInvoker;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -63,7 +66,10 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     private JTable TbMao;
     
     //Placar
-    private JLabel jlPlacar; 
+    private JLabel jlPlacar;
+    
+    //Command
+    private final CommandInvoker invk = new CommandInvoker();
 
 //Notificadores    
     @Override
@@ -317,8 +323,9 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         Tbtabuleiro.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                gerenciador.clicouNoTabuleiro(Tbtabuleiro.rowAtPoint(e.getPoint()), Tbtabuleiro.columnAtPoint(e.getPoint()));
-            }
+               invk.add(new ClicouNoTabuleiroCommand(gerenciador ,Tbtabuleiro.rowAtPoint(e.getPoint()), Tbtabuleiro.columnAtPoint(e.getPoint())));
+               invk.execute(Tbtabuleiro.rowAtPoint(e.getPoint()), Tbtabuleiro.columnAtPoint(e.getPoint()));
+            }   
 
         });
 
