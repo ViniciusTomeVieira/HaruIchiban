@@ -305,38 +305,31 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         if (jogador1.getFlorEscolhida().getNumero() < jogador2.getFlorEscolhida().getNumero()) {
             jogador1.setJuniorOuSenior("Junior");
             jogador2.setJuniorOuSenior("Senior");
-            System.out.println("Jogador 1 é o junior");
-            System.out.println("Carta do jogador 1: " + jogador1.getFlorEscolhida().getNumero());
-            System.out.println("Carta do jogador 2: " + jogador2.getFlorEscolhida().getNumero());
             jogador1.getMao().remove(jogador1.getFlorEscolhida());
             jogador2.getMao().remove(jogador2.getFlorEscolhida());
-        } else if (jogador1.getFlorEscolhida().getNumero() > jogador2.getFlorEscolhida().getNumero()) {
-            jogador1.setJuniorOuSenior("Senior");
-            jogador2.setJuniorOuSenior("Junior");
-            System.out.println("Jogador 2 é o junior");
-            System.out.println("Carta do jogador 1: " + jogador1.getFlorEscolhida().getNumero());
-            System.out.println("Carta do jogador 2: " + jogador2.getFlorEscolhida().getNumero());
-            jogador1.getMao().remove(jogador1.getFlorEscolhida());
-            jogador2.getMao().remove(jogador2.getFlorEscolhida());
-        } else { //Empate
-            Random random = new Random();
-            int numero = random.nextInt(2);
-            if (numero == 0) {
-                jogador1.setJuniorOuSenior("Junior");
-                jogador2.setJuniorOuSenior("Senior");
-            } else {
-                jogador1.setJuniorOuSenior("Senior");
-                jogador2.setJuniorOuSenior("Junior");
-            }
-        }
-
-        for (Observador obs : observadores) {
+            estadoJogo = "JuniorEscuro";
+            trocarJogadorDaVez();
+            indiceMensagens = 3;
+            for (Observador obs : observadores) {
             obs.notificarJuniorSenior();
         }
+        } else if (jogador1.getFlorEscolhida().getNumero() > jogador2.getFlorEscolhida().getNumero()) {
+            jogador1.setJuniorOuSenior("Senior");
+            jogador2.setJuniorOuSenior("Junior");           
+            jogador1.getMao().remove(jogador1.getFlorEscolhida());
+            jogador2.getMao().remove(jogador2.getFlorEscolhida());
+            estadoJogo = "JuniorEscuro";
+            trocarJogadorDaVez();
+            indiceMensagens = 3;
+            for (Observador obs : observadores) {
+            obs.notificarJuniorSenior();
+        }
+        } else { //Empate
+            estadoJogo = "JogarFlor";
+        }
 
-        estadoJogo = "JuniorEscuro";
-        trocarJogadorDaVez();
-        indiceMensagens = 3;
+        
+
 
     }
 
