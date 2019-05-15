@@ -21,4 +21,6 @@ public interface Observador {
     public void notificarRodadaEncerado();
 
     public void notificarJogoEncerado(String vencedor);
+
+    public void notificarEmpateComparacao();
 }
