@@ -29,6 +29,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -81,7 +83,11 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     @Override
     public void notificarJogadorDaVezAlterado() {
-        // Atualizar deck e mao que mostra na tela
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(HaruIchiban.class.getName()).log(Level.SEVERE, null, ex);
+        }
         repaint();
         jtaMensagem.setText(gerenciador.getJogadorDaVez().getNome() + gerenciador.getMensagemAtual());
     }
@@ -277,7 +283,8 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         this.gerenciador.addObservador(this);
         this.gerenciador.setFlorDaVez(gerenciador.getJogador1().getFlores());
         this.gerenciador.setMaoDaVez(gerenciador.getJogador1().getMao());
-        
+
+
 
         //Configura a view
         setTitle("HaruIchiban");
