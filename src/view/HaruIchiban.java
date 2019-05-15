@@ -108,6 +108,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         JOptionPane.showMessageDialog(rootPane,"Rodada encerrada");
         jlPlacar.setText(gerenciador.getJogador1().getPontuacao() + " x " + gerenciador.getJogador2().getPontuacao());
         gerenciador.novaRodada();
+        repaint();
         
     }
 
@@ -273,10 +274,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         setResizable(false);
         getContentPane().setLayout(new BorderLayout());
 
-        //Inicia os componentes da tela
-        //Selecionar Cores / int opcao é má prática, mudar depois
-        //int opcao = JOptionPane.showConfirmDialog(getParent(), "chama no reskein", "Xesq", 1);
-        //Testes...
+       
         initComponents();
         pack();
 
@@ -360,33 +358,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         JPanel panelEsquerda = new JPanel();
         panelEsquerda.setLayout(layout);
 
-        //Criação dos botões da mão do jogador
-//        jbCarta1 = new JButton();
-//        jbCarta1.setIcon(new ImageIcon("imagens/florRosa.png"));
-//        jbCarta1.setMargin(new Insets(10, 0, 10, 0));
-//        jbCarta2 = new JButton();
-//        jbCarta2.setIcon(new ImageIcon("imagens/florAmarela.png"));
-//        jbCarta2.setMargin(new Insets(10, 0, 10, 0));
-//        jbCarta3 = new JButton();
-//        jbCarta3.setIcon(new ImageIcon("imagens/florRosa.png"));
-//        jbCarta3.setMargin(new Insets(10, 0, 10, 0));
-//        jbCarta1.setVisible(false);
-//        jbCarta2.setVisible(false);
-//        jbCarta3.setVisible(false);
-//        //Criação das labels da mão do jogador
-//        jtaCarta1 = new JTextArea();
-//        jtaCarta1.setText("1");
-//        jtaCarta1.setFont(new Font("Calibri", 1, 20));
-//        jtaCarta1.setMargin(new Insets(10, 10, 10, 10));
-//        jtaCarta2 = new JTextArea();
-//        jtaCarta2.setText("2");
-//        jtaCarta2.setFont(new Font("Calibri", 1, 20));
-//        jtaCarta3 = new JTextArea();
-//        jtaCarta3.setText("3");
-//        jtaCarta3.setFont(new Font("Calibri", 1, 20));
-//        jtaCarta1.setVisible(false);
-//        jtaCarta2.setVisible(false);
-//        jtaCarta3.setVisible(false);
+
         TbMao = new JTable();
         TbMao.setModel(new MaoTableModel());
         for (int x = 0; x < TbMao.getColumnModel().getColumnCount(); x++) {
@@ -494,13 +466,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     }
 
-    //Metodo executado na primeira execucao do jogo
-    @Override
-    public void iniciouJogo() {
-//        jbCriar.setEnabled(false);
-//        jrMontanha.setEnabled(false);
-//        jrAgua.setEnabled(false);
-    }
+    
 
     //Atualizar o tabuleiro principal
     @Override

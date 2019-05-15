@@ -10,14 +10,15 @@ import Builder.ConstruirPadrão2;
 import Builder.CriadorDeTabuleiro;
 import Observer.Observador;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+//Professor disse que pode ficar
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+
 import model.Agua;
 import model.Flor;
 import model.FlorAmarela;
@@ -364,7 +365,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     obs.notificarTabuleiroAlterado();
                 }
             }
-            verificarFloracao();
         }
 
         if (estadoJogo.equals("SeniorEscolhe")) {
@@ -407,7 +407,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     obs.notificarTabuleiroAlterado();
                 }
             }
-            verificarFloracao();
         }
 
         if (estadoJogo.equals("JuniorMovePecas")) {
@@ -423,7 +422,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         }
 
         if (estadoJogo.equals("SeniorEscolheEscuro")) {
-            if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class) {
+            if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class) {
                 tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
                 indiceMensagens = 0;
                 estadoJogo = "EscolherFlores";
@@ -434,13 +433,17 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 if (verificarTamanhoDeck() == 0) {
                     trocarJogadorDaVez();
                 }
-                verificarPontuação();
                 for (Observador obs : observadores) {
                     obs.notificarTabuleiroAlterado();
                 }
+                verificarFloracao();
+                temLinhaHorVer4=true;
+                verificarPontuação();
+                verificarVencedor();
             }
+            
         }
-        verificarVencedor();
+        
 
     }
 
@@ -463,7 +466,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             }
         } else {
         }
-        verificarFloracao();
     }
 
     //Getters e Setters
@@ -796,9 +798,12 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     }
 
     private void verificarLinhaHori(int coluna, int linha) {
-        while (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna + 1][linha].getClass()) {
-            formacaoDeFlores.add(tabuleiroGerenciador[coluna][linha]);
-            coluna++;
+        try {
+            while (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna + 1][linha].getClass()) {
+                formacaoDeFlores.add(tabuleiroGerenciador[coluna][linha]);
+                coluna++;
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
         }
         if (formacaoDeFlores.size() == 4) {
             temLinhaHorVer4 = true;
@@ -809,12 +814,16 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     }
 
     private void verificarLinhaVert(int coluna, int linha) {
+        try {
+            while (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna][linha + 1].getClass()) {
+                formacaoDeFlores.add(tabuleiroGerenciador[coluna][linha]);
+                linha++;
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
 
-        while (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna][linha + 1].getClass()) {
-            formacaoDeFlores.add(tabuleiroGerenciador[coluna][linha]);
-            linha++;
         }
-        System.out.println("quantidade na formação:" + formacaoDeFlores.size());
+        
+        System.out.println("quantidade na formação:" + formacaoDeFlores.size());                
         if (formacaoDeFlores.size() == 4) {
             temLinhaHorVer4 = true;
         } else if (formacaoDeFlores.size() == 5) {
@@ -824,11 +833,17 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     }
 
     private void verificarLinhaDiag(int coluna, int linha) {
-        while (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna + 1][linha + 1].getClass()) {
-            formacaoDeFlores.add(tabuleiroGerenciador[coluna][linha]);
-            coluna++;
-            linha++;
+        
+        try {
+            while (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna + 1][linha + 1].getClass()) {
+                formacaoDeFlores.add(tabuleiroGerenciador[coluna][linha]);
+                coluna++;
+                linha++;
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
         }
+
+        
         if (formacaoDeFlores.size() == 4) {
             temLinhaHorVer4 = true;
         } else if (formacaoDeFlores.size() == 5) {
@@ -836,70 +851,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         }
         formacaoDeFlores.clear();
 
-//        // verifica diagonal central direita
-//        int cont = 0;
-//        for (int i = 0; i < 5; i++) {
-//            if (tabuleiroGerenciador[i][i].getClass() == tabuleiroGerenciador[coluna][linha].getClass()) {
-//                cont++;
-//            }
-//        }
-//        if (cont == 3) {
-//            temLinhaDia4 = true;
-//        } else if (cont == 4) {
-//            temLinha5 = true;
-//        }
-//        //verifica a diagonal central esquerda
-//        cont = 0;
-//        for (int i = 0; i < 5; i++) {
-//            if (tabuleiroGerenciador[4 - i][i].getClass() == tabuleiroGerenciador[coluna][linha].getClass()) {
-//                cont++;
-//            }
-//        }
-//        if (cont == 3) {
-//            temLinhaDia4 = true;
-//        } else if (cont == 4) {
-//            temLinha5 = true;
-//        }
-//        // diagonal direita de baixo
-//        cont = 0;
-//        for (int i = 1; i < 5; i++) {
-//            if (tabuleiroGerenciador[4 - i][i].getClass() == tabuleiroGerenciador[coluna][linha].getClass()) {
-//                cont++;
-//            }
-//        }
-//        if (cont == 3) {
-//            temLinhaDia4 = true;
-//        }
-//        //verifica a diagonal esquerda de baixo
-//        cont = 0;
-//        for (int i = 1; i < 5; i++) {
-//            if (tabuleiroGerenciador[i][i - 1].getClass() == tabuleiroGerenciador[coluna][linha].getClass()) {
-//                cont++;
-//            }
-//        }
-//        if (cont == 3) {
-//            temLinhaDia4 = true;
-//        }
-//        //verifica a diagonal esquerda de  cima
-//        cont = 0;
-//        for (int i = 0; i < 4; i++) {
-//            if (tabuleiroGerenciador[3 - i][i].getClass() == tabuleiroGerenciador[coluna][linha].getClass()) {
-//                cont++;
-//            }
-//        }
-//        if (cont == 3) {
-//            temLinhaDia4 = true;
-//        }
-//        //verifica a diagonal direita de cima
-//        cont = 0;
-//        for (int i = 0; i < 4; i++) {
-//            if (tabuleiroGerenciador[i + 1][i].getClass() == tabuleiroGerenciador[coluna][linha].getClass()) {
-//                cont++;
-//            }
-//        }
-//        if (cont == 3) {
-//            temLinhaDia4 = true;
-//        }
+
     }
 
     private void verificarPontuação() {
@@ -943,21 +895,22 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     @Override
     public void novaRodada() {
-        getJogador1().setFlores(null);
-        getJogador2().setFlores(null);
-        getJogador1().setMao(null);
-        getJogador2().setMao(null);
+        try {
+            jogador1.setFlores(inicializarFlores(jogador1.getFlores(), jogador1));
+            jogador2.setFlores(inicializarFlores(jogador2.getFlores(), jogador2));
+        } catch (Exception ex) {
+            Logger.getLogger(GerenciadorJogoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jogador1.getMao().clear();
+        jogador2.getMao().clear();
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 tabuleiroGerenciador[i][j] = null;
             }
         }
-        fluxoJogo();
-        setJogadorDaVez(getJogador1());
+        recomecarComJogador1();
         try {
-            getJogador1().setFlores(inicializarFlores(getJogador1().getFlores(), getJogador1()));
-            getJogador2().setFlores(inicializarFlores(getJogador2().getFlores(), getJogador2()));
-            inicializarTabuleiro(0);
+            inicializarTabuleiro(0); // Arrumar
         } catch (Exception ex) {
             Logger.getLogger(GerenciadorJogoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -977,7 +930,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     }
 
     public void sucide() {
-
+        instance = null;
     }
 
 }
