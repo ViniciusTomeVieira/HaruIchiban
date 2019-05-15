@@ -418,7 +418,21 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         }
 
         if (estadoJogo.equals("SeniorEscolheEscuro")) {
+            if(sapo !=  null){
+                if(tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class){
+                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = sapo;
+                    sapo = null;
+                }
+            }
             if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class) {
+                if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class) {
+                    sapo = tabuleiroGerenciador[columnAtPoint][rowAtPoint];
+                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
+                    indiceMensagens = 6;
+                    for (Observador obs : observadores) {
+                        obs.notificarTabuleiroAlterado();
+                    }
+                }else{
                 tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
                 indiceMensagens = 0;
                 estadoJogo = "EscolherFlores";
@@ -436,6 +450,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 temLinhaHorVer4=true;
                 verificarPontuação();
                 verificarVencedor();
+                }
             }
             
         }
