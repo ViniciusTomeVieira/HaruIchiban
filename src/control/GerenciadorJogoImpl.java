@@ -57,6 +57,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private String mensagemErro;
     private boolean terminouMoverNenufar;
     private int contadorFloresMao;
+    private boolean sapoInserido = false;
 
     //Metodos de mover pecas
     private List<Peca> nenufaresParaRealocar = new ArrayList<>();
@@ -72,7 +73,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private boolean temQuadrado, temLinhaHorVer4, temLinhaDia4, temLinha5 = false;
     private List<Peca> formacaoDeFlores = new ArrayList<>();
     private int indexOfPontuacao;
-    
+
     //Abstract Factory
     private FabricaJogador fabricaJogador;
 
@@ -105,9 +106,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         }
         return instance;
     }
-    
+
     @Override
-    public void inicializarJogadores(){
+    public void inicializarJogadores() {
         fabricaJogador = new FabricaNormal();
         jogador1 = fabricaJogador.criarJogador(jogador1);
         jogador2 = fabricaJogador.criarJogador(jogador2);
@@ -239,21 +240,26 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         if (estadoJogo.equals("EscolherFlores")) {
             Flor cartaEscolhida = florDaVez[col][row];
             if (maoDaVez.size() < 3 && verificarTamanhoDeck() > 0) {
-                enviarCartaParaMao(cartaEscolhida);
-                florDaVez[col][row] = null;
-                jogadorDaVez.setMao(maoDaVez);
-                jogadorDaVez.setFlores(florDaVez);
-                if (maoDaVez.size() == 3) {
-                    trocarJogadorDaVez();
+                if (florDaVez[col][row] != null) {
+                    enviarCartaParaMao(cartaEscolhida);
+                    florDaVez[col][row] = null;
+                    jogadorDaVez.setMao(maoDaVez);
+                    jogadorDaVez.setFlores(florDaVez);
+                    if (maoDaVez.size() == 3) {
+                        trocarJogadorDaVez();
+                    }
+                    for (Observador obs : observadores) {
+                        obs.notificarFlorEscolhida();
+                    }
                 }
             } else {
                 trocarJogadorDaVez();
+                for (Observador obs : observadores) {
+                    obs.notificarFlorEscolhida();
+                }
             }
         }
 
-        for (Observador obs : observadores) {
-            obs.notificarFlorEscolhida();
-        }
     }
 
     private void enviarCartaParaMao(Flor cartaEscolhida) {
@@ -263,7 +269,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private void trocarJogadorDaVez() {
 
         if (estadoJogo.equals("JuniorEscuro")) {
-            if (jogador1.getClass() == JogadorJunior.class) { 
+            if (jogador1.getClass() == JogadorJunior.class) {
                 jogadorDaVez = jogador1;
                 maoDaVez = jogador1.getMao();
                 florDaVez = jogador1.getFlores();
@@ -329,36 +335,31 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             trocarJogadorDaVez();
             indiceMensagens = 3;
             for (Observador obs : observadores) {
-            obs.notificarJuniorSenior();
-        }
+                obs.notificarJuniorSenior();
+            }
         } else if (jogador1.getFlorEscolhida().getNumero() > jogador2.getFlorEscolhida().getNumero()) {
             fabricaJogador = new FabricaSenior();
             jogador1 = fabricaJogador.criarJogador(jogador1);
             fabricaJogador = new FabricaJunior();
             jogador2 = fabricaJogador.criarJogador(jogador2);
             jogador1.setJuniorSenior("Senior");
-            jogador2.setJuniorSenior("Junior");           
+            jogador2.setJuniorSenior("Junior");
             jogador1.getMao().remove(jogador1.getFlorEscolhida());
             jogador2.getMao().remove(jogador2.getFlorEscolhida());
             estadoJogo = "JuniorEscuro";
             trocarJogadorDaVez();
             indiceMensagens = 3;
             for (Observador obs : observadores) {
-            obs.notificarJuniorSenior();
-        }
+                obs.notificarJuniorSenior();
+            }
         } else { //Empate
-            for(Observador obs: observadores){
+            for (Observador obs : observadores) {
                 obs.notificarEmpateComparacao();
             }
             estadoJogo = "JogarFlor";
         }
 
-        
-
-
     }
-
-  
 
     @Override
     public void clicouNoTabuleiro(int rowAtPoint, int columnAtPoint) {
@@ -437,7 +438,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             if (sapo != null) {
                 if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class) {
                     tabuleiroGerenciador[columnAtPoint][rowAtPoint] = sapo;
-                    sapo = null;
+                    sapoInserido = true;
                 }
             }
             if ((tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class)) {
@@ -451,9 +452,11 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 }
                 if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class) {
                     tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
+                    sapoInserido = true;
                 }
-                if (sapo == null) {
+                if (sapoInserido) {
                     sapo = null;
+                    sapoInserido = false;
                     indiceMensagens = 0;
                     estadoJogo = "EscolherFlores";
                     recomecarComJogador1();
@@ -467,7 +470,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                         obs.notificarTabuleiroAlterado();
                     }
                     verificarFloracao();
-                    temLinhaHorVer4 = true;
                     verificarPontuação();
                     verificarVencedor();
 
@@ -853,8 +855,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         } catch (ArrayIndexOutOfBoundsException ex) {
 
         }
-        
-        System.out.println("quantidade na formação:" + formacaoDeFlores.size());                
+
+        System.out.println("quantidade na formação:" + formacaoDeFlores.size());
         if (formacaoDeFlores.size() == 4) {
             temLinhaHorVer4 = true;
         } else if (formacaoDeFlores.size() == 5) {
@@ -864,7 +866,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     }
 
     private void verificarLinhaDiag(int coluna, int linha) {
-        
+
         try {
             while (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna + 1][linha + 1].getClass()) {
                 formacaoDeFlores.add(tabuleiroGerenciador[coluna][linha]);
@@ -874,14 +876,12 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         } catch (ArrayIndexOutOfBoundsException ex) {
         }
 
-        
         if (formacaoDeFlores.size() == 4) {
             temLinhaHorVer4 = true;
         } else if (formacaoDeFlores.size() == 5) {
             temLinha5 = true;
         }
         formacaoDeFlores.clear();
-
 
     }
 
@@ -959,7 +959,5 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         }
         return qtd;
     }
-
-   
 
 }
