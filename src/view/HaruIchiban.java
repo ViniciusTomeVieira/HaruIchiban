@@ -53,8 +53,6 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     private JTextArea jtaCarta1;
     private JTextArea jtaCarta2;
     private JTextArea jtaCarta3;
-    
-
 
     //Layouts
     private GridBagLayout layout;
@@ -67,14 +65,13 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     private JTable Tbtabuleiro;
     private JTable TbFlores;
     private JTable TbMao;
-    
+
     //Placar
     private JLabel jlPlacar;
-    
+
     //Command
     private final CommandInvoker invk = new CommandInvoker();
 
-    
 //Notificadores    
     @Override
     public void notificarFlorEscolhida() {
@@ -83,19 +80,14 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     @Override
     public void notificarJogadorDaVezAlterado() {
-            repaint();
-//        try {
-//            Thread.sleep(500);
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(HaruIchiban.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    
+        repaint();
+
         jtaMensagem.setText(gerenciador.getJogadorDaVez().getNome() + gerenciador.getMensagemAtual());
     }
 
     @Override
     public void notificarJuniorSenior() {
-        JOptionPane.showMessageDialog(rootPane, "Jogador 1: "+ gerenciador.getJogador1().getJuniorSenior()+"\n Jogador 2: "+ gerenciador.getJogador2().getJuniorSenior());
+        JOptionPane.showMessageDialog(rootPane, "Jogador 1: " + gerenciador.getJogador1().getJuniorSenior() + "\n Jogador 2: " + gerenciador.getJogador2().getJuniorSenior());
         jtaMensagem.setText(gerenciador.getJogadorDaVez().getNome() + gerenciador.getMensagemAtual());
 
     }
@@ -120,11 +112,11 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     @Override
     public void notificarRodadaEncerado() {
-        JOptionPane.showMessageDialog(rootPane,"Rodada encerrada");
+        JOptionPane.showMessageDialog(rootPane, "Rodada encerrada");
         jlPlacar.setText(gerenciador.getJogador1().getPontuacao() + " x " + gerenciador.getJogador2().getPontuacao());
         gerenciador.novaRodada();
         repaint();
-        
+
     }
 
     @Override
@@ -136,7 +128,6 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     public void notificarEmpateComparacao() {
         JOptionPane.showMessageDialog(rootPane, "Empate!!!");
     }
-
 
     // Modelo de tabela visual do tabuleiro
     class TabuleiroTableModel extends AbstractTableModel {
@@ -222,6 +213,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         }
 
     }
+
     // Modelo de tabela visual das cartas do jogador
     class MaoTableModel extends AbstractTableModel {
 
@@ -231,8 +223,6 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         public int getColumnCount() {
             return 2;
         }
-        
-        
 
         @Override
         public int getRowCount() {
@@ -288,8 +278,6 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         this.gerenciador.setFlorDaVez(gerenciador.getJogador1().getFlores());
         this.gerenciador.setMaoDaVez(gerenciador.getJogador1().getMao());
 
-
-
         //Configura a view
         setTitle("HaruIchiban");
         setBounds(200, 200, 900, 100);
@@ -298,7 +286,6 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         setResizable(false);
         getContentPane().setLayout(new BorderLayout());
 
-       
         initComponents();
         pack();
 
@@ -341,9 +328,9 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         Tbtabuleiro.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-               invk.add(new ClicouNoTabuleiroCommand(gerenciador ,Tbtabuleiro.rowAtPoint(e.getPoint()), Tbtabuleiro.columnAtPoint(e.getPoint())));
-               invk.execute(Tbtabuleiro.rowAtPoint(e.getPoint()), Tbtabuleiro.columnAtPoint(e.getPoint()));
-            }   
+                invk.add(new ClicouNoTabuleiroCommand(gerenciador, Tbtabuleiro.rowAtPoint(e.getPoint()), Tbtabuleiro.columnAtPoint(e.getPoint())));
+                invk.execute(Tbtabuleiro.rowAtPoint(e.getPoint()), Tbtabuleiro.columnAtPoint(e.getPoint()));
+            }
 
         });
 
@@ -361,7 +348,6 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
                 }
             }
         };
-        
 
         // criar mão do jogador       
         // criar os botoes de radio / ToDo: criar a parte das cartas do usuario
@@ -382,9 +368,6 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         JPanel panelEsquerda = new JPanel();
         panelEsquerda.setLayout(layout);
 
-
-
-
         TbMao = new JTable();
         TbMao.setModel(new MaoTableModel());
         for (int x = 0; x < TbMao.getColumnModel().getColumnCount(); x++) {
@@ -398,29 +381,26 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         TbMao.setIntercellSpacing(new Dimension(0, 0));
         TbMao.setDefaultRenderer(Object.class, new MaoRenderer());
         TbMao.setOpaque(false);
-        ((MaoRenderer)TbMao.getDefaultRenderer(Object.class)).setOpaque(false);
+        ((MaoRenderer) TbMao.getDefaultRenderer(Object.class)).setOpaque(false);
         TbMao.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                invk.add(new EscolherFloresParaJogarCommand(gerenciador ,TbMao.rowAtPoint(e.getPoint()), TbMao.columnAtPoint(e.getPoint())));
-               invk.execute(TbMao.rowAtPoint(e.getPoint()), TbMao.columnAtPoint(e.getPoint()));
+                invk.add(new EscolherFloresParaJogarCommand(gerenciador, TbMao.rowAtPoint(e.getPoint()), TbMao.columnAtPoint(e.getPoint())));
+                invk.execute(TbMao.rowAtPoint(e.getPoint()), TbMao.columnAtPoint(e.getPoint()));
 
             }
 
         });
 
         //Cria a panel da mao do jogador
-         constraints.gridx = 0;
+        constraints.gridx = 0;
         constraints.gridy = 1;
-        panelEsquerda.add(TbMao,constraints);
+        panelEsquerda.add(TbMao, constraints);
 
         // Faz a adição das cartas na mão do jogador
-
-
         //Criação da panel da direita
         JPanel panelDireita = new JPanel();
         panelDireita.setLayout(layout);
-
 
         //Criação do placar
         JPanel jpPlacar = new JPanel();
@@ -431,7 +411,6 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         //Adiciona o placar no painel do placar
         jpPlacar.add(jlPlacar);
 
-       
         //Table de flores do lado direito
         TbFlores = new JTable();
         TbFlores.setModel(new FloresTableModel());
@@ -444,16 +423,16 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         TbFlores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         TbFlores.setShowGrid(false);
         TbFlores.setIntercellSpacing(new Dimension(0, 0));
-        
+
         TbFlores.setDefaultRenderer(Object.class, new FloresRenderer());
         TbFlores.setOpaque(false);
-        ((FloresRenderer)TbFlores.getDefaultRenderer(Object.class)).setOpaque(false);
+        ((FloresRenderer) TbFlores.getDefaultRenderer(Object.class)).setOpaque(false);
         TbFlores.setGridColor(Color.red);
         TbFlores.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-               invk.add(new EscolherFloresDeckCommand(gerenciador ,TbFlores.rowAtPoint(e.getPoint()), TbFlores.columnAtPoint(e.getPoint())));
-               invk.execute(TbFlores.rowAtPoint(e.getPoint()), TbFlores.columnAtPoint(e.getPoint()));
+                invk.add(new EscolherFloresDeckCommand(gerenciador, TbFlores.rowAtPoint(e.getPoint()), TbFlores.columnAtPoint(e.getPoint())));
+                invk.execute(TbFlores.rowAtPoint(e.getPoint()), TbFlores.columnAtPoint(e.getPoint()));
             }
 
         });
@@ -479,7 +458,6 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         constraints.gridy = 0;
         panelEsquerda.add(jpMensagem, constraints);
 
-
         //Adiciona o painel da esquerda na esquerda da tela
         add("West", panelEsquerda);
         //Adiciona o painel da direita na direita da tela
@@ -497,8 +475,6 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         }
 
     }
-
-    
 
     //Atualizar o tabuleiro principal
     @Override
@@ -523,9 +499,5 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         JOptionPane.showMessageDialog(null, msgErro);
         System.exit(0);
     }
-
-    
-    
-    
 
 }
