@@ -16,7 +16,7 @@ import model.SapoRosa;
  *
  * @author Adroan
  */
-public class ConstruirPadrão2 extends CriadorDeTabuleiro {
+public class ConstruirPadrao2 extends CriadorDeTabuleiro {
 
     @Override
     public void construirTabuleiro(Peca[][] tabuleiro) {

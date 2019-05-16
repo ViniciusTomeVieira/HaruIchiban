@@ -11,8 +11,8 @@ import AbstractFactory.FabricaNormal;
 import AbstractFactory.FabricaSenior;
 import AbstractFactory.Jogador;
 import AbstractFactory.JogadorJunior;
-import Builder.ConstruirPadrão;
-import Builder.ConstruirPadrão2;
+import Builder.ConstruirPadrao;
+import Builder.ConstruirPadrao2;
 import Builder.CriadorDeTabuleiro;
 import Observer.Observador;
 import java.util.ArrayList;
@@ -29,7 +29,6 @@ import model.Agua;
 import model.Flor;
 import model.FlorAmarela;
 import model.FlorRosa;
-import model.JogadorModel;
 import model.NenufarClaro;
 import model.NenufarClaroComFlorAmarela;
 import model.NenufarClaroComFlorRosa;
@@ -132,13 +131,13 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
         switch (opcao) {
             case 0:
-                builder = new ConstruirPadrão();
+                builder = new ConstruirPadrao();
                 break;
             case 1:
-                builder = new ConstruirPadrão2();
+                builder = new ConstruirPadrao2();
                 break;
             default:
-                builder = new ConstruirPadrão();
+                builder = new ConstruirPadrao();
         }
 
         DiretorBuilder dr1 = new DiretorBuilder(builder);
