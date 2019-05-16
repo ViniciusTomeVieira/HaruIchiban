@@ -452,7 +452,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class) {
                     tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
                 }
-                if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarEscuro.class ||tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class ) {
+                if (sapo == null) {
                     sapo = null;
                     indiceMensagens = 0;
                     estadoJogo = "EscolherFlores";
