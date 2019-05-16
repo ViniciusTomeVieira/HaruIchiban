@@ -434,42 +434,46 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         }
 
         if (estadoJogo.equals("SeniorEscolheEscuro")) {
-            if(sapo !=  null){
-                if(tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class){
+            if (sapo != null) {
+                if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class) {
                     tabuleiroGerenciador[columnAtPoint][rowAtPoint] = sapo;
                 }
             }
             if ((tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class)) {
-                if ((tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class)  && sapo == null) {
-                    sapo = tabuleiroGerenciador[columnAtPoint][rowAtPoint];                   
+                if ((tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class) && sapo == null) {
+                    sapo = tabuleiroGerenciador[columnAtPoint][rowAtPoint];
                     tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
                     indiceMensagens = 6;
                     for (Observador obs : observadores) {
                         obs.notificarTabuleiroAlterado();
                     }
-                }else{
-                sapo = null;                
-                indiceMensagens = 0;
-                estadoJogo = "EscolherFlores";
-                recomecarComJogador1();
-                if (verificarTamanhoDeck() == 0) {
-                    trocarJogadorDaVez();
                 }
-                if (verificarTamanhoDeck() == 0) {
-                    trocarJogadorDaVez();
+                if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class) {
+                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
                 }
-                for (Observador obs : observadores) {
-                    obs.notificarTabuleiroAlterado();
+                if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarEscuro.class && sapo == null) {
+                    sapo = null;
+                    indiceMensagens = 0;
+                    estadoJogo = "EscolherFlores";
+                    recomecarComJogador1();
+                    if (verificarTamanhoDeck() == 0) {
+                        trocarJogadorDaVez();
+                    }
+                    if (verificarTamanhoDeck() == 0) {
+                        trocarJogadorDaVez();
+                    }
+                    for (Observador obs : observadores) {
+                        obs.notificarTabuleiroAlterado();
+                    }
+                    verificarFloracao();
+                    temLinhaHorVer4 = true;
+                    verificarPontuação();
+                    verificarVencedor();
+
                 }
-                verificarFloracao();
-                temLinhaHorVer4=true;
-                verificarPontuação();
-                verificarVencedor();
-                }
+
             }
-            
         }
-        
 
     }
 
