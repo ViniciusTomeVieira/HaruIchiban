@@ -234,7 +234,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
             try {
 
                 if (gerenciador.getFlorMao(col, row) == null) {
-                    System.out.println("Ta nulo essa caralhas");
+                  
                 }
                 return gerenciador.getFlorMao(col, row);
             } catch (Exception e) {
@@ -266,14 +266,14 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         //Inicia gerenciador e faz algumas operações
         this.gerenciador = GerenciadorJogoImpl.getInstance();
         this.gerenciador.inicializarTabuleiro(JOptionPane.showOptionDialog(rootPane, "Escolha a forma do tabuleiro", "FORMA DO TABULEIRO", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getOpcoesDeTabuleiro(), null)); // Vai mudar e receber novas formas de inicio(Builder)       
-        gerenciador.inicializarJogadores();
-        gerenciador.setCorDasFlores(JOptionPane.showOptionDialog(rootPane, "Jogador 1: escolha sua cor", "Escolha de cor", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getOpcoesDeFlor(), null));
-        gerenciador.fluxoJogo();
-        gerenciador.setJogadorDaVez(gerenciador.getJogador1());
+        this.gerenciador.inicializarJogadores();
+        this.gerenciador.setCorDasFlores(JOptionPane.showOptionDialog(rootPane, "Jogador 1: escolha sua cor", "Escolha de cor", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getOpcoesDeFlor(), null));
+        this.gerenciador.fluxoJogo();
+        this.gerenciador.setJogadorDaVez(gerenciador.getJogador1());
         this.gerenciador.getJogador1().setNome("Jogador 1");
         this.gerenciador.getJogador2().setNome("Jogador 2");
-        gerenciador.getJogador1().setFlores(this.gerenciador.inicializarFlores(gerenciador.getJogador1().getFlores(), gerenciador.getJogador1()));
-        gerenciador.getJogador2().setFlores(this.gerenciador.inicializarFlores(gerenciador.getJogador2().getFlores(), gerenciador.getJogador2()));
+        this.gerenciador.getJogador1().setFlores(this.gerenciador.inicializarFlores(gerenciador.getJogador1().getFlores(), gerenciador.getJogador1()));
+        this.gerenciador.getJogador2().setFlores(this.gerenciador.inicializarFlores(gerenciador.getJogador2().getFlores(), gerenciador.getJogador2()));
         this.gerenciador.addObservador(this);
         this.gerenciador.setFlorDaVez(gerenciador.getJogador1().getFlores());
         this.gerenciador.setMaoDaVez(gerenciador.getJogador1().getMao());
