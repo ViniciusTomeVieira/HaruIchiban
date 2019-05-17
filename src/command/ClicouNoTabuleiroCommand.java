@@ -11,7 +11,9 @@ import control.GerenciadorJogo;
 
 /**
  *
- * @author Jogos
+ * @author Vinicius Tome Vieira e Adroan Heinen
+ * @since 01/05/2019
+ * @version 1.0
  */
 public class ClicouNoTabuleiroCommand extends Command{
 

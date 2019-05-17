@@ -7,7 +7,9 @@ package model;
 
 /**
  *
- * @author Adroan
+ * @author Vinicius Tome Vieira e Adroan Heinen
+ * @since 01/05/2019
+ * @version 1.0
  */
 public class Tabuleiro {
    private Peca[][] tabuleiro = new Peca[5][5];

@@ -34,6 +34,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
 
+/**
+ *
+ * @author Vinicius Tome Vieira e Adroan Heinen
+ * @since 01/05/2019
+ * @version 1.0
+ */
 public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     private static final long serialVersionUID = 1L;

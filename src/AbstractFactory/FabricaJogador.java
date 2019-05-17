@@ -5,13 +5,14 @@
  */
 package AbstractFactory;
 
-import java.util.List;
-import model.Flor;
+
 
 
 /**
  *
- * @author Adroan
+ * @author Vinicius Tome Vieira e Adroan Heinen
+ * @since 01/05/2019
+ * @version 1.0
  */
 public abstract class FabricaJogador {
     public abstract Jogador criarJogador(Jogador Jogador);

@@ -6,14 +6,16 @@
 package AbstractFactory;
 
 import java.util.ArrayList;
-import java.util.List;
+
 import model.Flor;
-import model.FlorAmarela;
+
 
 
 /**
  *
- * @author Adroan
+ * @author Vinicius Tome Vieira e Adroan Heinen
+ * @since 01/05/2019
+ * @version 1.0
  */
 public class FabricaNormal extends FabricaJogador{
 
