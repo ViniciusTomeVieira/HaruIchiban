@@ -26,9 +26,10 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import model.Agua;
-import model.Flor;
-import model.FlorAmarela;
-import model.FlorRosa;
+import decorator.Flor;
+import decorator.FlorAmarela;
+import decorator.FlorBase;
+import decorator.FlorRosa;
 import model.NenufarClaro;
 import model.NenufarClaroComFlorAmarela;
 import model.NenufarClaroComFlorRosa;
@@ -161,10 +162,18 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     if (numerosSorteados.contains(numero + "")) {
                     } else {
                         if (jogador.getCorDaFlor().equals("Rosa")) {
-                            floresJogador[i][j] = new FlorRosa(numero + 1);
+                            Flor flor = new FlorRosa(new FlorBase());
+                            flor.setNumero(numero + 1);    
+                            flor.selecionarImagem();
+                            floresJogador[i][j] = new FlorRosa(flor);                            
+                            //floresJogador[i][j] = new FlorRosa(numero + 1);
                             System.out.println("Flor inserida no deck do :" + jogador.getNome() + " " + (floresJogador[i][j].getNumero()));
                         } else {
-                            floresJogador[i][j] = new FlorAmarela(numero + 1);
+                            Flor flor = new FlorAmarela(new FlorBase());
+                            flor.setNumero(numero + 1);    
+                            flor.selecionarImagem();
+                            floresJogador[i][j] = new FlorRosa(flor); 
+                            //floresJogador[i][j] = new FlorAmarela(numero + 1);
                             System.out.println("Flor inserida no deck do :" + jogador.getNome() + " " + (floresJogador[i][j].getNumero()));
                         }
                         numerosSorteados.add(numero + "");

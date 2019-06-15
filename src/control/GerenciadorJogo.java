@@ -9,7 +9,7 @@ import AbstractFactory.Jogador;
 import Observer.Observador;
 import java.util.List;
 import javax.swing.Icon;
-import model.Flor;
+import decorator.Flor;
 import model.Peca;
 
 /**
