@@ -15,11 +15,13 @@ import javax.swing.ImageIcon;
  * @since 01/05/2019
  * @version 1.0
  */
-public class SapoRosa extends Sapo{
-    
-    public SapoRosa() {
-        super();
+public class SapoRosa extends SapoDecorator{
+
+    public SapoRosa(Sapo sapo) {
+        super(sapo);
     }
+    
+    
     
     public void selecionarImageSapo(){
         super.selecionarImagemSapo(new ImageIcon("imagens/sapoRosa.png"));

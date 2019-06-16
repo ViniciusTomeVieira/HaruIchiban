@@ -10,6 +10,7 @@ import decorator.nenufares.NenufarClaro;
 import decorator.nenufares.NenufarEscuro;
 import model.Peca;
 import decorator.sapos.SapoAmarelo;
+import decorator.sapos.SapoBase;
 import decorator.sapos.SapoRosa;
 
 /**
@@ -22,6 +23,7 @@ public class ConstruirPadrao extends CriadorDeTabuleiro {
 
     @Override
     public void construirTabuleiro(Peca[][] tabuleiro) {
+        SapoBase sapoBase = new SapoBase();
         tabuleiro[0][0] = new NenufarClaro();
         tabuleiro[0][1] = new Agua();
         tabuleiro[0][2] = new NenufarClaro();
@@ -29,7 +31,7 @@ public class ConstruirPadrao extends CriadorDeTabuleiro {
         tabuleiro[0][4] = new NenufarClaro();
 
         tabuleiro[1][0] = new Agua();
-        tabuleiro[1][1] = new SapoRosa();
+        tabuleiro[1][1] = new SapoRosa(sapoBase);
         tabuleiro[1][2] = new NenufarClaro();
         tabuleiro[1][3] = new NenufarEscuro(); // Aleatorio?
         tabuleiro[1][4] = new Agua();
@@ -37,7 +39,7 @@ public class ConstruirPadrao extends CriadorDeTabuleiro {
         tabuleiro[2][0] = new NenufarClaro();
         tabuleiro[2][1] = new NenufarClaro();
         tabuleiro[2][2] = new Agua();
-        tabuleiro[2][3] = new SapoAmarelo();
+        tabuleiro[2][3] = new SapoAmarelo(sapoBase);
         tabuleiro[2][4] = new NenufarClaro();
 
         tabuleiro[3][0] = new Agua();
