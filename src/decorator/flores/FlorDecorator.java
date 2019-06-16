@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package decorator;
+package decorator.flores;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -30,8 +30,8 @@ public abstract class FlorDecorator extends Flor{
     
 
     @Override
-    public void selecionarImagem(ImageIcon imageIcon) {
-        this.flor.selecionarImagem(imageIcon);
+    public void selecionarImagemFloc(ImageIcon imageIcon) {
+        this.flor.selecionarImagemFloc(imageIcon);
     }
     
     

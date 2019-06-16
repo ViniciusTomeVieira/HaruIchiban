@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package decorator.nenufares;
 
-
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
+import model.Peca;
 
 /**
  *
@@ -14,10 +14,12 @@ import javax.swing.ImageIcon;
  * @since 01/05/2019
  * @version 1.0
  */
-public class SapoAmarelo extends Sapo{
+public abstract class Nenufar extends Peca{
     
-    public SapoAmarelo() {
-        super(new ImageIcon("imagens/sapoAmarelo.jpg"));
+    public Nenufar(Icon imagem) {
+        super.setImagem(imagem);
     }
+    
+    
     
 }

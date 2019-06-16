@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package decorator.nenufares;
 
 
 import javax.swing.ImageIcon;
@@ -14,14 +14,10 @@ import javax.swing.ImageIcon;
  * @since 01/05/2019
  * @version 1.0
  */
-public class NenufarClaroComFlorAmarela extends Nenufar {
-
-    public NenufarClaroComFlorAmarela() {
-        super(new ImageIcon("imagens/nenufarClaroComFlorAmarela.jpg"));
+public class NenufarEscuroComFlorAmarela extends Nenufar{
+    
+    public NenufarEscuroComFlorAmarela() {
+        super(new ImageIcon("imagens/nenufarEscuroComFlorAmarela.jpg"));
     }
-
-   
-    
-    
     
 }

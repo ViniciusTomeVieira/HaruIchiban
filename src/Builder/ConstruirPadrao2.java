@@ -6,11 +6,11 @@
 package Builder;
 
 import model.Agua;
-import model.NenufarClaro;
-import model.NenufarEscuro;
+import decorator.nenufares.NenufarClaro;
+import decorator.nenufares.NenufarEscuro;
 import model.Peca;
-import model.SapoAmarelo;
-import model.SapoRosa;
+import decorator.sapos.SapoAmarelo;
+import decorator.sapos.SapoRosa;
 
 /**
  *

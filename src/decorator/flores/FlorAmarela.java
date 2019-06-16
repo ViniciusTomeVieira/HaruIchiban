@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package decorator;
+package decorator.flores;
 
 
-import decorator.Flor;
+import decorator.flores.Flor;
 import javax.swing.ImageIcon;
 
 /**
@@ -22,7 +22,7 @@ public class FlorAmarela extends FlorDecorator {
     }
 
     public void selecionarImagemFlor() {
-        super.selecionarImagem(new ImageIcon("imagens/florAmarela.png")); //To change body of generated methods, choose Tools | Templates.
+        super.selecionarImagemFloc(new ImageIcon("imagens/florAmarela.png")); //To change body of generated methods, choose Tools | Templates.
     }
     
   

@@ -26,19 +26,19 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import model.Agua;
-import decorator.Flor;
-import decorator.FlorAmarela;
-import decorator.FlorBase;
-import decorator.FlorRosa;
-import model.NenufarClaro;
-import model.NenufarClaroComFlorAmarela;
-import model.NenufarClaroComFlorRosa;
-import model.NenufarEscuro;
-import model.NenufarEscuroComFlorAmarela;
-import model.NenufarEscuroComFlorRosa;
+import decorator.flores.Flor;
+import decorator.flores.FlorAmarela;
+import decorator.flores.FlorBase;
+import decorator.flores.FlorRosa;
+import decorator.nenufares.NenufarClaro;
+import decorator.nenufares.NenufarClaroComFlorAmarela;
+import decorator.nenufares.NenufarClaroComFlorRosa;
+import decorator.nenufares.NenufarEscuro;
+import decorator.nenufares.NenufarEscuroComFlorAmarela;
+import decorator.nenufares.NenufarEscuroComFlorRosa;
 import model.Peca;
-import model.SapoAmarelo;
-import model.SapoRosa;
+import decorator.sapos.SapoAmarelo;
+import decorator.sapos.SapoRosa;
 import model.Tabuleiro;
 
 /**

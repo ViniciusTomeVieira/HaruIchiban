@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package decorator.sapos;
 
 
+import decorator.sapos.Sapo;
 import javax.swing.ImageIcon;
 
 /**
@@ -14,10 +15,10 @@ import javax.swing.ImageIcon;
  * @since 01/05/2019
  * @version 1.0
  */
-public class NenufarEscuroComFlorAmarela extends Nenufar{
+public class SapoRosa extends Sapo{
     
-    public NenufarEscuroComFlorAmarela() {
-        super(new ImageIcon("imagens/nenufarEscuroComFlorAmarela.jpg"));
+    public SapoRosa() {
+        super(new ImageIcon("imagens/sapoRosa.jpg"));
     }
     
 }

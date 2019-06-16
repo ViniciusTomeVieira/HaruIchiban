@@ -7,7 +7,7 @@ package AbstractFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import decorator.Flor;
+import decorator.flores.Flor;
 
 /**
  *

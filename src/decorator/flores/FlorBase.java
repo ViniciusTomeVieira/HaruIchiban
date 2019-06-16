@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package decorator;
+package decorator.flores;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package decorator;
+package decorator.flores;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -33,7 +33,7 @@ public abstract class Flor extends Peca {
     
     
 
-    public void selecionarImagem(ImageIcon imageIcon) {
+    public void selecionarImagemFloc(ImageIcon imageIcon) {
         this.setImagem(imageIcon);
     }
         
