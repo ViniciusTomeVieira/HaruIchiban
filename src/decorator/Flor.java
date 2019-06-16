@@ -6,6 +6,7 @@
 package decorator;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import model.Peca;
 
 /**
@@ -16,7 +17,7 @@ import model.Peca;
  */
 public abstract class Flor extends Peca {
     
-    protected int numero;
+    public int numero;
     
     public Flor() {
 
@@ -24,12 +25,17 @@ public abstract class Flor extends Peca {
     
     public void setNumero(int numero){
         this.numero = numero;
+        System.out.println("Numero setado: " + this.numero);
     }
     public int getNumero(){
         return this.numero;
     }
     
-    public abstract void selecionarImagem();
+    
+
+    public void selecionarImagem(ImageIcon imageIcon) {
+        this.setImagem(imageIcon);
+    }
         
     
 

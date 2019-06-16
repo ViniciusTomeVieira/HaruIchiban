@@ -21,10 +21,14 @@ public class FlorRosa extends FlorDecorator {
         super(flor);
     }
 
-    @Override
-    public void selecionarImagem() {
-        super.setImagem(new ImageIcon("imagens/florRosa.png"));
+    public void selecionarImagemFlor() {
+        super.selecionarImagem(new ImageIcon("imagens/florRosa.png")); //To change body of generated methods, choose Tools | Templates.
     }
+
+ 
+    
+
+    
     
     
 

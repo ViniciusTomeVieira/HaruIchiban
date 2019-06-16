@@ -13,15 +13,15 @@ import javax.swing.ImageIcon;
  * @author vinny
  */
 public class FlorBase extends Flor {
-     protected int numero;
-    
-   
 
-    public int getNumero() {
-        return numero;
-    }
+
 
     @Override
+    public void setNumero(int numero) {
+        super.setNumero(numero); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
     public void selecionarImagem() {
         super.setImagem(new ImageIcon("imagens/florAmarela.png"));
     }

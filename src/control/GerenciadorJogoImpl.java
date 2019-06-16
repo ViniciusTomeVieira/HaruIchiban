@@ -162,17 +162,18 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     if (numerosSorteados.contains(numero + "")) {
                     } else {
                         if (jogador.getCorDaFlor().equals("Rosa")) {
-                            Flor flor = new FlorRosa(new FlorBase());
-                            flor.setNumero(numero + 1);    
-                            flor.selecionarImagem();
-                            floresJogador[i][j] = new FlorRosa(flor);                            
-                            //floresJogador[i][j] = new FlorRosa(numero + 1);
+                            Flor florBase = new FlorBase();
+                            FlorRosa florRosa = new FlorRosa(florBase);                          
+                            florRosa.selecionarImagemFlor();
+                            florRosa.setNumero(numero + 1);
+                            floresJogador[i][j] = florBase;                            
                             System.out.println("Flor inserida no deck do :" + jogador.getNome() + " " + (floresJogador[i][j].getNumero()));
                         } else {
-                            Flor flor = new FlorAmarela(new FlorBase());
-                            flor.setNumero(numero + 1);    
-                            flor.selecionarImagem();
-                            floresJogador[i][j] = new FlorRosa(flor); 
+                            Flor florBase = new FlorBase();
+                            FlorAmarela florAmarela = new FlorAmarela(florBase);
+                            florAmarela.setNumero(numero + 1);    
+                            florAmarela.selecionarImagemFlor();
+                            floresJogador[i][j] = florBase; 
                             //floresJogador[i][j] = new FlorAmarela(numero + 1);
                             System.out.println("Flor inserida no deck do :" + jogador.getNome() + " " + (floresJogador[i][j].getNumero()));
                         }

@@ -21,10 +21,8 @@ public class FlorAmarela extends FlorDecorator {
         super(flor);
     }
 
-    @Override
-    public void selecionarImagem() {
-        super.selecionarImagem(); //To change body of generated methods, choose Tools | Templates.
-        super.setImagem(new ImageIcon("imagens/florAmarela.png"));
+    public void selecionarImagemFlor() {
+        super.selecionarImagem(new ImageIcon("imagens/florAmarela.png")); //To change body of generated methods, choose Tools | Templates.
     }
     
   

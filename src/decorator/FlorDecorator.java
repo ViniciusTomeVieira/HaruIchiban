@@ -6,6 +6,7 @@
 package decorator;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -22,8 +23,15 @@ public abstract class FlorDecorator extends Flor{
     }
 
     @Override
-    public void selecionarImagem() {
-        this.flor.selecionarImagem();
+    public void setNumero(int numero) {
+        this.flor.setNumero(numero); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+
+    @Override
+    public void selecionarImagem(ImageIcon imageIcon) {
+        this.flor.selecionarImagem(imageIcon);
     }
     
     
