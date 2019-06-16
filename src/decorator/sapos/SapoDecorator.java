@@ -7,24 +7,22 @@ package decorator.sapos;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import model.Peca;
-
 
 /**
  *
- * @author Vinicius Tome Vieira e Adroan Heinen
- * @since 01/05/2019
- * @version 1.0
+ * @author vinny
  */
-public abstract class Sapo extends Peca {
+public abstract class SapoDecorator extends Sapo{
     
-    public Sapo() {
-        
+  private Sapo sapo;
+
+    public SapoDecorator(Sapo sapo) {
+        this.sapo = sapo;
     }
-    
-    public void selecionarImagemSapo(ImageIcon imagem){
-        this.setImagem(imagem);
+
+    @Override
+    public void selecionarImagemSapo(ImageIcon imagem) {
+        this.sapo.selecionarImagemSapo(imagem);
     }
-    
     
 }
