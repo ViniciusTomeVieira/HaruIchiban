@@ -6,6 +6,7 @@
 package decorator.nenufares;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import model.Peca;
 
 /**
@@ -15,9 +16,12 @@ import model.Peca;
  * @version 1.0
  */
 public abstract class Nenufar extends Peca{
+
+    public Nenufar() {
+    }
     
-    public Nenufar(Icon imagem) {
-        super.setImagem(imagem);
+    public void selecionarImagemNenufar(ImageIcon imagem){
+        this.setImagem(imagem);
     }
     
     

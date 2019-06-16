@@ -31,6 +31,8 @@ import decorator.flores.Flor;
 import decorator.flores.FlorAmarela;
 import decorator.flores.FlorBase;
 import decorator.flores.FlorRosa;
+import decorator.nenufares.Nenufar;
+import decorator.nenufares.NenufarBase;
 import decorator.nenufares.NenufarClaro;
 import decorator.nenufares.NenufarClaroComFlorAmarela;
 import decorator.nenufares.NenufarClaroComFlorRosa;
@@ -375,12 +377,13 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     @Override
     public void clicouNoTabuleiro(int rowAtPoint, int columnAtPoint) {
+        Nenufar nenufarBase = new NenufarBase();
         if (estadoJogo.equals("JuniorEscuro")) {
             if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarEscuro.class) {
-                if (jogadorDaVez.getCorDaFlor().equals("Rosa")) {
-                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuroComFlorRosa();
+                if (jogadorDaVez.getCorDaFlor().equals("Rosa")) {            
+                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuroComFlorRosa(nenufarBase);
                 } else {
-                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuroComFlorAmarela();
+                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuroComFlorAmarela(nenufarBase);
                 }
                 jogadorDaVez.getMao().remove(jogadorDaVez.getFlorEscolhida());
                 estadoJogo = "SeniorEscolhe";
@@ -399,14 +402,14 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                         tabuleiroGerenciador[columnAtPoint][rowAtPoint] = sapo;
                         sapo = null;
                     } else {
-                        tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarClaroComFlorRosa();
+                        tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarClaroComFlorRosa(nenufarBase);
                     }
                 } else {
                     if (sapo != null) {
                         tabuleiroGerenciador[columnAtPoint][rowAtPoint] = sapo;
                         sapo = null;
                     } else {
-                        tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarClaroComFlorAmarela();
+                        tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarClaroComFlorAmarela(nenufarBase);
                     }
                 }
 
@@ -422,10 +425,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             } else if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class) {
                 if (jogadorDaVez.getCorDaFlor().equals("Rosa")) {
                     sapo = tabuleiroGerenciador[columnAtPoint][rowAtPoint];
-                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarClaroComFlorRosa();
+                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarClaroComFlorRosa(nenufarBase);
                 } else {
                     sapo = tabuleiroGerenciador[columnAtPoint][rowAtPoint];
-                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarClaroComFlorAmarela();
+                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarClaroComFlorAmarela(nenufarBase);
                 }
                 indiceMensagens = 6;
                 for (Observador obs : observadores) {
@@ -456,14 +459,14 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             if ((tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class)) {
                 if ((tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoAmarelo.class || tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == SapoRosa.class) && sapo == null) {
                     sapo = tabuleiroGerenciador[columnAtPoint][rowAtPoint];
-                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
+                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro(nenufarBase);
                     indiceMensagens = 6;
                     for (Observador obs : observadores) {
                         obs.notificarTabuleiroAlterado();
                     }
                 }
                 if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarClaro.class) {
-                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro();
+                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuro(nenufarBase);
                     sapoInserido = true;
                 }
                 if (sapoInserido) {

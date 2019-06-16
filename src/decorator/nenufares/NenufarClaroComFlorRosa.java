@@ -14,11 +14,17 @@ import javax.swing.ImageIcon;
  * @since 01/05/2019
  * @version 1.0
  */
-public class NenufarClaroComFlorRosa extends Nenufar {
+public class NenufarClaroComFlorRosa extends NenufarDecorator {
 
-    public NenufarClaroComFlorRosa() {
-        super(new ImageIcon("imagens/nenufarClaroComFlorRosa.jpg"));
+    public NenufarClaroComFlorRosa(Nenufar nenufar) {
+        super(nenufar);
     }
+    
+    public void selecionarImageNenufar(){
+        super.selecionarImagemNenufar(new ImageIcon("imagens/nenufarClaroComFlorRosa.png"));
+    }
+
+    
 
    
     
