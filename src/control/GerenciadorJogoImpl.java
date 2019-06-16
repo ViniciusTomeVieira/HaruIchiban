@@ -15,6 +15,7 @@ import Builder.ConstruirPadrao;
 import Builder.ConstruirPadrao2;
 import Builder.CriadorDeTabuleiro;
 import Observer.Observador;
+import Strategy.CalcularPontuacao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -73,10 +74,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private int corDasFlores = 0;
 
     //Pontuação
-    private boolean temQuadrado, temLinhaHorVer4, temLinhaDia4, temLinha5 = false;
-    private List<Peca> formacaoDeFlores = new ArrayList<>();
-    private int indexOfPontuacao;
-
+//    private boolean temQuadrado, temLinhaHorVer4, temLinhaDia4, temLinha5 = false;
+//    private List<Peca> formacaoDeFlores = new ArrayList<>();
+//    private int indexOfPontuacao;
     //Abstract Factory
     private FabricaJogador fabricaJogador;
 
@@ -163,17 +163,17 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     } else {
                         if (jogador.getCorDaFlor().equals("Rosa")) {
                             Flor florBase = new FlorBase();
-                            FlorRosa florRosa = new FlorRosa(florBase);                          
+                            FlorRosa florRosa = new FlorRosa(florBase);
                             florRosa.selecionarImagemFlor();
                             florRosa.setNumero(numero + 1);
-                            floresJogador[i][j] = florBase;                            
+                            floresJogador[i][j] = florBase;
                             System.out.println("Flor inserida no deck do :" + jogador.getNome() + " " + (floresJogador[i][j].getNumero()));
                         } else {
                             Flor florBase = new FlorBase();
                             FlorAmarela florAmarela = new FlorAmarela(florBase);
-                            florAmarela.setNumero(numero + 1);    
+                            florAmarela.setNumero(numero + 1);
                             florAmarela.selecionarImagemFlor();
-                            floresJogador[i][j] = florBase; 
+                            floresJogador[i][j] = florBase;
                             //floresJogador[i][j] = new FlorAmarela(numero + 1);
                             System.out.println("Flor inserida no deck do :" + jogador.getNome() + " " + (floresJogador[i][j].getNumero()));
                         }
@@ -481,7 +481,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     for (Observador obs : observadores) {
                         obs.notificarTabuleiroAlterado();
                     }
-                    verificarFloracao();
+//                    verificarFloracao();
                     verificarPontuação();
                     verificarVencedor();
 
@@ -810,105 +810,111 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         terminouMoverNenufar = false;
     }
 
-    private void verificarFloracao() {
-        for (int linha = 0; linha < 5; linha++) {
-            for (int coluna = 0; coluna < 5; coluna++) {
-                if (tabuleiroGerenciador[coluna][linha].getClass() == NenufarClaroComFlorAmarela.class
-                        || tabuleiroGerenciador[coluna][linha].getClass() == NenufarClaroComFlorRosa.class
-                        || tabuleiroGerenciador[coluna][linha].getClass() == NenufarEscuroComFlorAmarela.class
-                        || tabuleiroGerenciador[coluna][linha].getClass() == NenufarEscuroComFlorRosa.class) {
-                    verificarQuadrado(coluna, linha);
-                    verificarLinhaHori(coluna, linha);
-                    verificarLinhaVert(coluna, linha);
-                    verificarLinhaDiag(coluna, linha);
+//    private void verificarFloracao() {
+//        for (int linha = 0; linha < 5; linha++) {
+//            for (int coluna = 0; coluna < 5; coluna++) {
+//                if (tabuleiroGerenciador[coluna][linha].getClass() == NenufarClaroComFlorAmarela.class
+//                        || tabuleiroGerenciador[coluna][linha].getClass() == NenufarClaroComFlorRosa.class
+//                        || tabuleiroGerenciador[coluna][linha].getClass() == NenufarEscuroComFlorAmarela.class
+//                        || tabuleiroGerenciador[coluna][linha].getClass() == NenufarEscuroComFlorRosa.class) {
+//                    verificarQuadrado(coluna, linha);
+//                    verificarLinhaHori(coluna, linha);
+//                    verificarLinhaVert(coluna, linha);
+//                    verificarLinhaDiag(coluna, linha);
+//
+//                }
+//            }
+//
+//        }
+//    }
 
-                }
-            }
-
-        }
-    }
-
-    private void verificarQuadrado(int coluna, int linha) {
-
-        try {
-            if (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna + 1][linha].getClass()
-                    && tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna][linha + 1].getClass()
-                    && tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna + 1][linha + 1].getClass()) {
-                temQuadrado = true;
-            }
-        } catch (Exception ex) {
-            System.out.println("não tem quadrado");
-        }
-
-    }
-
-    private void verificarLinhaHori(int coluna, int linha) {
-        try {
-            while (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna + 1][linha].getClass()) {
-                formacaoDeFlores.add(tabuleiroGerenciador[coluna][linha]);
-                coluna++;
-            }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-        }
-        if (formacaoDeFlores.size() == 4) {
-            temLinhaHorVer4 = true;
-        } else if (formacaoDeFlores.size() == 5) {
-            temLinha5 = true;
-        }
-        formacaoDeFlores.clear();
-    }
-
-    private void verificarLinhaVert(int coluna, int linha) {
-        try {
-            while (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna][linha + 1].getClass()) {
-                formacaoDeFlores.add(tabuleiroGerenciador[coluna][linha]);
-                linha++;
-            }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-
-        }
-
-        System.out.println("quantidade na formação:" + formacaoDeFlores.size());
-        if (formacaoDeFlores.size() == 4) {
-            temLinhaHorVer4 = true;
-        } else if (formacaoDeFlores.size() == 5) {
-            temLinha5 = true;
-        }
-        formacaoDeFlores.clear();
-    }
-
-    private void verificarLinhaDiag(int coluna, int linha) {
-
-        try {
-            while (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna + 1][linha + 1].getClass()) {
-                formacaoDeFlores.add(tabuleiroGerenciador[coluna][linha]);
-                coluna++;
-                linha++;
-            }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-        }
-
-        if (formacaoDeFlores.size() == 4) {
-            temLinhaHorVer4 = true;
-        } else if (formacaoDeFlores.size() == 5) {
-            temLinha5 = true;
-        }
-        formacaoDeFlores.clear();
-
-    }
-
+//    private void verificarQuadrado(int coluna, int linha) {
+//
+//        try {
+//            if (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna + 1][linha].getClass()
+//                    && tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna][linha + 1].getClass()
+//                    && tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna + 1][linha + 1].getClass()) {
+//                temQuadrado = true;
+//            }
+//        } catch (Exception ex) {
+//            System.out.println("não tem quadrado");
+//        }
+//
+//    }
+//    private void verificarLinhaHori(int coluna, int linha) {
+//        try {
+//            while (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna + 1][linha].getClass()) {
+//                formacaoDeFlores.add(tabuleiroGerenciador[coluna][linha]);
+//                coluna++;
+//            }
+//        } catch (ArrayIndexOutOfBoundsException ex) {
+//        }
+//        if (formacaoDeFlores.size() == 4) {
+//            temLinhaHorVer4 = true;
+//        } else if (formacaoDeFlores.size() == 5) {
+//            temLinha5 = true;
+//        }
+//        formacaoDeFlores.clear();
+//    }
+//    private void verificarLinhaVert(int coluna, int linha) {
+//        try {
+//            while (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna][linha + 1].getClass()) {
+//                formacaoDeFlores.add(tabuleiroGerenciador[coluna][linha]);
+//                linha++;
+//            }
+//        } catch (ArrayIndexOutOfBoundsException ex) {
+//
+//        }
+//
+//        System.out.println("quantidade na formação:" + formacaoDeFlores.size());
+//        if (formacaoDeFlores.size() == 4) {
+//            temLinhaHorVer4 = true;
+//        } else if (formacaoDeFlores.size() == 5) {
+//            temLinha5 = true;
+//        }
+//        formacaoDeFlores.clear();
+//    }
+//    private void verificarLinhaDiag(int coluna, int linha) {
+//
+//        try {
+//            while (tabuleiroGerenciador[coluna][linha].getClass() == tabuleiroGerenciador[coluna + 1][linha + 1].getClass()) {
+//                formacaoDeFlores.add(tabuleiroGerenciador[coluna][linha]);
+//                coluna++;
+//                linha++;
+//            }
+//        } catch (ArrayIndexOutOfBoundsException ex) {
+//        }
+//
+//        if (formacaoDeFlores.size() == 4) {
+//            temLinhaHorVer4 = true;
+//        } else if (formacaoDeFlores.size() == 5) {
+//            temLinha5 = true;
+//        }
+//        formacaoDeFlores.clear();
+//
+//    }
     private void verificarPontuação() {
-        System.out.println("1: " + temQuadrado + ", 2: " + temLinhaHorVer4 + ", 3:" + temLinhaDia4 + "5: " + temLinha5);
-        if (temLinha5 == true) {
-            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 5);
-        } else if (temLinhaDia4 == true) {
-            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 3);
-        } else if (temLinhaHorVer4 == true) {
-            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 2);
-        } else if (temQuadrado == true) {
-            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 1);
-        }
-        if (temLinhaHorVer4 == true || temQuadrado == true || temLinhaDia4 == true || temLinha5 == true) {
+//        System.out.println("1: " + temQuadrado + ", 2: " + temLinhaHorVer4 + ", 3:" + temLinhaDia4 + "5: " + temLinha5);
+//        if (temLinha5 == true) {
+//            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 5);
+//        } else if (temLinhaDia4 == true) {
+//            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 3);
+//        } else if (temLinhaHorVer4 == true) {
+//            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 2);
+//        } else if (temQuadrado == true) {
+//            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 1);
+//        }
+//        if (temLinhaHorVer4 == true || temQuadrado == true || temLinhaDia4 == true || temLinha5 == true) {
+//            System.out.println("entrou observer");
+//            for (Observador obs : observadores) {
+//                obs.notificarRodadaEncerado();
+//
+//            }
+//        }
+        CalcularPontuacao calcular = new CalcularPontuacao();
+        jogadorDaVez.setPontuacao(calcular.verificar(tabuleiroGerenciador));
+
+        if (calcular.verificar(tabuleiroGerenciador) != 0) {
             System.out.println("entrou observer");
             for (Observador obs : observadores) {
                 obs.notificarRodadaEncerado();
