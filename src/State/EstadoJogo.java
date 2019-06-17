@@ -19,4 +19,10 @@ public abstract class EstadoJogo {
     }
     
     public abstract void proxEstado();
+
+    public void selecionarCores() {
+    }
+
+    public void escolherFloresDeck(int row, int col) {
+    }
 }

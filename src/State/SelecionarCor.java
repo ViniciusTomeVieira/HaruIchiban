@@ -22,4 +22,21 @@ public class SelecionarCor extends EstadoJogo{
         gerenciadorJogo.setEstadojogo(new EscolherFlores(gerenciadorJogo));
     }
     
+    @Override
+    public void selecionarCores() {
+        switch (gerenciadorJogo.getCorDasFlores()) {
+            case 0:
+                gerenciadorJogo.getJogador1().setCorDaFlor("Rosa");
+                gerenciadorJogo.getJogador2().setCorDaFlor("Amarela");
+                break;
+            case 1:
+                gerenciadorJogo.getJogador1().setCorDaFlor("Amarela");
+                gerenciadorJogo.getJogador2().setCorDaFlor("Rosa");
+                break;
+            default:
+                gerenciadorJogo.getJogador1().setCorDaFlor("Rosa");
+                gerenciadorJogo.getJogador2().setCorDaFlor("Amarela");
+        }
+    }
+    
 }

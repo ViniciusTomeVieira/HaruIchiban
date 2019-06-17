@@ -16,6 +16,7 @@ import Builder.ConstruirPadrao2;
 import Builder.CriadorDeTabuleiro;
 import Observer.Observador;
 import State.EstadoJogo;
+import State.JuniorEscuro;
 import State.SelecionarCor;
 import Strategy.CalcularPontuacao;
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private int indexParaRealocar = 1;
 
     //Flores
-    private Flor[][] florDaVez = new Flor[2][4];
+    public Flor[][] florDaVez = new Flor[2][4];
     private Flor florEscolhidaMao; // Flor que o jogador vai escolher para jogar no jogo
     private List<Flor> maoDaVez = new ArrayList<>();
     private int corDasFlores = 0;
@@ -244,58 +245,23 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     @Override
     public void selecionarCores() {
-        switch (corDasFlores) {
-            case 0:
-                jogador1.setCorDaFlor("Rosa");
-                jogador2.setCorDaFlor("Amarela");
-                break;
-            case 1:
-                jogador1.setCorDaFlor("Amarela");
-                jogador2.setCorDaFlor("Rosa");
-                break;
-            default:
-                jogador1.setCorDaFlor("Rosa");
-                jogador2.setCorDaFlor("Amarela");
-        }
-        estadoJogo = "EscolherFlores";
+        estadojogo.selecionarCores();
+        estadojogo.proxEstado();       
     }
 
     //Remove a flor que o jogador escolheu de seu deck e adiciona em sua mão
     @Override
-    public void escolherFloresDeck(int row, int col) {
-
-        if (estadoJogo.equals("EscolherFlores")) {
-            Flor cartaEscolhida = florDaVez[col][row];
-            if (maoDaVez.size() < 3 && verificarTamanhoDeck() > 0) {
-                if (florDaVez[col][row] != null) {
-                    enviarCartaParaMao(cartaEscolhida);
-                    florDaVez[col][row] = null;
-                    jogadorDaVez.setMao(maoDaVez);
-                    jogadorDaVez.setFlores(florDaVez);
-                    if (maoDaVez.size() == 3) {
-                        trocarJogadorDaVez();
-                    }
-                    for (Observador obs : observadores) {
-                        obs.notificarFlorEscolhida();
-                    }
-                }
-            } else {
-                trocarJogadorDaVez();
-                for (Observador obs : observadores) {
-                    obs.notificarFlorEscolhida();
-                }
-            }
-        }
-
+    public void escolherFloresDeck(int row, int col) {        
+        estadojogo.escolherFloresDeck(row,col);         
     }
 
-    private void enviarCartaParaMao(Flor cartaEscolhida) {
+    public void enviarCartaParaMao(Flor cartaEscolhida) {
         maoDaVez.add(cartaEscolhida);
     }
 
-    private void trocarJogadorDaVez() {
+    public void trocarJogadorDaVez() {
 
-        if (estadoJogo.equals("JuniorEscuro")) {
+        if (estadojogo.getClass() == JuniorEscuro.class) {
             if (jogador1.getClass() == JogadorJunior.class) {
                 jogadorDaVez = jogador1;
                 maoDaVez = jogador1.getMao();
@@ -322,6 +288,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         }
     }
 
+    public void setIndiceMensagens(int indiceMensagens) {
+        this.indiceMensagens = indiceMensagens;
+    }
+
     private void avancarEstadoJogo(String estadoJogo) {
         switch (estadoJogo) {
             case "EscolherFlores":
@@ -333,6 +303,14 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 fluxoJogo();
                 break;
         }
+    }
+
+    public List<Observador> getObservadores() {
+        return observadores;
+    }
+
+    public void setObservadores(List<Observador> observadores) {
+        this.observadores = observadores;
     }
 
     @Override
@@ -568,6 +546,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     @Override
     public void setCorDasFlores(int corDasFlores) {
         this.corDasFlores = corDasFlores;
+        selecionarCores();
     }
 
     @Override
@@ -982,7 +961,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     }
 
-    private int verificarTamanhoDeck() {
+    public int verificarTamanhoDeck() {
         int qtd = 0;
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 4; j++) {

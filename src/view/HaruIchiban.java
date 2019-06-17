@@ -317,7 +317,6 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         this.gerenciador.inicializarTabuleiro(JOptionPane.showOptionDialog(rootPane, "Escolha a forma do tabuleiro", "FORMA DO TABULEIRO", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getOpcoesDeTabuleiro(), null)); // Vai mudar e receber novas formas de inicio(Builder)       
         this.gerenciador.inicializarJogadores();
         this.gerenciador.setCorDasFlores(JOptionPane.showOptionDialog(rootPane, "Jogador 1: escolha sua cor", "Escolha de cor", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getOpcoesDeFlor(), null));
-        this.gerenciador.fluxoJogo();
         this.gerenciador.setJogadorDaVez(gerenciador.getJogador1());
         this.gerenciador.getJogador1().setNome("Jogador 1");
         this.gerenciador.getJogador2().setNome("Jogador 2");
