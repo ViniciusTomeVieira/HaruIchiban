@@ -2,6 +2,10 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/ADSK/projectnetbeans/HaruIchiban/src/Strategy/CalcularPontuacao.java</file>
+            <file>file:/D:/ADSK/projectnetbeans/HaruIchiban/src/control/GerenciadorJogoImpl.java</file>
+            <file>file:/D:/ADSK/projectnetbeans/HaruIchiban/src/view/HaruIchiban.java</file>
+        </group>
     </open-files>
 </project-private>

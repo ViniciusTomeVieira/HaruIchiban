@@ -7,6 +7,10 @@ package Strategy;
 
 
 import composite.Peca;
+import decorator.nenufares.NenufarClaroComFlorAmarela;
+import decorator.nenufares.NenufarClaroComFlorRosa;
+import decorator.nenufares.NenufarEscuroComFlorAmarela;
+import decorator.nenufares.NenufarEscuroComFlorRosa;
 
 /**
  *

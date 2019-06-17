@@ -71,6 +71,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     private JTable Tbtabuleiro;
     private JTable TbFlores;
     private JTable TbMao;
+    private JTable TbPontuacao;
 
     //Placar
     private JLabel jlPlacar;
@@ -265,6 +266,48 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         }
 
     }
+        // Modelo de tabela visual das cartas do jogador
+    class PontuacaoTableModel extends AbstractTableModel {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public int getColumnCount() {
+            return 12;
+        }
+
+        @Override
+        public int getRowCount() {
+            return 1;
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            try {
+                return gerenciador.getFlor(col, row);
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+    }
+
+    // Renderizador de celulas do tabuleiro  
+    class PontuacaoRenderer extends DefaultTableCellRenderer {
+
+        private static final long serialVersionUID = 1L;
+
+        public Component getTableCellRendererComponent(JTable table,
+                Object value, boolean isSelected, boolean hasFocus, int row,
+                int column) {
+
+            setIcon((ImageIcon) value);
+
+            return this;
+        }
+
+    }
+
 
     //Construtor da view
     public HaruIchiban() throws Exception {
@@ -409,13 +452,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         panelDireita.setLayout(layout);
 
         //Criação do placar
-        JPanel jpPlacar = new JPanel();
-        jlPlacar = new JLabel();
-        jlPlacar.setText(gerenciador.getJogador1().getPontuacao() + " x " + gerenciador.getJogador2().getPontuacao());
-        jlPlacar.setFont(new Font("Calibri", 1, 20));
-
-        //Adiciona o placar no painel do placar
-        jpPlacar.add(jlPlacar);
+        JPanel jpPlacar = new JPanel();        
 
         //Table de flores do lado direito
         TbFlores = new JTable();
@@ -444,6 +481,20 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         });
 
         jbCoachar = new JButton("Coachar");
+        TbPontuacao = new JTable();
+        TbPontuacao.setModel(new PontuacaoTableModel());
+        TbPontuacao.setRowHeight(100);
+        TbPontuacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        TbPontuacao.setShowGrid(false);
+        TbPontuacao.setIntercellSpacing(new Dimension(0, 0));
+        for (int x = 0; x < TbFlores.getColumnModel().getColumnCount(); x++) {
+            TbFlores.getColumnModel().getColumn(x).setWidth(22);
+            TbFlores.getColumnModel().getColumn(x).setMinWidth(22);
+            TbFlores.getColumnModel().getColumn(x).setMaxWidth(22);
+        }
+        TbPontuacao.setDefaultRenderer(Object.class, new PontuacaoRenderer());
+        //Adiciona o placar no painel do placar
+        jpPlacar.add(Tbtabuleiro);
 
         //Adiciona o painel placar, tabela de flores e o botao coachar no painel da direita
         constraints.gridx = 0;
