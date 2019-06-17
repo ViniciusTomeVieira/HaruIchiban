@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package composite;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -13,19 +14,26 @@ import javax.swing.Icon;
  * @since 01/05/2019
  * @version 1.0
  */
-public  abstract class Peca {
-    private Icon imagem;
+public  class Peca extends Objeto {
+    
 
     public Peca() {
     }
 
     public Icon getImagem() {
-        return imagem;
+        return super.imagem;
     }
 
-    public void setImagem(Icon imagem) {
-        this.imagem = imagem;
+    @Override
+    public  void setImagem(ImageIcon imagem){
+        super.imagem = imagem;
     }
+    
+    
+    
+    
+
+    
     
     
     

@@ -5,7 +5,7 @@
  */
 package Strategy;
 
-import model.Peca;
+import composite.Peca;
 
 /**
  *

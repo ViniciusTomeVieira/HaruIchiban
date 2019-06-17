@@ -5,8 +5,8 @@
  */
 package Builder;
 
-import model.Peca;
-import model.Tabuleiro;
+import composite.Peca;
+import composite.Tabuleiro;
 
 /**
  *

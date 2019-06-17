@@ -39,10 +39,10 @@ import decorator.nenufares.NenufarClaroComFlorRosa;
 import decorator.nenufares.NenufarEscuro;
 import decorator.nenufares.NenufarEscuroComFlorAmarela;
 import decorator.nenufares.NenufarEscuroComFlorRosa;
-import model.Peca;
+import composite.Peca;
 import decorator.sapos.SapoAmarelo;
 import decorator.sapos.SapoRosa;
-import model.Tabuleiro;
+import composite.Tabuleiro;
 
 /**
  *
@@ -148,6 +148,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
         DiretorBuilder dr1 = new DiretorBuilder(builder);
         dr1.construir(tabuleiroGerenciador);
+
 
         tabuleiroGerenciador = builder.getTabuleiroCriado();
     }

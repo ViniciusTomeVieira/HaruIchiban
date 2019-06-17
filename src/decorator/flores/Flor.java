@@ -7,7 +7,7 @@ package decorator.flores;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import model.Peca;
+import composite.Peca;
 
 /**
  *

@@ -7,7 +7,7 @@ package decorator.nenufares;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import model.Peca;
+import composite.Peca;
 
 /**
  *

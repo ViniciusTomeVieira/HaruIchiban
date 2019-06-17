@@ -11,7 +11,7 @@ import model.Agua;
 import decorator.nenufares.NenufarClaro;
 import decorator.nenufares.NenufarEscuro;
 import decorator.sapos.Sapo;
-import model.Peca;
+import composite.Peca;
 import decorator.sapos.SapoAmarelo;
 import decorator.sapos.SapoBase;
 import decorator.sapos.SapoRosa;

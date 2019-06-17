@@ -6,7 +6,7 @@
 package control;
 
 import Builder.CriadorDeTabuleiro;
-import model.Peca;
+import composite.Peca;
 
 /**
  *

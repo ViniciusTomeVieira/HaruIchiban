@@ -6,6 +6,7 @@
 package model;
 
 
+import composite.Peca;
 import javax.swing.ImageIcon;
 
 /**
