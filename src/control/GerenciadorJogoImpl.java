@@ -15,6 +15,7 @@ import Builder.ConstruirPadrao;
 import Builder.ConstruirPadrao2;
 import Builder.CriadorDeTabuleiro;
 import Observer.Observador;
+import State.EstadoJogo;
 import Strategy.CalcularPontuacao;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +94,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private List<Observador> observadores = new ArrayList<>();
 
     //Estado do jogo
+    private EstadoJogo estadojogo;
     private String estadoJogo = "SelecionarCor"; // SelecionarCor / EscolherFlores /   JogarFlor    /  JuniorEscuro    /    SeniorEscolhe  /   JuniorMovePeças /   SeniorEscolheEscuro     
     //    Jogador1   / JogadorModel 1 e 2  / JogadorModel 1 e 2  /  JogadorJunior   /    JogadorModel Senior /   JogadorJunior   /   JogadorModel Senior
 
@@ -118,6 +120,14 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         jogador1 = fabricaJogador.criarJogador(jogador1);
         jogador2 = fabricaJogador.criarJogador(jogador2);
     }
+
+    public void setEstadojogo(EstadoJogo estadojogo) {
+        this.estadojogo = estadojogo;
+    }
+    
+    public void avancarEstado() {
+		this.estadojogo.proxEstado();
+	}
 
     @Override
     public void fluxoJogo() {
