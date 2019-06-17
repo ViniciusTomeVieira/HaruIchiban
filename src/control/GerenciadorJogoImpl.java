@@ -16,6 +16,7 @@ import Builder.ConstruirPadrao2;
 import Builder.CriadorDeTabuleiro;
 import Observer.Observador;
 import State.EstadoJogo;
+import State.SelecionarCor;
 import Strategy.CalcularPontuacao;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,6 +117,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     @Override
     public void inicializarJogadores() {
+        estadojogo = new SelecionarCor(this);
         fabricaJogador = new FabricaNormal();
         jogador1 = fabricaJogador.criarJogador(jogador1);
         jogador2 = fabricaJogador.criarJogador(jogador2);
