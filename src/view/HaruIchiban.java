@@ -284,7 +284,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         @Override
         public Object getValueAt(int row, int col) {
             try {
-                return gerenciador.getFlor(col, row);
+                return gerenciador.getpontuacao(col);
             } catch (Exception e) {
                 return null;
             }
@@ -316,6 +316,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         this.gerenciador = GerenciadorJogoImpl.getInstance();
         this.gerenciador.inicializarTabuleiro(JOptionPane.showOptionDialog(rootPane, "Escolha a forma do tabuleiro", "FORMA DO TABULEIRO", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getOpcoesDeTabuleiro(), null)); // Vai mudar e receber novas formas de inicio(Builder)       
         this.gerenciador.inicializarJogadores();
+        this.gerenciador.inicializarPontuacao();
         this.gerenciador.setCorDasFlores(JOptionPane.showOptionDialog(rootPane, "Jogador 1: escolha sua cor", "Escolha de cor", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, gerenciador.getOpcoesDeFlor(), null));
         this.gerenciador.setJogadorDaVez(gerenciador.getJogador1());
         this.gerenciador.getJogador1().setNome("Jogador 1");
@@ -482,24 +483,24 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         jbCoachar = new JButton("Coachar");
         TbPontuacao = new JTable();
         TbPontuacao.setModel(new PontuacaoTableModel());
-        TbPontuacao.setRowHeight(100);
+        TbPontuacao.setRowHeight(63);
         TbPontuacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         TbPontuacao.setShowGrid(false);
         TbPontuacao.setIntercellSpacing(new Dimension(0, 0));
-        for (int x = 0; x < TbFlores.getColumnModel().getColumnCount(); x++) {
-            TbFlores.getColumnModel().getColumn(x).setWidth(22);
-            TbFlores.getColumnModel().getColumn(x).setMinWidth(22);
-            TbFlores.getColumnModel().getColumn(x).setMaxWidth(22);
+        for (int x = 0; x < TbPontuacao.getColumnModel().getColumnCount(); x++) {
+            TbPontuacao.getColumnModel().getColumn(x).setWidth(22);
+            TbPontuacao.getColumnModel().getColumn(x).setMinWidth(22);
+            TbPontuacao.getColumnModel().getColumn(x).setMaxWidth(22);
         }
         TbPontuacao.setDefaultRenderer(Object.class, new PontuacaoRenderer());
         //Adiciona o placar no painel do placar
-        jpPlacar.add(Tbtabuleiro);
+        
 
         //Adiciona o painel placar, tabela de flores e o botao coachar no painel da direita
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.weighty = 10;
-        panelDireita.add(jpPlacar, constraints);
+        panelDireita.add(TbPontuacao, constraints);
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.weighty = 0;

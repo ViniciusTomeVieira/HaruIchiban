@@ -56,4 +56,6 @@ public interface GerenciadorJogo {
     public void juniorMovePecas();
     public void novaRodada();
     public void inicializarJogadores();
+    public void inicializarPontuacao();
+    public Icon getpontuacao(int col) throws Exception;;
 }

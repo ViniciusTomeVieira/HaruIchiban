@@ -82,6 +82,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 //    private boolean temQuadrado, temLinhaHorVer4, temLinhaDia4, temLinha5 = false;
 //    private List<Peca> formacaoDeFlores = new ArrayList<>();
 //    private int indexOfPontuacao;
+        private Icon[] pontuacao = new ImageIcon[9];
     //Abstract Factory
     private FabricaJogador fabricaJogador;
 
@@ -971,4 +972,20 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         return qtd;
     }
 
+    @Override
+    public void inicializarPontuacao() {
+        for (int i = 0; i < 9; i++) {
+            pontuacao[i] = new ImageIcon("Imagens/"+(i+1)+"base.jpg");
+        }
+    }
+
+    @Override
+    public Icon getpontuacao(int col) throws Exception {
+        if (pontuacao[col] != null) {
+            return pontuacao[col];
+        }
+        return null;
+    }
+
+    
 }
