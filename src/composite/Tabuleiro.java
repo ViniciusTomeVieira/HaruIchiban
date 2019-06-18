@@ -63,6 +63,14 @@ public class Tabuleiro extends Objeto {
         this.tabuleiro = tabuleiro;
         povoarLista();
     }
+    
+    public Peca getPecaTabuleiro(int coluna, int linha){
+        return tabuleiro[coluna][linha];
+    }
+    
+    public void setPecaTabuleiro(int coluna, int Linha, Peca peca){
+        tabuleiro[coluna][linha] = peca;
+    }
 
     @Override
     public void setImagem(ImageIcon imagem) {

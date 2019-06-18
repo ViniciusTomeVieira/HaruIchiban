@@ -45,7 +45,9 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     private static final long serialVersionUID = 1L;
 
     //Botoes mao do jogador        
-    private JButton jbCoachar;
+    private JButton jbCoachar1;
+    private JButton jbCoachar2;
+    private JPanel jpBotoes;
 
     //Menu superior
     private JMenuBar menuBarSuperior;
@@ -133,6 +135,8 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
     @Override
     public void notificarEmpateComparacao() {
+        jbCoachar1.setEnabled(true);
+        jbCoachar2.setEnabled(true);
         JOptionPane.showMessageDialog(rootPane, "Empate!!!");
     }
 
@@ -480,7 +484,41 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
 
         });
 
-        jbCoachar = new JButton("Coachar");
+        jbCoachar1 = new JButton("Coachar");
+        jbCoachar2 = new JButton("Coachar");
+        jbCoachar1.setBackground(Color.pink);
+        jbCoachar2.setBackground(Color.yellow);
+        jbCoachar1.setEnabled(false);
+        jbCoachar2.setEnabled(false);
+        
+        jbCoachar1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gerenciador.get
+            }
+        });
+        
+        jbCoachar2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               
+            }
+        });
+        jpBotoes = new JPanel();
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weighty = 10;
+        jpBotoes.add(jbCoachar1,constraints);
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        constraints.weighty = 10;
+        jpBotoes.add(jbCoachar2, constraints);
+        
+        
+        
+        
+        
+        
         TbPontuacao = new JTable();
         TbPontuacao.setModel(new PontuacaoTableModel());
         TbPontuacao.setRowHeight(63);
@@ -495,7 +533,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         TbPontuacao.setDefaultRenderer(Object.class, new PontuacaoRenderer());
         //Adiciona o placar no painel do placar
         
-
+        
         //Adiciona o painel placar, tabela de flores e o botao coachar no painel da direita
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -508,7 +546,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         constraints.gridx = 0;
         constraints.gridy = 2;
         constraints.weighty = 10;
-        panelDireita.add(jbCoachar, constraints); // Botao coachar
+        panelDireita.add(jpBotoes, constraints); // Botao coachar
 
         //Adiciona o painel de mensagem e o painel da mao no painel da esquerda
         constraints.gridx = 0;
