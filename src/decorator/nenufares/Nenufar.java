@@ -16,6 +16,8 @@ import composite.Peca;
  * @version 1.0
  */
 public abstract class Nenufar extends Peca{
+    
+    private String nome;
 
     public Nenufar() {
     }
@@ -23,6 +25,16 @@ public abstract class Nenufar extends Peca{
     public void selecionarImagemNenufar(ImageIcon imagem){
         this.setImagem(imagem);
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    
     
     
     

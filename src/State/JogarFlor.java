@@ -19,7 +19,7 @@ public class JogarFlor extends EstadoJogo {
 
     @Override
     public void proxEstado() {
-        gerenciadorJogo.setEstadojogo(new JuniorEscuro(gerenciadorJogo));
+        gerenciadorJogo.setEstadojogo(new CompararFlores(gerenciadorJogo));
     }
     
     @Override

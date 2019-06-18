@@ -5,6 +5,7 @@
  */
 package State;
 
+
 import control.GerenciadorJogoImpl;
 
 /**
@@ -27,6 +28,10 @@ public abstract class EstadoJogo {
     }
     
     public void escolherFlorParaJogar(int index) {
+
+    }
+    public void compararFlores() {
+        
 
     }
 }

@@ -22,6 +22,10 @@ public class NenufarEscuro extends NenufarDecorator{
     
     public void selecionarImageNenufar(){
         super.selecionarImagemNenufar(new ImageIcon("imagens/nenufarEscuro.jpg"));
+        selecionarNome();
+    }
+    public void selecionarNome(){
+        super.setNome("NenufarEscuro");
     }
     
     

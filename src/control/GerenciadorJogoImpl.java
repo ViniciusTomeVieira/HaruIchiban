@@ -86,11 +86,11 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 //    private int indexOfPontuacao;
         private Icon[] pontuacao = new ImageIcon[9];
     //Abstract Factory
-    private FabricaJogador fabricaJogador;
+    public FabricaJogador fabricaJogador;
 
     //Jogadores
-    private Jogador jogador1;
-    private Jogador jogador2;
+    public Jogador jogador1;
+    public Jogador jogador2;
     private Jogador jogadorDaVez;
     private int indiceMensagens = 0;
     private String[] mensagens = {"  pegue suas cartas", "  escolha uma carta para jogar", " selecione uma carta", " jogue no nenufar escuro", " escolha um nenufar para jogar", " escolha um nenufar para mover", " escolha um nenufar para o sapo", " escolha a direcao a mover", " escolha a nenufar que ficara escura"};
@@ -327,44 +327,12 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         estadojogo.escolherFlorParaJogar(index);
     }
 
-    public void compararFlores() {
-        if (jogador1.getFlorEscolhida().getNumero() < jogador2.getFlorEscolhida().getNumero()) {
-            fabricaJogador = new FabricaJunior();
-            jogador1 = fabricaJogador.criarJogador(jogador1);
-            fabricaJogador = new FabricaSenior();
-            jogador2 = fabricaJogador.criarJogador(jogador2);
-            jogador1.setJuniorSenior("Junior");
-            jogador2.setJuniorSenior("Senior");
-            jogador1.getMao().remove(jogador1.getFlorEscolhida());
-            jogador2.getMao().remove(jogador2.getFlorEscolhida());
-            estadoJogo = "JuniorEscuro";
-            trocarJogadorDaVez();
-            indiceMensagens = 3;
-            for (Observador obs : observadores) {
-                obs.notificarJuniorSenior();
-            }
-        } else if (jogador1.getFlorEscolhida().getNumero() > jogador2.getFlorEscolhida().getNumero()) {
-            fabricaJogador = new FabricaSenior();
-            jogador1 = fabricaJogador.criarJogador(jogador1);
-            fabricaJogador = new FabricaJunior();
-            jogador2 = fabricaJogador.criarJogador(jogador2);
-            jogador1.setJuniorSenior("Senior");
-            jogador2.setJuniorSenior("Junior");
-            jogador1.getMao().remove(jogador1.getFlorEscolhida());
-            jogador2.getMao().remove(jogador2.getFlorEscolhida());
-            estadoJogo = "JuniorEscuro";
-            trocarJogadorDaVez();
-            indiceMensagens = 3;
-            for (Observador obs : observadores) {
-                obs.notificarJuniorSenior();
-            }
-        } else { //Empate
-            for (Observador obs : observadores) {
-                obs.notificarEmpateComparacao();
-            }
-            estadoJogo = "JogarFlor";
-        }
+    public FabricaJogador getFabricaJogador() {
+        return fabricaJogador;
+    }   
 
+    public void compararFlores() {       
+        estadojogo.compararFlores();        
     }
 
     @Override

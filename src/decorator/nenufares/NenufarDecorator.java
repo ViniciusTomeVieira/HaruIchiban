@@ -23,6 +23,11 @@ public abstract class NenufarDecorator extends Nenufar {
     public void selecionarImagemNenufar(ImageIcon imagem) {
         this.nenufar.selecionarImagemNenufar(imagem); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void setNome(String nome) {
+        this.nenufar.setNome(nome); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     
