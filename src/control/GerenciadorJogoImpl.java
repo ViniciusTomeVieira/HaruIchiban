@@ -19,6 +19,8 @@ import State.EstadoJogo;
 import State.JuniorEscuro;
 import State.SelecionarCor;
 import Strategy.CalcularPontuacao;
+import Visitor.MontarImgPontuacao;
+import Visitor.Visitor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -981,6 +983,12 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     @Override
     public Icon getpontuacao(int col) throws Exception {
+        MontarImgPontuacao montar = new MontarImgPontuacao();
+        jogador1.accept(montar);
+        pontuacao[jogador1.getPontuacao()] = montar.getPontuacao();
+        
+        jogador2.accept(montar);
+        pontuacao[pontuacao.length-jogador2.getPontuacao()]=montar.getPontuacao();
         if (pontuacao[col] != null) {
             return pontuacao[col];
         }

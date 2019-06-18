@@ -5,6 +5,7 @@
  */
 package AbstractFactory;
 
+import Visitor.Visitor;
 import java.util.ArrayList;
 import java.util.List;
 import decorator.flores.Flor;
@@ -15,8 +16,9 @@ import decorator.flores.Flor;
  * @since 01/05/2019
  * @version 1.0
  */
-public abstract class Jogador{
-     private Flor[][] flores = new Flor[2][4];
+public abstract class Jogador {
+
+    private Flor[][] flores = new Flor[2][4];
     private String corDaFlor;
     private List<Flor> mao = new ArrayList<>();
     private int pontuacao = 0;
@@ -24,8 +26,7 @@ public abstract class Jogador{
     private Flor florEscolhida;
     private String juniorSenior;
 
-
-    public Jogador(String corDaFlor, String nome, Flor florEscolhida,Flor[][] flores,List<Flor> mao, String juniorSenior) {
+    public Jogador(String corDaFlor, String nome, Flor florEscolhida, Flor[][] flores, List<Flor> mao, String juniorSenior) {
         this.corDaFlor = corDaFlor;
         this.nome = nome;
         this.florEscolhida = florEscolhida;
@@ -41,10 +42,6 @@ public abstract class Jogador{
     public void setJuniorSenior(String juniorSenior) {
         this.juniorSenior = juniorSenior;
     }
-    
-    
-    
-    
 
     public Flor[][] getFlores() {
         return flores;
@@ -78,8 +75,6 @@ public abstract class Jogador{
         this.pontuacao = pontuacao;
     }
 
-   
-
     public String getNome() {
         return nome;
     }
@@ -96,9 +91,8 @@ public abstract class Jogador{
         this.florEscolhida = florEscolhida;
     }
 
-   
-    
-    
-    
-    
+    public void accept(Visitor visitor) throws Exception {
+        visitor.visit(this);
+    }
+
 }
