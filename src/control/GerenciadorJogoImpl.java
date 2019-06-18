@@ -342,23 +342,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     
 
     @Override
-    public void clicouNoTabuleiro(int rowAtPoint, int columnAtPoint) {
-        Nenufar nenufarBase = new NenufarBase();
+    public void clicouNoTabuleiro(int rowAtPoint, int columnAtPoint) {       
+        
         if (estadoJogo.equals("JuniorEscuro")) {
-            if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getNome().equals("NenufarEscuro")) {
-                if (jogadorDaVez.getCorDaFlor().equals("Rosa")) {            
-                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuroComFlorRosa(nenufarBase);
-                } else {
-                    tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuroComFlorAmarela(nenufarBase);
-                }
-                jogadorDaVez.getMao().remove(jogadorDaVez.getFlorEscolhida());
-                estadoJogo = "SeniorEscolhe";
-                indiceMensagens = 4;
-                trocarJogadorDaVez();
-                for (Observador obs : observadores) {
-                    obs.notificarTabuleiroAlterado();
-                }
-            }
+            
         }
 
         if (estadoJogo.equals("SeniorEscolhe")) {

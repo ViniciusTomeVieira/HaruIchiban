@@ -30,8 +30,10 @@ public abstract class EstadoJogo {
     public void escolherFlorParaJogar(int index) {
 
     }
-    public void compararFlores() {
-        
-
+    public void compararFlores() {       
+    }
+    
+    public void juniorEscuro(){
+    
     }
 }
