@@ -983,16 +983,20 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     @Override
     public Icon getpontuacao(int col) throws Exception {
+        
+        if (pontuacao[col] != null) {
+            return pontuacao[col];
+        }
+        return null;
+    }
+    
+    private void atualizarPontuacao() throws Exception{
         MontarImgPontuacao montar = new MontarImgPontuacao();
         jogador1.accept(montar);
         pontuacao[jogador1.getPontuacao()] = montar.getPontuacao();
         
         jogador2.accept(montar);
         pontuacao[pontuacao.length-jogador2.getPontuacao()]=montar.getPontuacao();
-        if (pontuacao[col] != null) {
-            return pontuacao[col];
-        }
-        return null;
     }
 
     
