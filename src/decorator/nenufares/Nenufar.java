@@ -17,7 +17,6 @@ import composite.Peca;
  */
 public abstract class Nenufar extends Peca{
     
-    private String nome;
 
     public Nenufar() {
     }
@@ -26,13 +25,13 @@ public abstract class Nenufar extends Peca{
         this.setImagem(imagem);
     }
 
-    public String getNome() {
-        return nome;
-    }
-
+    @Override
     public void setNome(String nome) {
-        this.nome = nome;
+        super.setNome(nome); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
+
     
     
     

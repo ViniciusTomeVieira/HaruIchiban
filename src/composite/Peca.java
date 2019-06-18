@@ -16,6 +16,8 @@ import javax.swing.ImageIcon;
  */
 public  class Peca extends Objeto {
     
+    private String nome;
+    
 
     public Peca() {
     }
@@ -28,6 +30,15 @@ public  class Peca extends Objeto {
     public  void setImagem(ImageIcon imagem){
         super.imagem = imagem;
     }
+    
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
     
     
     

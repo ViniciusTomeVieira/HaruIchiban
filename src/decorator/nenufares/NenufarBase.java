@@ -12,9 +12,6 @@ import javax.swing.ImageIcon;
  * @author vinny
  */
 public class NenufarBase extends Nenufar {
-
-    
-    
-    
+   
     
 }

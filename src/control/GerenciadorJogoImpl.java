@@ -335,11 +335,17 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         estadojogo.compararFlores();        
     }
 
+    public EstadoJogo getEstadojogo() {
+        return estadojogo;
+    }
+    
+    
+
     @Override
     public void clicouNoTabuleiro(int rowAtPoint, int columnAtPoint) {
         Nenufar nenufarBase = new NenufarBase();
         if (estadoJogo.equals("JuniorEscuro")) {
-            if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getClass() == NenufarEscuro.class) {
+            if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getNome().equals("NenufarEscuro")) {
                 if (jogadorDaVez.getCorDaFlor().equals("Rosa")) {            
                     tabuleiroGerenciador[columnAtPoint][rowAtPoint] = new NenufarEscuroComFlorRosa(nenufarBase);
                 } else {
