@@ -25,4 +25,8 @@ public abstract class EstadoJogo {
 
     public void escolherFloresDeck(int row, int col) {
     }
+    
+    public void escolherFlorParaJogar(int index) {
+
+    }
 }

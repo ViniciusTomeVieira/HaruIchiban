@@ -22,4 +22,10 @@ public class JogarFlor extends EstadoJogo {
         gerenciadorJogo.setEstadojogo(new JuniorEscuro(gerenciadorJogo));
     }
     
+    @Override
+    public void escolherFlorParaJogar(int index) {
+        gerenciadorJogo.getJogadorDaVez().setFlorEscolhida(gerenciadorJogo.getMaoDaVez().get(index));
+        gerenciadorJogo.trocarJogadorDaVez();
+    }
+    
 }

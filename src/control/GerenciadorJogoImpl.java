@@ -280,7 +280,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 jogadorDaVez = jogador1;
                 maoDaVez = jogador1.getMao();
                 florDaVez = jogador1.getFlores();
-                avancarEstadoJogo(estadoJogo);
+                estadojogo.proxEstado();
+                //avancarEstadoJogo(estadoJogo);
             }
         }
         for (Observador obs : observadores) {
@@ -320,10 +321,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     @Override
     public void escolherFlorParaJogar(int index) {
-        if (estadoJogo.equals("JogarFlor")) {
-            jogadorDaVez.setFlorEscolhida(maoDaVez.get(index));
-            trocarJogadorDaVez();
-        }
+        estadojogo.escolherFlorParaJogar(index);
     }
 
     public void compararFlores() {
