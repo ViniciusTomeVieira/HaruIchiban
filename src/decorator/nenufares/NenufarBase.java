@@ -13,10 +13,7 @@ import javax.swing.ImageIcon;
  */
 public class NenufarBase extends Nenufar {
 
-    @Override
-    public void selecionarImagemNenufar(ImageIcon imagem) {
-        super.setImagem(new ImageIcon("imagens/nenufarClaro.png"));//To change body of generated methods, choose Tools | Templates.
-    }
+    
     
     
     

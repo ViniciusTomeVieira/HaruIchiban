@@ -23,6 +23,6 @@ public class SapoAmarelo extends SapoDecorator{
     
    
      public void selecionarImageSapo(){
-        super.selecionarImagemSapo(new ImageIcon("imagens/sapoAmarelo.png"));
+        super.selecionarImagemSapo(new ImageIcon("imagens/sapoAmarelo.jpg"));
     }
 }

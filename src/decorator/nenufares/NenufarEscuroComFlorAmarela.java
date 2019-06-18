@@ -20,7 +20,7 @@ public class NenufarEscuroComFlorAmarela extends NenufarDecorator{
         super(nenufar);
     }
     public void selecionarImageNenufar(){
-        super.selecionarImagemNenufar(new ImageIcon("imagens/nenufarEscuroComFlorAmarela.png"));
+        super.selecionarImagemNenufar(new ImageIcon("imagens/nenufarEscuroComFlorAmarela.jpg"));
     }
     
     

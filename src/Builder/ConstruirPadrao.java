@@ -27,36 +27,52 @@ public class ConstruirPadrao extends CriadorDeTabuleiro {
     @Override
     public void construirTabuleiro(Peca[][] tabuleiro) {
         Sapo sapoBase = new SapoBase();
+        Sapo sapoBase2 = new SapoBase();
         Nenufar nenufarBase = new NenufarBase();
-        tabuleiro[0][0] = new NenufarClaro(nenufarBase);
+        Nenufar nenufarBase2 = new NenufarBase();
+        NenufarClaro nenufarClaro= new NenufarClaro(nenufarBase);
+        nenufarClaro.selecionarImageNenufar();
+        SapoRosa sapoRosa = new SapoRosa(sapoBase);
+        sapoRosa.selecionarImageSapo();
+
+        tabuleiro[0][0] = nenufarBase;
         tabuleiro[0][1] = new Agua();
-        tabuleiro[0][2] = new NenufarClaro(nenufarBase);
+        tabuleiro[0][2] = nenufarBase;
         tabuleiro[0][3] = new Agua();
-        tabuleiro[0][4] = new NenufarClaro(nenufarBase);
+        tabuleiro[0][4] = nenufarBase;
 
         tabuleiro[1][0] = new Agua();
-        tabuleiro[1][1] = new SapoRosa(sapoBase);
-        tabuleiro[1][2] = new NenufarClaro(nenufarBase);
-        tabuleiro[1][3] = new NenufarEscuro(nenufarBase); // Aleatorio?
+        tabuleiro[1][1] = sapoBase;
+        tabuleiro[1][2] = nenufarBase;     
+        
+        NenufarEscuro nenufarEscuro= new NenufarEscuro(nenufarBase2);
+        nenufarEscuro.selecionarImageNenufar();
+        
+        
+        tabuleiro[1][3] = nenufarBase2; // Aleatorio?
         tabuleiro[1][4] = new Agua();
-
-        tabuleiro[2][0] = new NenufarClaro(nenufarBase);
-        tabuleiro[2][1] = new NenufarClaro(nenufarBase);
+        
+        SapoAmarelo sapoAmarelo = new SapoAmarelo(sapoBase2);
+        sapoAmarelo.selecionarImageSapo();
+        
+        
+        tabuleiro[2][0] = nenufarBase;
+        tabuleiro[2][1] = nenufarBase;
         tabuleiro[2][2] = new Agua();
-        tabuleiro[2][3] = new SapoAmarelo(sapoBase);
-        tabuleiro[2][4] = new NenufarClaro(nenufarBase);
+        tabuleiro[2][3] = sapoBase2;
+        tabuleiro[2][4] = nenufarBase;
 
         tabuleiro[3][0] = new Agua();
-        tabuleiro[3][1] = new NenufarClaro(nenufarBase);
-        tabuleiro[3][2] = new NenufarClaro(nenufarBase);
-        tabuleiro[3][3] = new NenufarClaro(nenufarBase);
+        tabuleiro[3][1] = nenufarBase;
+        tabuleiro[3][2] = nenufarBase;
+        tabuleiro[3][3] = nenufarBase;
         tabuleiro[3][4] = new Agua();
 
-        tabuleiro[4][0] = new NenufarClaro(nenufarBase);
+        tabuleiro[4][0] = nenufarBase;
         tabuleiro[4][1] = new Agua();
-        tabuleiro[4][2] = new NenufarClaro(nenufarBase);
+        tabuleiro[4][2] = nenufarBase;
         tabuleiro[4][3] = new Agua();
-        tabuleiro[4][4] = new NenufarClaro(nenufarBase);
+        tabuleiro[4][4] = nenufarBase;
         super.construirTabuleiro(tabuleiro); //To change body of generated methods, choose Tools | Templates.
     }
 

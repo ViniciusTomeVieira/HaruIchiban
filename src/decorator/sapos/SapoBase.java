@@ -14,6 +14,6 @@ import javax.swing.ImageIcon;
 public class SapoBase extends Sapo{
     
     public void selecionarImagem(){
-        super.setImagem(new ImageIcon("imagens/sapoAmarelo.png"));
+        super.setImagem(new ImageIcon("imagens/sapoRosa.jpg"));
     }
 }
