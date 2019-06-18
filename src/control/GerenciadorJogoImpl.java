@@ -574,6 +574,15 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         return opcoesDeMover;
     }
 
+    public Tabuleiro getTabuleiro() {
+        return tabuleiro;
+    }
+
+    public void setTabuleiro(Tabuleiro tabuleiro) {
+        this.tabuleiro = tabuleiro;
+    }
+    
+
     //Mover nenufares
     private void moverNenufarEsquerda() throws ArrayIndexOutOfBoundsException {
 
