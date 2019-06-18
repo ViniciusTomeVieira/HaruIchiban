@@ -6,6 +6,7 @@
 package State;
 
 import Observer.Observador;
+import composite.Peca;
 import control.GerenciadorJogoImpl;
 import decorator.nenufares.Nenufar;
 import decorator.nenufares.NenufarBase;
@@ -28,26 +29,26 @@ public class JuniorEscuro extends EstadoJogo {
     }
     
     @Override
-    public void juniorEscuro() {
+    public void juniorEscuro(int columnAtPoint, int rowAtPoint ) {
         Nenufar nenufarBase = new NenufarBase();
         Nenufar nenufarBase2 = new NenufarBase();
-        NenufarEscuroComFlorRosa necfr = new NenufarEscuroComFlorRosa(nenufarBase);
-        necfr.selecionarImageNenufar();
-        NenufarEscuroComFlorAmarela necfa = new NenufarEscuroComFlorAmarela(nenufarBase);
-        necfa.selecionarImageNenufar();
         
-        
-        if (tabuleiroGerenciador[columnAtPoint][rowAtPoint].getNome().equals("NenufarEscuro")) {
-            if (jogadorDaVez.getCorDaFlor().equals("Rosa")) {
-                tabuleiroGerenciador[columnAtPoint][rowAtPoint] = nenufarBase;
+        Peca peca = gerenciadorJogo.getTabuleiro().getPecaTabuleiro(columnAtPoint,rowAtPoint);
+        if (peca.getNome().equals("NenufarEscuro")) {
+            if (gerenciadorJogo.getJogadorDaVez().getCorDaFlor().equals("Rosa")) {
+                NenufarEscuroComFlorRosa necfr = new NenufarEscuroComFlorRosa(nenufarBase);
+                necfr.selecionarImageNenufar();
+                gerenciadorJogo.getTabuleiro().setPecaTabuleiro(columnAtPoint,rowAtPoint,nenufarBase);
             } else {
-                tabuleiroGerenciador[columnAtPoint][rowAtPoint] = nenufarBase2;
+                NenufarEscuroComFlorAmarela necfa = new NenufarEscuroComFlorAmarela(nenufarBase);
+                necfa.selecionarImageNenufar();
+                gerenciadorJogo.getTabuleiro().setPecaTabuleiro(columnAtPoint,rowAtPoint,nenufarBase2);
             }
-            jogadorDaVez.getMao().remove(jogadorDaVez.getFlorEscolhida());
-            estadoJogo = "SeniorEscolhe";
-            indiceMensagens = 4;
-            trocarJogadorDaVez();
-            for (Observador obs : observadores) {
+            gerenciadorJogo.getJogadorDaVez().getMao().remove(gerenciadorJogo.getJogadorDaVez().getFlorEscolhida());
+            proxEstado();
+            gerenciadorJogo.setIndiceMensagens(4);
+            gerenciadorJogo.trocarJogadorDaVez();
+            for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarTabuleiroAlterado();
             }
         }
