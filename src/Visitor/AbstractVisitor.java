@@ -10,9 +10,14 @@ import composite.Tabuleiro;
 
 /**
  *
- * @author Jogos
+ * @author Adroan
  */
-public interface Visitor {
-    void visit(Jogador jogador) throws Exception;
-    void visit(Tabuleiro tabuleiro) throws Exception;
+public class AbstractVisitor implements Visitor{
+
+    @Override
+    public void visit(Jogador jogador) throws Exception {}
+
+    @Override
+    public void visit(Tabuleiro tabuleiro) throws Exception {}
+    
 }

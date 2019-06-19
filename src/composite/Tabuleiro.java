@@ -5,6 +5,7 @@
  */
 package composite;
 
+import Visitor.Visitor;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -86,8 +87,8 @@ public class Tabuleiro extends Objeto {
             }
         }
     }
-
-    
-   
+    public void accept(Visitor visitor) throws Exception {
+        visitor.visit(this);
+    }
    
 }

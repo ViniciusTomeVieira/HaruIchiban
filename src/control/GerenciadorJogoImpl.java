@@ -20,7 +20,7 @@ import State.JuniorEscuro;
 import State.SelecionarCor;
 import Strategy.CalcularPontuacao;
 import Visitor.MontarImgPontuacao;
-import Visitor.Visitor;
+import Visitor.VerificaPadrao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -36,17 +36,7 @@ import decorator.flores.Flor;
 import decorator.flores.FlorAmarela;
 import decorator.flores.FlorBase;
 import decorator.flores.FlorRosa;
-import decorator.nenufares.Nenufar;
-import decorator.nenufares.NenufarBase;
-import decorator.nenufares.NenufarClaro;
-import decorator.nenufares.NenufarClaroComFlorAmarela;
-import decorator.nenufares.NenufarClaroComFlorRosa;
-import decorator.nenufares.NenufarEscuro;
-import decorator.nenufares.NenufarEscuroComFlorAmarela;
-import decorator.nenufares.NenufarEscuroComFlorRosa;
 import composite.Peca;
-import decorator.sapos.SapoAmarelo;
-import decorator.sapos.SapoRosa;
 import composite.Tabuleiro;
 
 /**
@@ -66,7 +56,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private boolean escolheuFlorMover;
     private String mensagemErro;
     private boolean terminouMoverNenufar;
-    private int contadorFloresMao;
     private boolean sapoInserido = false;
 
     //Metodos de mover pecas
@@ -83,7 +72,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 //    private boolean temQuadrado, temLinhaHorVer4, temLinhaDia4, temLinha5 = false;
 //    private List<Peca> formacaoDeFlores = new ArrayList<>();
 //    private int indexOfPontuacao;
-        private Icon[] pontuacao = new ImageIcon[9];
+    private Icon[] pontuacao = new ImageIcon[9];
     //Abstract Factory
     public FabricaJogador fabricaJogador;
 
@@ -129,10 +118,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public void setEstadojogo(EstadoJogo estadojogo) {
         this.estadojogo = estadojogo;
     }
-    
+
     public void avancarEstado() {
-		this.estadojogo.proxEstado();
-	}
+        this.estadojogo.proxEstado();
+    }
 
     @Override
     public void fluxoJogo() {
@@ -164,8 +153,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         DiretorBuilder dr1 = new DiretorBuilder(builder);
         dr1.construir(tabuleiro.getTabuleiro());
 
-
-        tabuleiro.setTabuleiro(builder.getTabuleiroCriado()); 
+        tabuleiro.setTabuleiro(builder.getTabuleiroCriado());
     }
 
     @Override
@@ -248,13 +236,13 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     @Override
     public void selecionarCores() {
         estadojogo.selecionarCores();
-        estadojogo.proxEstado();       
+        estadojogo.proxEstado();
     }
 
     //Remove a flor que o jogador escolheu de seu deck e adiciona em sua mão
     @Override
-    public void escolherFloresDeck(int row, int col) {        
-        estadojogo.escolherFloresDeck(row,col);         
+    public void escolherFloresDeck(int row, int col) {
+        estadojogo.escolherFloresDeck(row, col);
     }
 
     public void enviarCartaParaMao(Flor cartaEscolhida) {
@@ -328,10 +316,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     public FabricaJogador getFabricaJogador() {
         return fabricaJogador;
-    }   
+    }
 
-    public void compararFlores() {       
-        estadojogo.compararFlores();        
+    public void compararFlores() {
+        estadojogo.compararFlores();
     }
 
     public EstadoJogo getEstadojogo() {
@@ -357,11 +345,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public boolean isSapoInserido() {
         return sapoInserido;
     }
-    
-    
 
     @Override
-    public void clicouNoTabuleiro(int rowAtPoint, int columnAtPoint) {   
+    public void clicouNoTabuleiro(int rowAtPoint, int columnAtPoint) {
         System.out.println(estadojogo.toString());
         estadojogo.juniorEscuro(columnAtPoint, rowAtPoint);
         estadojogo.seniorEscolhe(columnAtPoint, rowAtPoint);
@@ -503,7 +489,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public void setTabuleiro(Tabuleiro tabuleiro) {
         this.tabuleiro = tabuleiro;
     }
-    
 
     //Mover nenufares
     private void moverNenufarEsquerda() throws ArrayIndexOutOfBoundsException {
@@ -586,8 +571,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         System.out.println("Entrou no cima");
         try {
             if (tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY - indexParaRealocar).getClass() != null && tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY - indexParaRealocar).getClass() != Agua.class) {
-                nenufaresParaRealocar.add( tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY - indexParaRealocar));
-                System.out.println( tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY - indexParaRealocar));
+                nenufaresParaRealocar.add(tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY - indexParaRealocar));
+                System.out.println(tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY - indexParaRealocar));
                 indexParaRealocar++;
                 System.out.println(indexParaRealocar);
                 moverNenufarCima();
@@ -601,7 +586,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
                     Peca p = tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY - indexParaRealocar);
                     tabuleiro.setPecaTabuleiro(posicaoNenufarX, posicaoNenufarY - indexParaRealocar, tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY));
-                    tabuleiro.setPecaTabuleiro(posicaoNenufarX,posicaoNenufarY, p);
+                    tabuleiro.setPecaTabuleiro(posicaoNenufarX, posicaoNenufarY, p);
                     terminouMoverNenufar();
                 } else { //Faz a troca de todas as posicoes
                     for (int i = indexParaRealocar; i > 0; i--) {
@@ -622,9 +607,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     private void moverNenufarBaixo() {
         try {
-            if (tabuleiro.getPecaTabuleiro(posicaoNenufarX,posicaoNenufarY + indexParaRealocar).getClass() != null && tabuleiro.getPecaTabuleiro(posicaoNenufarX,posicaoNenufarY + indexParaRealocar).getClass() != Agua.class) {
-                nenufaresParaRealocar.add(tabuleiro.getPecaTabuleiro(posicaoNenufarX,posicaoNenufarY + indexParaRealocar));
-                System.out.println(tabuleiro.getPecaTabuleiro(posicaoNenufarX,posicaoNenufarY + indexParaRealocar));
+            if (tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY + indexParaRealocar).getClass() != null && tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY + indexParaRealocar).getClass() != Agua.class) {
+                nenufaresParaRealocar.add(tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY + indexParaRealocar));
+                System.out.println(tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY + indexParaRealocar));
                 indexParaRealocar++;
                 System.out.println(indexParaRealocar);
                 moverNenufarBaixo();
@@ -633,7 +618,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
             indexParaRealocar--;
         }
         if (!terminouMoverNenufar) {
-            if (tabuleiro.getPecaTabuleiro(posicaoNenufarX,posicaoNenufarY + indexParaRealocar).getClass() == Agua.class || (posicaoNenufarY + indexParaRealocar) > 4) {
+            if (tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY + indexParaRealocar).getClass() == Agua.class || (posicaoNenufarY + indexParaRealocar) > 4) {
                 //Logica do array
                 if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
                     Peca p = tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY + indexParaRealocar);
@@ -706,7 +691,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 //
 //        }
 //    }
-
 //    private void verificarQuadrado(int coluna, int linha) {
 //
 //        try {
@@ -772,35 +756,34 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 //        formacaoDeFlores.clear();
 //
 //    }
-    public void verificarPontuação() {
-//        System.out.println("1: " + temQuadrado + ", 2: " + temLinhaHorVer4 + ", 3:" + temLinhaDia4 + "5: " + temLinha5);
-//        if (temLinha5 == true) {
-//            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 5);
-//        } else if (temLinhaDia4 == true) {
-//            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 3);
-//        } else if (temLinhaHorVer4 == true) {
-//            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 2);
-//        } else if (temQuadrado == true) {
-//            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 1);
-//        }
-//        if (temLinhaHorVer4 == true || temQuadrado == true || temLinhaDia4 == true || temLinha5 == true) {
-//            System.out.println("entrou observer");
-//            for (Observador obs : observadores) {
-//                obs.notificarRodadaEncerado();
+//    public void verificarPontuação() throws Exception {
+////        System.out.println("1: " + temQuadrado + ", 2: " + temLinhaHorVer4 + ", 3:" + temLinhaDia4 + "5: " + temLinha5);
+////        if (temLinha5 == true) {
+////            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 5);
+////        } else if (temLinhaDia4 == true) {
+////            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 3);
+////        } else if (temLinhaHorVer4 == true) {
+////            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 2);
+////        } else if (temQuadrado == true) {
+////            jogadorDaVez.setPontuacao(jogadorDaVez.getPontuacao() + 1);
+////        }
+////        if (temLinhaHorVer4 == true || temQuadrado == true || temLinhaDia4 == true || temLinha5 == true) {
+////            System.out.println("entrou observer");
+////            for (Observador obs : observadores) {
+////                obs.notificarRodadaEncerado();
+////
+////            }
+////        }
+//        VerificaPadrao v1 = new VerificaPadrao();
+//        tabuleiro.accept(v1);
+//        v1.getPontuacao();
+//        System.out.println("entrou observer");
+//        for (Observador obs : observadores) {
+//            obs.notificarRodadaEncerado();
 //
-//            }
 //        }
-        CalcularPontuacao calcular = new CalcularPontuacao();
-        jogadorDaVez.setPontuacao(calcular.verificar(tabuleiro.getTabuleiro()));
-
-        if (calcular.verificar(tabuleiro.getTabuleiro()) != 0) {
-            System.out.println("entrou observer");
-            for (Observador obs : observadores) {
-                obs.notificarRodadaEncerado();
-
-            }
-        }
-    }
+//
+//    }
 
     public void verificarVencedor() {
         String vencedor = "";
@@ -860,27 +843,36 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     @Override
     public void inicializarPontuacao() {
         for (int i = 0; i < 9; i++) {
-            pontuacao[i] = new ImageIcon("Imagens/"+(i+1)+"base.jpg");
+            pontuacao[i] = new ImageIcon("Imagens/" + (i + 1) + "base.jpg");
         }
     }
 
     @Override
     public Icon getpontuacao(int col) throws Exception {
-        
+
         if (pontuacao[col] != null) {
             return pontuacao[col];
         }
         return null;
     }
-    
-    private void atualizarPontuacao() throws Exception{
+
+    private void atualizarPontuacao() throws Exception {
+        VerificaPadrao v1 = new VerificaPadrao();
+        tabuleiro.accept(v1);
+
+        if (v1.getPontuacao() != 0) {
+            System.out.println("entrou observer");
+            for (Observador obs : observadores) {
+                obs.notificarRodadaEncerado();
+
+            }
+        }
         MontarImgPontuacao montar = new MontarImgPontuacao();
         jogador1.accept(montar);
         pontuacao[jogador1.getPontuacao()] = montar.getPontuacao();
-        
+
         jogador2.accept(montar);
-        pontuacao[pontuacao.length-jogador2.getPontuacao()]=montar.getPontuacao();
+        pontuacao[pontuacao.length - jogador2.getPontuacao()] = montar.getPontuacao();
     }
 
-    
 }

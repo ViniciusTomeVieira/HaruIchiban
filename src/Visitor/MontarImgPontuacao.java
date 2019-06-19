@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
  *
  * @author Jogos
  */
-public class MontarImgPontuacao implements Visitor {
+public class MontarImgPontuacao extends AbstractVisitor{
 
     private int pontuacao;
     private String cor;
