@@ -29,7 +29,7 @@ public class JuniorMovePecas extends EstadoJogo{
     public void juniorMovePecas(int columnAtPoint, int rowAtPoint) {
         Peca peca = gerenciadorJogo.getTabuleiro().getPecaTabuleiro(columnAtPoint, rowAtPoint);
          //!= Agua.class
-            if (peca.getNome().equals("")) {
+            if (!peca.getNome().equals("")) {
                 gerenciadorJogo.setPosicaoNenufarX(columnAtPoint);
                 gerenciadorJogo.setPosicaoNenufarY(rowAtPoint);
                 gerenciadorJogo.setEscolheuFlorMover(true);

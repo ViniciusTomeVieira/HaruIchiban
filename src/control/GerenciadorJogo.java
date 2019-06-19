@@ -7,6 +7,7 @@ package control;
 
 import AbstractFactory.Jogador;
 import Observer.Observador;
+import State.EstadoJogo;
 import java.util.List;
 import javax.swing.Icon;
 import decorator.flores.Flor;
@@ -59,4 +60,5 @@ public interface GerenciadorJogo {
     public void inicializarPontuacao();
     public Icon getpontuacao(int col) throws Exception;;
     public void atualizarPontuacao() throws Exception;
+    public EstadoJogo getEstadojogo();
 }

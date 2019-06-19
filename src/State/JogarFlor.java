@@ -15,7 +15,6 @@ public class JogarFlor extends EstadoJogo {
 
     public JogarFlor(GerenciadorJogoImpl gerenciadorJogo) {
         super(gerenciadorJogo);
-        System.out.println("Jogar flor");
     }
 
     @Override

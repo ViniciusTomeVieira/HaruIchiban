@@ -21,7 +21,7 @@ public class NenufarEscuroComFlorRosa extends NenufarDecorator{
     }
     
     public void selecionarImageNenufar(){
-        super.selecionarImagemNenufar(new ImageIcon("imagens/nenufarEscuroComFlorRosas.jpg"));
+        super.selecionarImagemNenufar(new ImageIcon("imagens/nenufarEscuroComFlorRosa.jpg"));
         selecionarNome();
     }
     public void selecionarNome(){

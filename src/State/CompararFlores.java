@@ -62,6 +62,7 @@ public class CompararFlores extends EstadoJogo{
             }
            
         } else { //Empate
+            
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarEmpateComparacao();
             }

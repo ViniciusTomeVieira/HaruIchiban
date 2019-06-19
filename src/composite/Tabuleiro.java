@@ -69,8 +69,8 @@ public class Tabuleiro extends Objeto {
         return tabuleiro[coluna][linha];
     }
     
-    public void setPecaTabuleiro(int coluna, int Linha, Peca peca){
-        tabuleiro[coluna][linha] = peca;
+    public void setPecaTabuleiro(int coluna, int linhaa, Peca peca){
+        tabuleiro[coluna][linhaa] = peca;
     }
 
     @Override

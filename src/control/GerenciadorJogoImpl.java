@@ -17,6 +17,7 @@ import Builder.CriadorDeTabuleiro;
 import Observer.Observador;
 import State.EstadoJogo;
 import State.JuniorEscuro;
+import State.JuniorMovePecas;
 import State.SelecionarCor;
 import Strategy.CalcularPontuacao;
 import Visitor.MontarImgPontuacao;
@@ -270,8 +271,10 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 jogadorDaVez = jogador1;
                 maoDaVez = jogador1.getMao();
                 florDaVez = jogador1.getFlores();
-                estadojogo.proxEstado();
-                //avancarEstadoJogo(estadoJogo);
+                if(estadojogo.getClass() == JuniorMovePecas.class){
+                }else{
+                    estadojogo.proxEstado();
+                }
             }
         }
         for (Observador obs : observadores) {
@@ -312,6 +315,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     @Override
     public void escolherFlorParaJogar(int index) {
         estadojogo.escolherFlorParaJogar(index);
+        if(jogadorDaVez.getNome().equals(jogador2.getNome())){
+            estadojogo.compararFlores();
+        }
     }
 
     public FabricaJogador getFabricaJogador() {
@@ -372,7 +378,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     moverNenufarBaixo();
                     break;
             }
-        } else {
         }
     }
 
@@ -658,7 +663,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         terminouMoverNenufar = true;
         indiceMensagens = 8;
         indexParaRealocar = 1;
-        estadoJogo = "SeniorEscolheEscuro";
+        estadojogo.proxEstado();
         trocarJogadorDaVez();
         for (Observador obs : observadores) {
             obs.notificarTabuleiroAlterado();

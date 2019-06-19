@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import control.GerenciadorJogo;
 import control.GerenciadorJogoImpl;
 import Observer.Observador;
+import com.sun.glass.events.KeyEvent;
 import command.ClicouNoTabuleiroCommand;
 import command.CommandInvoker;
 import command.EscolherFloresDeckCommand;
@@ -584,8 +585,9 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
             //Command
         }
         if (e.getSource() == miSair) {
-            System.exit(0);
+            JOptionPane.showMessageDialog(rootPane, gerenciador.getEstadojogo().toString());
         }
+        
     }
 
     //Metodo executado ao final do jogo

@@ -4,32 +4,17 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/State/EstadoJogo.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/decorator/nenufares/NenufarBase.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/control/GerenciadorJogo.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/State/SelecionarCor.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/decorator/sapos/Sapo.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/State/SeniorEscolheEscuro.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/decorator/nenufares/NenufarEscuroComFlorRosa.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/composite/Peca.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/State/EscolherFlores.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/Builder/ConstruirPadrao2.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/State/JuniorMovePecas.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/decorator/sapos/SapoDecorator.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/composite/Objeto.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/decorator/nenufares/NenufarClaroComFlorRosa.java</file>
+            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/State/CompararFlores.java</file>
             <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/control/GerenciadorJogoImpl.java</file>
             <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/State/JogarFlor.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/decorator/nenufares/Nenufar.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/decorator/sapos/SapoBase.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/Builder/CriadorDeTabuleiro.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/decorator/sapos/SapoRosa.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/Builder/ConstruirPadrao.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/decorator/nenufares/NenufarEscuro.java</file>
+            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/control/GerenciadorJogo.java</file>
+            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/State/SeniorEscolheEscuro.java</file>
+            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/decorator/nenufares/NenufarEscuroComFlorRosa.java</file>
             <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/view/HaruIchiban.java</file>
             <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/State/SeniorEscolhe.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/decorator/nenufares/NenufarDecorator.java</file>
-            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/decorator/nenufares/NenufarEscuroComFlorAmarela.java</file>
             <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/composite/Tabuleiro.java</file>
+            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/State/JuniorMovePecas.java</file>
+            <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/command/CommandInvoker.java</file>
             <file>file:/C:/Users/vinny/OneDrive/Documentos/HaruIchiban/HaruIchiban/src/State/JuniorEscuro.java</file>
         </group>
     </open-files>
