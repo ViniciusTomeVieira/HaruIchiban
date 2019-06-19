@@ -494,14 +494,14 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         jbCoachar1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //gerenciador.get
+                gerenciador.setJogadorDaVez(gerenciador.getJogador1());
             }
         });
         
         jbCoachar2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               
+               gerenciador.setJogadorDaVez(gerenciador.getJogador2());
             }
         });
         jpBotoes = new JPanel();
