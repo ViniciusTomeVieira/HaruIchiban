@@ -37,12 +37,13 @@ public class CompararFlores extends EstadoJogo{
             gerenciadorJogo.getJogador2().setJuniorSenior("Senior");
             gerenciadorJogo.getJogador1().getMao().remove(gerenciadorJogo.getJogador1().getFlorEscolhida());
             gerenciadorJogo.getJogador2().getMao().remove(gerenciadorJogo.getJogador2().getFlorEscolhida());
-            proxEstado();
             gerenciadorJogo.trocarJogadorDaVez();
             gerenciadorJogo.setIndiceMensagens(3);
+            proxEstado();
+            System.out.println(gerenciadorJogo.getEstadojogo().toString());
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarJuniorSenior();
-            }
+            }            
         } else if (gerenciadorJogo.getJogador1().getFlorEscolhida().getNumero() > gerenciadorJogo.getJogador2().getFlorEscolhida().getNumero()) {
             gerenciadorJogo.fabricaJogador = new FabricaSenior();
             gerenciadorJogo.jogador1 = gerenciadorJogo.getFabricaJogador().criarJogador(gerenciadorJogo.getJogador1());
@@ -51,13 +52,15 @@ public class CompararFlores extends EstadoJogo{
             gerenciadorJogo.getJogador1().setJuniorSenior("Senior");
             gerenciadorJogo.getJogador2().setJuniorSenior("Junior");
             gerenciadorJogo.getJogador1().getMao().remove(gerenciadorJogo.getJogador1().getFlorEscolhida());
-            gerenciadorJogo.getJogador2().getMao().remove(gerenciadorJogo.getJogador2().getFlorEscolhida());
-            proxEstado();
-            gerenciadorJogo.trocarJogadorDaVez();
+            gerenciadorJogo.getJogador2().getMao().remove(gerenciadorJogo.getJogador2().getFlorEscolhida());            
+            gerenciadorJogo.trocarJogadorDaVez(); // TA AQUI O PROBLEMA
             gerenciadorJogo.setIndiceMensagens(3);
+            proxEstado();
+            System.out.println(gerenciadorJogo.getEstadojogo().toString());
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarJuniorSenior();
             }
+           
         } else { //Empate
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarEmpateComparacao();

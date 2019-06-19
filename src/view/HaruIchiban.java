@@ -494,7 +494,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
         jbCoachar1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gerenciador.get
+                //gerenciador.get
             }
         });
         

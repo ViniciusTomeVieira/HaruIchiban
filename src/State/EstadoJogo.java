@@ -13,12 +13,13 @@ import control.GerenciadorJogoImpl;
  * @author vinny
  */
 public abstract class EstadoJogo {
+
     protected GerenciadorJogoImpl gerenciadorJogo;
 
     public EstadoJogo(GerenciadorJogoImpl gerenciadorJogo) {
         this.gerenciadorJogo = gerenciadorJogo;
     }
-    
+
     public abstract void proxEstado();
 
     public void selecionarCores() {
@@ -26,15 +27,22 @@ public abstract class EstadoJogo {
 
     public void escolherFloresDeck(int row, int col) {
     }
-    
-    public void escolherFlorParaJogar(int index) {
 
+    public void escolherFlorParaJogar(int index) {
     }
-    public void compararFlores() {       
+
+    public void compararFlores() {
     }
-    
-    public void juniorEscuro(int columnAtPoint, int rowAtPoint ){
-    
+
+    public void juniorEscuro(int columnAtPoint, int rowAtPoint) {
     }
-     public void seniorEscolhe(int columnAtPoint, int rowAtPoint){}
+
+    public void seniorEscolhe(int columnAtPoint, int rowAtPoint) {
+    }
+
+    public void juniorMovePecas(int columnAtPoint, int rowAtPoint) {
+    }
+
+    public void seniorEscolheEscuro(int columnAtPoint, int rowAtPoint) {
+    }
 }

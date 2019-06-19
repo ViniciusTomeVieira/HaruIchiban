@@ -5,7 +5,10 @@
  */
 package State;
 
+import Observer.Observador;
+import composite.Peca;
 import control.GerenciadorJogoImpl;
+import model.Agua;
 
 /**
  *
@@ -22,4 +25,18 @@ public class JuniorMovePecas extends EstadoJogo{
         gerenciadorJogo.setEstadojogo(new SeniorEscolheEscuro(gerenciadorJogo));
     }
     
+    @Override
+    public void juniorMovePecas(int columnAtPoint, int rowAtPoint) {
+        Peca peca = gerenciadorJogo.getTabuleiro().getPecaTabuleiro(columnAtPoint, rowAtPoint);
+         //!= Agua.class
+            if (peca.getNome().equals("")) {
+                gerenciadorJogo.setPosicaoNenufarX(columnAtPoint);
+                gerenciadorJogo.setPosicaoNenufarY(rowAtPoint);
+                gerenciadorJogo.setEscolheuFlorMover(true);
+                gerenciadorJogo.setIndiceMensagens(7);
+                for (Observador obs : gerenciadorJogo.getObservadores()) {
+                    obs.notificarFlorEscolhidaParaMover();
+                }
+            }
+        }      
 }
