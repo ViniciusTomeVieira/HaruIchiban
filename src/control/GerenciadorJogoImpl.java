@@ -856,7 +856,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         return null;
     }
 
-    private void atualizarPontuacao() throws Exception {
+    @Override
+    public void atualizarPontuacao() throws Exception {
         VerificaPadrao v1 = new VerificaPadrao();
         tabuleiro.accept(v1);
 

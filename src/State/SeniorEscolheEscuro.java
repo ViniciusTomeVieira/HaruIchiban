@@ -14,6 +14,8 @@ import decorator.nenufares.NenufarClaro;
 import decorator.nenufares.NenufarEscuro;
 import decorator.sapos.SapoAmarelo;
 import decorator.sapos.SapoRosa;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -72,7 +74,11 @@ public class SeniorEscolheEscuro extends EstadoJogo {
                 for (Observador obs : gerenciadorJogo.getObservadores()) {
                     obs.notificarTabuleiroAlterado();
                 }
-                gerenciadorJogo.verificarPontuação();
+                try {
+                    gerenciadorJogo.atualizarPontuacao();
+                } catch (Exception ex) {
+                    Logger.getLogger(SeniorEscolheEscuro.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 gerenciadorJogo.verificarVencedor();
 
             }
