@@ -15,19 +15,22 @@ import control.GerenciadorJogoImpl;
  * @author Jogos
  */
 public class CompararFlores extends EstadoJogo{
+    
+    private boolean executou;
 
     public CompararFlores(GerenciadorJogoImpl gerenciadorJogo) {
         super(gerenciadorJogo);
-        this.compararFlores();
     }
 
     @Override
     public void proxEstado() {
          gerenciadorJogo.setEstadojogo(new JuniorEscuro(gerenciadorJogo));
+         gerenciadorJogo.trocarJogadorDaVez();
     }
     
     @Override
     public void compararFlores() {
+        if(!executou){
         if (gerenciadorJogo.getJogador1().getFlorEscolhida().getNumero() < gerenciadorJogo.getJogador2().getFlorEscolhida().getNumero()) {
             gerenciadorJogo.fabricaJogador = new FabricaJunior();
             gerenciadorJogo.jogador1 = gerenciadorJogo.getFabricaJogador().criarJogador(gerenciadorJogo.getJogador1());
@@ -37,13 +40,13 @@ public class CompararFlores extends EstadoJogo{
             gerenciadorJogo.getJogador2().setJuniorSenior("Senior");
             gerenciadorJogo.getJogador1().getMao().remove(gerenciadorJogo.getJogador1().getFlorEscolhida());
             gerenciadorJogo.getJogador2().getMao().remove(gerenciadorJogo.getJogador2().getFlorEscolhida());
-            gerenciadorJogo.trocarJogadorDaVez();
+            //gerenciadorJogo.trocarJogadorDaVez();
             gerenciadorJogo.setIndiceMensagens(3);
-            proxEstado();
             System.out.println(gerenciadorJogo.getEstadojogo().toString());
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarJuniorSenior();
-            }            
+            }   
+            proxEstado();
         } else if (gerenciadorJogo.getJogador1().getFlorEscolhida().getNumero() > gerenciadorJogo.getJogador2().getFlorEscolhida().getNumero()) {
             gerenciadorJogo.fabricaJogador = new FabricaSenior();
             gerenciadorJogo.jogador1 = gerenciadorJogo.getFabricaJogador().criarJogador(gerenciadorJogo.getJogador1());
@@ -53,21 +56,21 @@ public class CompararFlores extends EstadoJogo{
             gerenciadorJogo.getJogador2().setJuniorSenior("Junior");
             gerenciadorJogo.getJogador1().getMao().remove(gerenciadorJogo.getJogador1().getFlorEscolhida());
             gerenciadorJogo.getJogador2().getMao().remove(gerenciadorJogo.getJogador2().getFlorEscolhida());            
-            gerenciadorJogo.trocarJogadorDaVez(); // TA AQUI O PROBLEMA
+            //gerenciadorJogo.trocarJogadorDaVez(); // TA AQUI O PROBLEMA
             gerenciadorJogo.setIndiceMensagens(3);
-            proxEstado();
             System.out.println(gerenciadorJogo.getEstadojogo().toString());
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarJuniorSenior();
             }
-           
+           proxEstado();
         } else { //Empate
             
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarEmpateComparacao();
             }
         }
-
+        executou = true;
+        }
     }
     
     public void empate(int vencedor){

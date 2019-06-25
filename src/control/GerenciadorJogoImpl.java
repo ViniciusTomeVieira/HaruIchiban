@@ -15,6 +15,7 @@ import Builder.ConstruirPadrao;
 import Builder.ConstruirPadrao2;
 import Builder.CriadorDeTabuleiro;
 import Observer.Observador;
+import State.CompararFlores;
 import State.EstadoJogo;
 import State.JuniorEscuro;
 import State.JuniorMovePecas;
@@ -262,6 +263,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 maoDaVez = jogador2.getMao();
                 florDaVez = jogador2.getFlores();
             }
+            estadojogo.proxEstado();
         } else {
             if (jogadorDaVez.getNome().equals("Jogador 1")) {
                 jogadorDaVez = jogador2;
@@ -274,6 +276,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 if(estadojogo.getClass() == JuniorMovePecas.class){
                 }else{
                     estadojogo.proxEstado();
+                    if(estadojogo.getClass() == CompararFlores.class){
+                        estadojogo.compararFlores();
+                    }
                 }
             }
         }
@@ -286,18 +291,18 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         this.indiceMensagens = indiceMensagens;
     }
 
-    private void avancarEstadoJogo(String estadoJogo) {
-        switch (estadoJogo) {
-            case "EscolherFlores":
-                this.estadoJogo = "JogarFlor";
-                indiceMensagens = 1;
-                break;
-            case "JogarFlor":
-                this.estadoJogo = "CompararFlores";
-                fluxoJogo();
-                break;
-        }
-    }
+//    private void avancarEstadoJogo(String estadoJogo) {
+//        switch (estadoJogo) {
+//            case "EscolherFlores":
+//                this.estadoJogo = "JogarFlor";
+//                indiceMensagens = 1;
+//                break;
+//            case "JogarFlor":
+//                this.estadoJogo = "CompararFlores";
+//                fluxoJogo();
+//                break;
+//        }
+//    }
 
     public List<Observador> getObservadores() {
         return observadores;
