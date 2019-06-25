@@ -19,6 +19,11 @@ public class Agua extends Peca{
     
     public Agua() {
         super.setImagem(new ImageIcon("imagens/agua.jpg"));
+        selecionarNome();
+    }
+    
+    public void selecionarNome(){
+        super.setNome("Agua");
     }
     
 }
