@@ -65,6 +65,12 @@ public class SeniorEscolheEscuro extends EstadoJogo {
                 gerenciadorJogo.sapo = null;
                 gerenciadorJogo.setSapoInserido(false);
                 gerenciadorJogo.setIndiceMensagens(0);
+                try {
+                    gerenciadorJogo.atualizarPontuacao();
+                } catch (Exception ex) {
+                    Logger.getLogger(SeniorEscolheEscuro.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                gerenciadorJogo.verificarVencedor();
                 proxEstado();
                 gerenciadorJogo.recomecarComJogador1();
                 if (gerenciadorJogo.verificarTamanhoDeck() == 0) {
@@ -84,12 +90,7 @@ public class SeniorEscolheEscuro extends EstadoJogo {
 //                } catch (Exception ex) {
 //                    Logger.getLogger(SeniorEscolheEscuro.class.getName()).log(Level.SEVERE, null, ex);
 //                }
-                try {
-                    gerenciadorJogo.atualizarPontuacao();
-                } catch (Exception ex) {
-                    Logger.getLogger(SeniorEscolheEscuro.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                gerenciadorJogo.verificarVencedor();
+                
 
             }
 

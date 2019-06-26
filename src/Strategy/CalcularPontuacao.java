@@ -26,8 +26,8 @@ public class CalcularPontuacao {
         if (cor.equals("Rosa")) {
             for (int linha = 0; linha < 5; linha++) {
                 for (int coluna = 0; coluna < 5; coluna++) {
-                    if (matriz[coluna][linha].getClass() == NenufarClaroComFlorRosa.class
-                            || matriz[coluna][linha].getClass() == NenufarEscuroComFlorRosa.class) {
+                    if (matriz[coluna][linha].getNome().equals("NenufarClaroComFlorRosa")
+                            || matriz[coluna][linha].getNome().equals("NenufarEscuroComFlorRosa")) {
                         verificar = new VerificarQuadrado();
                         System.out.println("Verificando quadrado");
                         pontuacao += verificar.verificar(matriz, linha, coluna);
@@ -59,8 +59,8 @@ public class CalcularPontuacao {
         } else if (cor.equals("Amarelo")) {
             for (int linha = 0; linha < 5; linha++) {
                 for (int coluna = 0; coluna < 5; coluna++) {
-                    if (matriz[coluna][linha].getClass() == NenufarClaroComFlorAmarela.class
-                            || matriz[coluna][linha].getClass() == NenufarEscuroComFlorAmarela.class) {
+                    if (matriz[coluna][linha].getNome().equals("NenufarClaroComFlorAmarela")
+                            || matriz[coluna][linha].getNome().equals("NenufarEscuroComFlorAmarela")) {
                         verificar = new VerificarQuadrado();
                         System.out.println("Verificando quadrado");
                         pontuacao += verificar.verificar(matriz, linha, coluna);
