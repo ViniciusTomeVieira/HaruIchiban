@@ -19,9 +19,11 @@ public class VerificarQuadrado implements VerificarFlores {
             if (matriz[coluna][linha].getNome().equals(matriz[coluna+1][linha].getNome())
                     && matriz[coluna][linha].getNome().equals(matriz[coluna][linha+1].getNome())
                     && matriz[coluna][linha].getNome().equals(matriz[coluna+1][linha+1].getNome())) {
-                        return 1;
+                System.out.println("retornou 1");        
+                return 1;
                     }
         }
+        System.out.println("retornou 0");
         return 0;
     }
 
