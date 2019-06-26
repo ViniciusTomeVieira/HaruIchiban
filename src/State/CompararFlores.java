@@ -83,6 +83,9 @@ public class CompararFlores extends EstadoJogo{
             gerenciadorJogo.getJogador2().getMao().remove(gerenciadorJogo.getJogador2().getFlorEscolhida());
             //gerenciadorJogo.trocarJogadorDaVez();
             gerenciadorJogo.setIndiceMensagens(9);
+            gerenciadorJogo.setJogadorDaVez(gerenciadorJogo.getJogador1());
+            gerenciadorJogo.setMaoDaVez(gerenciadorJogo.getJogador1().getMao());
+            gerenciadorJogo.setFlorDaVez(gerenciadorJogo.getJogador1().getFlores());
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarJuniorSenior();
             }
@@ -97,6 +100,9 @@ public class CompararFlores extends EstadoJogo{
             gerenciadorJogo.getJogador2().getMao().remove(gerenciadorJogo.getJogador2().getFlorEscolhida());
             //gerenciadorJogo.trocarJogadorDaVez();
             gerenciadorJogo.setIndiceMensagens(9);
+            gerenciadorJogo.setJogadorDaVez(gerenciadorJogo.getJogador2());
+            gerenciadorJogo.setMaoDaVez(gerenciadorJogo.getJogador2().getMao());
+            gerenciadorJogo.setFlorDaVez(gerenciadorJogo.getJogador2().getFlores());
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarJuniorSenior();
             }
