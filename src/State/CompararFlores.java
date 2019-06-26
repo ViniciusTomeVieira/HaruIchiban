@@ -62,6 +62,7 @@ public class CompararFlores extends EstadoJogo{
            proxEstado();
         } else { //Empate
             gerenciadorJogo.setIndiceMensagens(9);
+            gerenciadorJogo.empate = true;
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarEmpateComparacao();
             }
@@ -85,7 +86,6 @@ public class CompararFlores extends EstadoJogo{
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarJuniorSenior();
             }
-            gerenciadorJogo.empate = true;
         }else{
             gerenciadorJogo.fabricaJogador = new FabricaSenior();
             gerenciadorJogo.jogador1 = gerenciadorJogo.getFabricaJogador().criarJogador(gerenciadorJogo.getJogador1());
@@ -100,7 +100,6 @@ public class CompararFlores extends EstadoJogo{
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarJuniorSenior();
             }
-            gerenciadorJogo.empate = true;
         }
     }
     

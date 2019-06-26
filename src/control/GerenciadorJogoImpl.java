@@ -16,6 +16,7 @@ import Builder.ConstruirPadrao2;
 import Builder.CriadorDeTabuleiro;
 import Observer.Observador;
 import State.CompararFlores;
+import State.EscolherFlores;
 import State.EstadoJogo;
 import State.JuniorEscuro;
 import State.JuniorMovePecas;
@@ -246,6 +247,18 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     }
 
     public void trocarJogadorDaVez() {
+        
+        if(empate){
+            if (jogadorDaVez.getNome().equals("Jogador 1")) {
+                jogadorDaVez = jogador2;
+                maoDaVez = jogador2.getMao();
+                florDaVez = jogador2.getFlores();
+            } else {
+                jogadorDaVez = jogador1;
+                maoDaVez = jogador1.getMao();
+                florDaVez = jogador1.getFlores();
+        }
+       }else{
 
         if (estadojogo.getClass() == JuniorEscuro.class) {
             if (jogador1.getClass() == JogadorJunior.class) {
@@ -274,6 +287,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     }
                 }
             }
+        }
         }
         for (Observador obs : observadores) {
             obs.notificarJogadorDaVezAlterado();
@@ -660,6 +674,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         florDaVez = jogador1.getFlores();
         indexParaRealocar = 1;
         terminouMoverNenufar = false;
+        for (Observador obs : observadores) {
+            obs.notificarJogadorDaVezAlterado();
+        }
     }
 
 //    private void verificarFloracao() {
@@ -882,10 +899,14 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 if(peca.getNome().equals("NenufarClaro") && jogadorDaVez.getFlorEscolhida() == null){
                     if(sapoRosa!= null){
                         getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoRosa);
+                        sapoRosa = null;
                     }else{
                         getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoAmarelo);
-                        estadojogo.proxEstado();
+                        sapoAmarelo = null;
+                        estadojogo = new EscolherFlores(this);
+                        indiceMensagens = 0;
                         empate = false;
+                        recomecarComJogador1();
                     }
                 }
             }
@@ -896,14 +917,17 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, nenufarBase);
                 jogadorDaVez.setFlorEscolhida(null);
                 sapoAmarelo = peca;
-                trocarJogadorDaVez();                                
+                trocarJogadorDaVez(); 
+                indiceMensagens = 10;
             }else{
                 if(peca.getNome().equals("NenufarClaro") && jogadorDaVez.getFlorEscolhida() == null){
                     if(sapoRosa!= null){
                         getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoRosa);
+                        sapoRosa = null;
                     }else{
                         getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoAmarelo);
-                        estadojogo.proxEstado();
+                        sapoAmarelo = null;
+                        estadojogo = new EscolherFlores(this);
                         empate = false;
                     }
                 }
