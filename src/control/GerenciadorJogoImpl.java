@@ -258,6 +258,18 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 maoDaVez = jogador1.getMao();
                 florDaVez = jogador1.getFlores();
         }
+            
+            if(jogador1.getFlorEscolhida() == null && jogador2.getFlorEscolhida() == null){
+            if(jogador1.getClass() == JogadorJunior.class){
+                jogadorDaVez = jogador1;
+                maoDaVez = jogador1.getMao();
+                florDaVez = jogador1.getFlores();
+            }else{
+                jogadorDaVez = jogador2;
+                maoDaVez = jogador2.getMao();
+                florDaVez = jogador2.getFlores();
+            }
+            }
        }else{
 
         if (estadojogo.getClass() == JuniorEscuro.class) {
@@ -928,7 +940,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                         getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoAmarelo);
                         sapoAmarelo = null;
                         estadojogo = new EscolherFlores(this);
+                        indiceMensagens = 0;
                         empate = false;
+                        recomecarComJogador1();
                     }
                 }
             }
