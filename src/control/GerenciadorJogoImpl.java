@@ -20,6 +20,8 @@ import State.EstadoJogo;
 import State.JuniorEscuro;
 import State.JuniorMovePecas;
 import State.SelecionarCor;
+import State.SeniorEscolhe;
+import State.SeniorEscolheEscuro;
 import Strategy.CalcularPontuacao;
 import Visitor.MontarImgPontuacao;
 import Visitor.VerificaPadrao;
@@ -121,21 +123,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         this.estadojogo = estadojogo;
     }
 
-    public void avancarEstado() {
-        this.estadojogo.proxEstado();
-    }
-
-    @Override
-    public void fluxoJogo() {
-        switch (estadoJogo) {
-            case "SelecionarCor":
-                selecionarCores();
-                break;
-            case "CompararFlores":
-                compararFlores();
-                break;
-        }
-    }
 
     @Override
     public void inicializarTabuleiro(int opcao) throws Exception { // Vai ser alterado
@@ -263,7 +250,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 maoDaVez = jogador2.getMao();
                 florDaVez = jogador2.getFlores();
             }
-            estadojogo.proxEstado();
         } else {
             if (jogadorDaVez.getNome().equals("Jogador 1")) {
                 jogadorDaVez = jogador2;
@@ -273,7 +259,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 jogadorDaVez = jogador1;
                 maoDaVez = jogador1.getMao();
                 florDaVez = jogador1.getFlores();
-                if(estadojogo.getClass() == JuniorMovePecas.class){
+                if(estadojogo.getClass() == JuniorMovePecas.class ||estadojogo.getClass() == SeniorEscolhe.class || estadojogo.getClass() == SeniorEscolheEscuro.class){
                 }else{
                     estadojogo.proxEstado();
                     if(estadojogo.getClass() == CompararFlores.class){
@@ -291,19 +277,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         this.indiceMensagens = indiceMensagens;
     }
 
-//    private void avancarEstadoJogo(String estadoJogo) {
-//        switch (estadoJogo) {
-//            case "EscolherFlores":
-//                this.estadoJogo = "JogarFlor";
-//                indiceMensagens = 1;
-//                break;
-//            case "JogarFlor":
-//                this.estadoJogo = "CompararFlores";
-//                fluxoJogo();
-//                break;
-//        }
-//    }
-
     public List<Observador> getObservadores() {
         return observadores;
     }
@@ -320,19 +293,14 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     @Override
     public void escolherFlorParaJogar(int index) {
         estadojogo.escolherFlorParaJogar(index);
-        if(jogadorDaVez.getNome().equals(jogador2.getNome())){
-            estadojogo.compararFlores();
-        }
     }
 
     public FabricaJogador getFabricaJogador() {
         return fabricaJogador;
     }
 
-    public void compararFlores() {
-        estadojogo.compararFlores();
-    }
 
+    @Override
     public EstadoJogo getEstadojogo() {
         return estadojogo;
     }
@@ -517,7 +485,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         if (!terminouMoverNenufar) {
             if (tabuleiro.getPecaTabuleiro(posicaoNenufarX - indexParaRealocar, posicaoNenufarY).getClass() == Agua.class || (posicaoNenufarX - indexParaRealocar) < 0) {
                 //Logica do array
-                if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
+                if (nenufaresParaRealocar.isEmpty()) { //Caso ache agua de primeira
                     Peca p = tabuleiro.getPecaTabuleiro(posicaoNenufarX - indexParaRealocar, posicaoNenufarY);
                     tabuleiro.setPecaTabuleiro(posicaoNenufarX - indexParaRealocar, posicaoNenufarY, tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY));
                     tabuleiro.setPecaTabuleiro(posicaoNenufarX, posicaoNenufarY, p);
@@ -555,7 +523,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         if (!terminouMoverNenufar) {
             if (tabuleiro.getPecaTabuleiro(posicaoNenufarX + indexParaRealocar, posicaoNenufarY).getClass() == Agua.class || (posicaoNenufarX + indexParaRealocar) > 4) {
                 //Logica do array
-                if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
+                if (nenufaresParaRealocar.isEmpty()) { //Caso ache agua de primeira
                     Peca p = tabuleiro.getPecaTabuleiro(posicaoNenufarX + indexParaRealocar, posicaoNenufarY);
                     tabuleiro.setPecaTabuleiro(posicaoNenufarX + indexParaRealocar, posicaoNenufarY, tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY));
                     tabuleiro.setPecaTabuleiro(posicaoNenufarX, posicaoNenufarY, p);
@@ -593,7 +561,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         if (!terminouMoverNenufar) {
             if (tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY - indexParaRealocar).getClass() == Agua.class || (posicaoNenufarY - indexParaRealocar) < 0) {
                 //Logica do array
-                if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
+                if (nenufaresParaRealocar.isEmpty()) { //Caso ache agua de primeira
                     Peca p = tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY - indexParaRealocar);
                     tabuleiro.setPecaTabuleiro(posicaoNenufarX, posicaoNenufarY - indexParaRealocar, tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY));
                     tabuleiro.setPecaTabuleiro(posicaoNenufarX, posicaoNenufarY, p);
@@ -630,7 +598,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         if (!terminouMoverNenufar) {
             if (tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY + indexParaRealocar).getClass() == Agua.class || (posicaoNenufarY + indexParaRealocar) > 4) {
                 //Logica do array
-                if (nenufaresParaRealocar.size() == 0) { //Caso ache agua de primeira
+                if (nenufaresParaRealocar.isEmpty()) { //Caso ache agua de primeira
                     Peca p = tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY + indexParaRealocar);
                     tabuleiro.setPecaTabuleiro(posicaoNenufarX, posicaoNenufarY + indexParaRealocar, tabuleiro.getPecaTabuleiro(posicaoNenufarX, posicaoNenufarY));
                     tabuleiro.setPecaTabuleiro(posicaoNenufarX, posicaoNenufarY, p);

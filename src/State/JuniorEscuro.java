@@ -31,7 +31,6 @@ public class JuniorEscuro extends EstadoJogo {
     @Override
     public void juniorEscuro(int columnAtPoint, int rowAtPoint ) {
         Nenufar nenufarBase = new NenufarBase();
-        Nenufar nenufarBase2 = new NenufarBase();
         
         Peca peca = gerenciadorJogo.getTabuleiro().getPecaTabuleiro(columnAtPoint,rowAtPoint);
         if (peca.getNome().equals("NenufarEscuro")) {
@@ -42,7 +41,7 @@ public class JuniorEscuro extends EstadoJogo {
             } else {
                 NenufarEscuroComFlorAmarela necfa = new NenufarEscuroComFlorAmarela(nenufarBase);
                 necfa.selecionarImageNenufar();
-                gerenciadorJogo.getTabuleiro().setPecaTabuleiro(columnAtPoint,rowAtPoint,nenufarBase2);
+                gerenciadorJogo.getTabuleiro().setPecaTabuleiro(columnAtPoint,rowAtPoint,nenufarBase);
             }
             gerenciadorJogo.getJogadorDaVez().getMao().remove(gerenciadorJogo.getJogadorDaVez().getFlorEscolhida());
             proxEstado();

@@ -30,7 +30,6 @@ public class CompararFlores extends EstadoJogo{
     
     @Override
     public void compararFlores() {
-        if(!executou){
         if (gerenciadorJogo.getJogador1().getFlorEscolhida().getNumero() < gerenciadorJogo.getJogador2().getFlorEscolhida().getNumero()) {
             gerenciadorJogo.fabricaJogador = new FabricaJunior();
             gerenciadorJogo.jogador1 = gerenciadorJogo.getFabricaJogador().criarJogador(gerenciadorJogo.getJogador1());
@@ -69,9 +68,8 @@ public class CompararFlores extends EstadoJogo{
                 obs.notificarEmpateComparacao();
             }
         }
-        executou = true;
         }
-    }
+    
     
     public void empate(int vencedor){
         if(vencedor == 1){

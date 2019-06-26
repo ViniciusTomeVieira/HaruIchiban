@@ -30,7 +30,6 @@ public interface GerenciadorJogo {
     public void setJogador1(Jogador jogador1);    
     public Jogador getJogador2();  
     public void setJogador2(Jogador jogador2);
-    public void fluxoJogo();
     public void selecionarCores();
     public void setCorDasFlores(int corDasFlores);
     public int getCorDasFlores();

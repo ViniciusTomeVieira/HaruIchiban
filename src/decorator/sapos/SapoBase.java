@@ -15,5 +15,9 @@ public class SapoBase extends Sapo{
     
     public void selecionarImagem(){
         super.setImagem(new ImageIcon("imagens/sapoRosa.jpg"));
+        selecionarNome();
+    }
+    private void selecionarNome() {
+        super.setNome("SapoRosa");
     }
 }

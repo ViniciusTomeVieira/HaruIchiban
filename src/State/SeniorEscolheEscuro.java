@@ -53,7 +53,7 @@ public class SeniorEscolheEscuro extends EstadoJogo {
                     obs.notificarTabuleiroAlterado();
                 }
             }
-            if (peca.getNome().equals("NenufarClaro")) {
+            if (peca.getNome().equals("NenufarClaro") && !gerenciadorJogo.isSapoInserido()) {
                 NenufarEscuro nenufarEscuro = new NenufarEscuro(nenufarBase);
                 nenufarEscuro.selecionarImageNenufar();
                 gerenciadorJogo.getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, nenufarBase);

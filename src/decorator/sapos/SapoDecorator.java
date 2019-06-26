@@ -24,5 +24,12 @@ public abstract class SapoDecorator extends Sapo{
     public void selecionarImagemSapo(ImageIcon imagem) {
         this.sapo.selecionarImagemSapo(imagem);
     }
+
+    @Override
+    public void setNome(String nome) {
+        this.sapo.setNome(nome); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
 }

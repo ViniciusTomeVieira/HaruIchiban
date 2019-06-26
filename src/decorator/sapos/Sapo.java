@@ -25,6 +25,12 @@ public abstract class Sapo extends Peca {
     public void selecionarImagemSapo(ImageIcon imagem){
         this.setImagem(imagem);
     }
+
+    @Override
+    public void setNome(String nome) {
+        super.setNome(nome); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
     
 }
