@@ -10,11 +10,8 @@ import composite.Peca;
 import control.GerenciadorJogoImpl;
 import decorator.nenufares.Nenufar;
 import decorator.nenufares.NenufarBase;
-import decorator.nenufares.NenufarClaro;
 import decorator.nenufares.NenufarClaroComFlorAmarela;
 import decorator.nenufares.NenufarClaroComFlorRosa;
-import decorator.sapos.SapoAmarelo;
-import decorator.sapos.SapoRosa;
 
 /**
  *

@@ -6,6 +6,8 @@
 package State;
 
 import Observer.Observador;
+import Visitor.MontarImgPontuacao;
+import Visitor.VerificaPadrao;
 import composite.Peca;
 import control.GerenciadorJogoImpl;
 import decorator.nenufares.Nenufar;
@@ -74,6 +76,14 @@ public class SeniorEscolheEscuro extends EstadoJogo {
                 for (Observador obs : gerenciadorJogo.getObservadores()) {
                     obs.notificarTabuleiroAlterado();
                 }
+//                try {
+//                    gerenciadorJogo.getJogador1().accept(new VerificaPadrao());
+//                    gerenciadorJogo.getJogador2().accept(new VerificaPadrao());
+//                    gerenciadorJogo.getJogador1().accept(new MontarImgPontuacao());
+//                    gerenciadorJogo.getJogador2().accept(new MontarImgPontuacao);
+//                } catch (Exception ex) {
+//                    Logger.getLogger(SeniorEscolheEscuro.class.getName()).log(Level.SEVERE, null, ex);
+//                }
                 try {
                     gerenciadorJogo.atualizarPontuacao();
                 } catch (Exception ex) {

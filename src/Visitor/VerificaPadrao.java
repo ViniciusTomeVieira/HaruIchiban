@@ -5,6 +5,7 @@
  */
 package Visitor;
 
+import AbstractFactory.Jogador;
 import Strategy.CalcularPontuacao;
 import composite.Tabuleiro;
 
@@ -12,15 +13,23 @@ import composite.Tabuleiro;
  *
  * @author Adroan
  */
-public class VerificaPadrao extends AbstractVisitor{
+public class VerificaPadrao extends AbstractVisitor {
+
     private final CalcularPontuacao calcular = new CalcularPontuacao();
-    private int pontuacao;
-    @Override
-    public void visit(Tabuleiro tabuleiro) throws Exception {
-        pontuacao = calcular.verificar(tabuleiro.getTabuleiro());
+    private int pontuacaoRosa;
+    private int pontuacaoAmarelo;
+
+    public int getPontuacaoRosa() {
+        return pontuacaoRosa;
     }
 
-    public int getPontuacao() {
-        return pontuacao;
-    }    
+    public int getPontuacaoAmarelo() {
+        return pontuacaoAmarelo;
+    }
+
+    @Override
+    public void visit(Tabuleiro tabuleiro) throws Exception {
+        pontuacaoRosa = calcular.verificar(tabuleiro.getTabuleiro(), "Rosa");
+        pontuacaoAmarelo = calcular.verificar(tabuleiro.getTabuleiro(), "Amarelo");
+    }
 }

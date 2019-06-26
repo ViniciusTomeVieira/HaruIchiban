@@ -5,7 +5,7 @@
  */
 package Strategy;
 
-
+import AbstractFactory.Jogador;
 import composite.Peca;
 import decorator.nenufares.NenufarClaroComFlorAmarela;
 import decorator.nenufares.NenufarClaroComFlorRosa;
@@ -20,43 +20,81 @@ public class CalcularPontuacao {
 
     private VerificarFlores verificar;
 
-    public int verificar(Peca[][] matriz) {
-        int pontuacao=0;
-        for (int linha = 0; linha < 5; linha++) {
-            for (int coluna = 0; coluna < 5; coluna++) {
-                if (matriz[coluna][linha].getClass() == NenufarClaroComFlorAmarela.class
-                        || matriz[coluna][linha].getClass() == NenufarClaroComFlorRosa.class
-                        || matriz[coluna][linha].getClass() == NenufarEscuroComFlorAmarela.class
-                        || matriz[coluna][linha].getClass() == NenufarEscuroComFlorRosa.class) {
-                    verificar = new VerificarQuadrado();
-                    System.out.println("Verificando quadrado");
-                    pontuacao+=verificar.verificar(matriz, linha, coluna);
-                    if(pontuacao>5){
-                        break;
-                    }
-                    verificar= new VerificarLinhaHorizontal();
-                    System.out.println("Verificando horizontal");
-                    pontuacao+=verificar.verificar(matriz, linha, coluna);
-                    if(pontuacao>5){
-                        break;
-                    }
-                    verificar= new VerificarLinhaVertical();
-                    System.out.println("Verificando vertical");
-                    pontuacao+=verificar.verificar(matriz, linha, coluna);
-                    if(pontuacao>5){
-                        break;
-                    }
-                    verificar= new VerificarLinhaDiagonal();
-                    System.out.println("Verificando diagonal");
-                    pontuacao+=verificar.verificar(matriz, linha, coluna);
-                    if(pontuacao>5){
-                        break;
+    public int verificar(Peca[][] matriz, String cor) {
+        int pontuacao = 0;
+        System.out.println("Jogador: "+cor);
+        if (cor.equals("Rosa")) {
+            for (int linha = 0; linha < 5; linha++) {
+                for (int coluna = 0; coluna < 5; coluna++) {
+                    if (matriz[coluna][linha].getClass() == NenufarClaroComFlorRosa.class
+                            || matriz[coluna][linha].getClass() == NenufarEscuroComFlorRosa.class) {
+                        verificar = new VerificarQuadrado();
+                        System.out.println("Verificando quadrado");
+                        pontuacao += verificar.verificar(matriz, linha, coluna);
+                        if (pontuacao > 5) {
+                            break;
+                        }
+                        verificar = new VerificarLinhaHorizontal();
+                        System.out.println("Verificando horizontal");
+                        pontuacao += verificar.verificar(matriz, linha, coluna);
+                        if (pontuacao > 5) {
+                            break;
+                        }
+                        verificar = new VerificarLinhaVertical();
+                        System.out.println("Verificando vertical");
+                        pontuacao += verificar.verificar(matriz, linha, coluna);
+                        if (pontuacao > 5) {
+                            break;
+                        }
+                        verificar = new VerificarLinhaDiagonal();
+                        System.out.println("Verificando diagonal");
+                        pontuacao += verificar.verificar(matriz, linha, coluna);
+                        if (pontuacao > 5) {
+                            break;
+                        }
                     }
                 }
             }
+            return pontuacao;
+        } else if (cor.equals("Amarelo")) {
+            for (int linha = 0; linha < 5; linha++) {
+                for (int coluna = 0; coluna < 5; coluna++) {
+                    if (matriz[coluna][linha].getClass() == NenufarClaroComFlorAmarela.class
+                            || matriz[coluna][linha].getClass() == NenufarEscuroComFlorAmarela.class) {
+                        verificar = new VerificarQuadrado();
+                        System.out.println("Verificando quadrado");
+                        pontuacao += verificar.verificar(matriz, linha, coluna);
+                        if (pontuacao > 5) {
+                            break;
+                        }
+                        verificar = new VerificarLinhaHorizontal();
+                        System.out.println("Verificando horizontal");
+                        pontuacao += verificar.verificar(matriz, linha, coluna);
+                        if (pontuacao > 5) {
+                            break;
+                        }
+                        verificar = new VerificarLinhaVertical();
+                        System.out.println("Verificando vertical");
+                        pontuacao += verificar.verificar(matriz, linha, coluna);
+                        if (pontuacao > 5) {
+                            break;
+                        }
+                        verificar = new VerificarLinhaDiagonal();
+                        System.out.println("Verificando diagonal");
+                        pontuacao += verificar.verificar(matriz, linha, coluna);
+                        if (pontuacao > 5) {
+                            break;
+                        }
+                    }
+                }
+            }
+            return pontuacao;
         }
-        return pontuacao;
+
+        return 0;
     }
+}
+
 //     private void verificarFloracao() {
 //        for (int linha = 0; linha < 5; linha++) {
 //            for (int coluna = 0; coluna < 5; coluna++) {
@@ -143,4 +181,3 @@ public class CalcularPontuacao {
 //        formacaoDeFlores.clear();
 //
 //    }
-}

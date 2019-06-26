@@ -6,6 +6,7 @@
 package Visitor;
 
 import AbstractFactory.Jogador;
+import composite.Tabuleiro;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -13,7 +14,7 @@ import javax.swing.ImageIcon;
  *
  * @author Jogos
  */
-public class MontarImgPontuacao extends AbstractVisitor{
+public class MontarImgPontuacao implements Visitor{
 
     private int pontuacao;
     private String cor;
@@ -33,6 +34,11 @@ public class MontarImgPontuacao extends AbstractVisitor{
             }
         }
         return null;
+    }
+
+    @Override
+    public void visit(Tabuleiro tabuleiro) throws Exception {
+        
     }
 
 }

@@ -848,20 +848,23 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public void atualizarPontuacao() throws Exception {
         VerificaPadrao v1 = new VerificaPadrao();
         tabuleiro.accept(v1);
-
-        if (v1.getPontuacao() != 0) {
-            System.out.println("entrou observer");
-            for (Observador obs : observadores) {
-                obs.notificarRodadaEncerado();
-
-            }
+        if(jogador1.getCorDaFlor().equals("Rosa")){
+            jogador1.setPontuacao(v1.getPontuacaoRosa());
+        }else{
+            jogador1.setPontuacao(v1.getPontuacaoAmarelo());
         }
+        if(jogador2.getCorDaFlor().equals("Amarela")){
+            jogador2.setPontuacao(v1.getPontuacaoAmarelo());
+        }else{
+            jogador2.setPontuacao(v1.getPontuacaoRosa());
+        }
+        
         MontarImgPontuacao montar = new MontarImgPontuacao();
         jogador1.accept(montar);
         pontuacao[jogador1.getPontuacao()] = montar.getPontuacao();
 
         jogador2.accept(montar);
-        pontuacao[pontuacao.length - jogador2.getPontuacao()] = montar.getPontuacao();
+        pontuacao[pontuacao.length - jogador2.getPontuacao()-1] = montar.getPontuacao();
     }
 
     private void empate(int columnAtPoint, int rowAtPoint) {

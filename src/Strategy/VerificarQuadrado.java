@@ -21,8 +21,6 @@ public class VerificarQuadrado implements VerificarFlores {
                     && matriz[coluna][linha].getClass() == matriz[coluna+1][linha + 1].getClass()) {
                         return 1;
                     }
-                
-            
         }
         return 0;
     }
