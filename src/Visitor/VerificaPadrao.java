@@ -30,6 +30,7 @@ public class VerificaPadrao extends AbstractVisitor {
     @Override
     public void visit(Tabuleiro tabuleiro) throws Exception {
         pontuacaoRosa = calcular.verificar(tabuleiro.getTabuleiro(), "Rosa");
+        System.out.println("Está no visit");
         pontuacaoAmarelo = calcular.verificar(tabuleiro.getTabuleiro(), "Amarelo");
     }
 }
