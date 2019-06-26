@@ -883,16 +883,17 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         VerificaPadrao v1 = new VerificaPadrao();
         tabuleiro.accept(v1);
         if(jogador1.getCorDaFlor().equals("Rosa")){
-            jogador1.setPontuacao(v1.getPontuacaoRosa());
+            jogador1.setPontuacao(jogador1.getPontuacao()+v1.getPontuacaoRosa());
         }else{
-            jogador1.setPontuacao(v1.getPontuacaoAmarelo());
+            jogador1.setPontuacao(jogador1.getPontuacao()+v1.getPontuacaoAmarelo());
         }
         if(jogador2.getCorDaFlor().equals("Amarela")){
-            jogador2.setPontuacao(v1.getPontuacaoAmarelo());
+            jogador2.setPontuacao(jogador2.getPontuacao()+v1.getPontuacaoAmarelo());
         }else{
-            jogador2.setPontuacao(v1.getPontuacaoRosa());
+            jogador2.setPontuacao(jogador2.getPontuacao()+v1.getPontuacaoRosa());
         }
-        
+        System.out.println(jogador1.getPontuacao());
+        System.out.println(jogador2.getPontuacao());
         MontarImgPontuacao montar = new MontarImgPontuacao();
         jogador1.accept(montar);
         pontuacao[jogador1.getPontuacao()] = montar.getPontuacao();
