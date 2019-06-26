@@ -42,6 +42,10 @@ import decorator.flores.FlorBase;
 import decorator.flores.FlorRosa;
 import composite.Peca;
 import composite.Tabuleiro;
+import decorator.nenufares.Nenufar;
+import decorator.nenufares.NenufarBase;
+import decorator.nenufares.NenufarClaroComFlorAmarela;
+import decorator.nenufares.NenufarClaroComFlorRosa;
 
 /**
  *
@@ -61,6 +65,8 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private String mensagemErro;
     private boolean terminouMoverNenufar;
     private boolean sapoInserido = false;
+    public Peca sapoAmarelo;
+    public Peca sapoRosa;
 
     //Metodos de mover pecas
     private List<Peca> nenufaresParaRealocar = new ArrayList<>();
@@ -79,13 +85,14 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     private Icon[] pontuacao = new ImageIcon[9];
     //Abstract Factory
     public FabricaJogador fabricaJogador;
+    public boolean empate;
 
     //Jogadores
     public Jogador jogador1;
     public Jogador jogador2;
     private Jogador jogadorDaVez;
     private int indiceMensagens = 0;
-    private String[] mensagens = {"  pegue suas cartas", "  escolha uma carta para jogar", " selecione uma carta", " jogue no nenufar escuro", " escolha um nenufar para jogar", " escolha um nenufar para mover", " escolha um nenufar para o sapo", " escolha a direcao a mover", " escolha a nenufar que ficara escura"};
+    private String[] mensagens = {"  pegue suas cartas", "  escolha uma carta para jogar", " selecione uma carta", " jogue no nenufar escuro", " escolha um nenufar para jogar", " escolha um nenufar para mover", " escolha um nenufar para o sapo", " escolha a direcao a mover", " escolha a nenufar que ficara escura"," jogue sua flor no sapo correspondente", " jogue o sapo em um nenufar claro"};
 
     //Observadores
     private List<Observador> observadores = new ArrayList<>();
@@ -327,11 +334,14 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     @Override
     public void clicouNoTabuleiro(int rowAtPoint, int columnAtPoint) {
-        System.out.println(estadojogo.toString());
+        if(!empate){
         estadojogo.juniorEscuro(columnAtPoint, rowAtPoint);
         estadojogo.seniorEscolhe(columnAtPoint, rowAtPoint);
         estadojogo.juniorMovePecas(columnAtPoint, rowAtPoint);
         estadojogo.seniorEscolheEscuro(columnAtPoint, rowAtPoint);
+        }else{
+            empate(columnAtPoint,rowAtPoint);
+        }
     }
 
     @Override
@@ -852,6 +862,51 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
         jogador2.accept(montar);
         pontuacao[pontuacao.length - jogador2.getPontuacao()] = montar.getPontuacao();
+    }
+
+    private void empate(int columnAtPoint, int rowAtPoint) {
+     Peca peca = getTabuleiro().getPecaTabuleiro(columnAtPoint, rowAtPoint);
+     Nenufar nenufarBase = new NenufarBase();
+        if(jogadorDaVez.getCorDaFlor().equals("Rosa")){
+            if(peca.getNome().equals("SapoRosa")){
+                NenufarClaroComFlorRosa nccfr = new NenufarClaroComFlorRosa(nenufarBase);
+                nccfr.selecionarImageNenufar();
+                getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, nenufarBase);
+                jogadorDaVez.setFlorEscolhida(null);
+                sapoRosa = peca;
+                trocarJogadorDaVez();                             
+            }else{
+                if(peca.getNome().equals("NenufarClaro") && jogadorDaVez.getFlorEscolhida() == null){
+                    if(sapoRosa!= null){
+                        getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoRosa);
+                    }else{
+                        getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoAmarelo);
+                        estadojogo.proxEstado();
+                        empate = false;
+                    }
+                }
+            }
+        }else{
+            if(peca.getNome().equals("SapoAmarelo")){
+                NenufarClaroComFlorAmarela nccfa = new NenufarClaroComFlorAmarela(nenufarBase);
+                nccfa.selecionarImageNenufar();
+                getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, nenufarBase);
+                jogadorDaVez.setFlorEscolhida(null);
+                sapoAmarelo = peca;
+                trocarJogadorDaVez();                                
+            }else{
+                if(peca.getNome().equals("NenufarClaro") && jogadorDaVez.getFlorEscolhida() == null){
+                    if(sapoRosa!= null){
+                        getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoRosa);
+                    }else{
+                        getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoAmarelo);
+                        estadojogo.proxEstado();
+                        empate = false;
+                    }
+                }
+            }
+        }
+        
     }
 
 }

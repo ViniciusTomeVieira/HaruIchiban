@@ -33,6 +33,7 @@ public abstract class EstadoJogo {
 
     public void compararFlores() {
     }
+     public void empate(int vencedor){}
 
     public void juniorEscuro(int columnAtPoint, int rowAtPoint) {
     }

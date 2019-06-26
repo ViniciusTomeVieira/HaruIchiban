@@ -15,8 +15,6 @@ import control.GerenciadorJogoImpl;
  * @author Jogos
  */
 public class CompararFlores extends EstadoJogo{
-    
-    private boolean executou;
 
     public CompararFlores(GerenciadorJogoImpl gerenciadorJogo) {
         super(gerenciadorJogo);
@@ -63,7 +61,7 @@ public class CompararFlores extends EstadoJogo{
             }
            proxEstado();
         } else { //Empate
-            
+            gerenciadorJogo.setIndiceMensagens(9);
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarEmpateComparacao();
             }
@@ -71,6 +69,7 @@ public class CompararFlores extends EstadoJogo{
         }
     
     
+    @Override
     public void empate(int vencedor){
         if(vencedor == 1){
             gerenciadorJogo.fabricaJogador = new FabricaJunior();
@@ -81,12 +80,12 @@ public class CompararFlores extends EstadoJogo{
             gerenciadorJogo.getJogador2().setJuniorSenior("Senior");
             gerenciadorJogo.getJogador1().getMao().remove(gerenciadorJogo.getJogador1().getFlorEscolhida());
             gerenciadorJogo.getJogador2().getMao().remove(gerenciadorJogo.getJogador2().getFlorEscolhida());
-            proxEstado();
-            gerenciadorJogo.trocarJogadorDaVez();
-            gerenciadorJogo.setIndiceMensagens(3);
+            //gerenciadorJogo.trocarJogadorDaVez();
+            gerenciadorJogo.setIndiceMensagens(9);
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarJuniorSenior();
             }
+            gerenciadorJogo.empate = true;
         }else{
             gerenciadorJogo.fabricaJogador = new FabricaSenior();
             gerenciadorJogo.jogador1 = gerenciadorJogo.getFabricaJogador().criarJogador(gerenciadorJogo.getJogador1());
@@ -96,12 +95,12 @@ public class CompararFlores extends EstadoJogo{
             gerenciadorJogo.getJogador2().setJuniorSenior("Junior");
             gerenciadorJogo.getJogador1().getMao().remove(gerenciadorJogo.getJogador1().getFlorEscolhida());
             gerenciadorJogo.getJogador2().getMao().remove(gerenciadorJogo.getJogador2().getFlorEscolhida());
-            proxEstado();
-            gerenciadorJogo.trocarJogadorDaVez();
-            gerenciadorJogo.setIndiceMensagens(3);
+            //gerenciadorJogo.trocarJogadorDaVez();
+            gerenciadorJogo.setIndiceMensagens(9);
             for (Observador obs : gerenciadorJogo.getObservadores()) {
                 obs.notificarJuniorSenior();
             }
+            gerenciadorJogo.empate = true;
         }
     }
     
