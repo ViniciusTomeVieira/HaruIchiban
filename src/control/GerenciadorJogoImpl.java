@@ -805,18 +805,13 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         System.out.println(jogador2.getPontuacao());
         MontarImgPontuacao montar = new MontarImgPontuacao();
         jogador1.accept(montar);
+        inicializarPontuacao();
         if (jogador1.getPontuacao() != 0) {
             pontuacao[jogador1.getPontuacao() - 1] = montar.getPontuacao() != null ? montar.getPontuacao() : pontuacao[jogador1.getPontuacao()];
-            if (jogador1.getPontuacao() > 1) {
-                pontuacao[jogador1.getPontuacao() - 2] = new ImageIcon("Imagens/" + (jogador1.getPontuacao() - 2) + "ver.jpg");
-            }
         }
         jogador2.accept(montar);
         if (jogador2.getPontuacao() != 0) {
             pontuacao[pontuacao.length - jogador2.getPontuacao()] = montar.getPontuacao() != null ? montar.getPontuacao() : pontuacao[pontuacao.length - jogador2.getPontuacao() - 1];
-            if (jogador2.getPontuacao() > 1) {
-                pontuacao[pontuacao.length - jogador2.getPontuacao() + 1] = new ImageIcon("Imagens/" + (pontuacao.length - jogador2.getPontuacao() + 1) + "amar.jpg");
-            }
         }
         verificarVencedor();
         if (v1.getPontuacaoAmarelo() != 0 || v1.getPontuacaoRosa() != 0) {
