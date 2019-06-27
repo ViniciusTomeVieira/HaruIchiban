@@ -6,9 +6,7 @@
 package control;
 
 import AbstractFactory.FabricaJogador;
-import AbstractFactory.FabricaJunior;
 import AbstractFactory.FabricaNormal;
-import AbstractFactory.FabricaSenior;
 import AbstractFactory.Jogador;
 import AbstractFactory.JogadorJunior;
 import Builder.ConstruirPadrao;
@@ -23,7 +21,6 @@ import State.JuniorMovePecas;
 import State.SelecionarCor;
 import State.SeniorEscolhe;
 import State.SeniorEscolheEscuro;
-import Strategy.CalcularPontuacao;
 import Visitor.MontarImgPontuacao;
 import Visitor.VerificaPadrao;
 import composite.Objeto;
@@ -53,7 +50,7 @@ import decorator.nenufares.NenufarClaroComFlorRosa;
  *
  * @author Vinicius Tome Vieira e Adroan Heinen
  * @since 01/05/2019
- * @version 1.0
+ * @version 2.0
  */
 public class GerenciadorJogoImpl implements GerenciadorJogo {
 

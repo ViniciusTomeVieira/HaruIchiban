@@ -19,7 +19,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import control.GerenciadorJogo;
 import control.GerenciadorJogoImpl;
 import Observer.Observador;
-import com.sun.glass.events.KeyEvent;
 import command.ClicouNoTabuleiroCommand;
 import command.CommandInvoker;
 import command.EscolherFloresDeckCommand;
@@ -39,7 +38,7 @@ import javax.swing.JTextArea;
  *
  * @author Vinicius Tome Vieira e Adroan Heinen
  * @since 01/05/2019
- * @version 1.0
+ * @version 2.0
  */
 public class HaruIchiban extends JFrame implements Observador, ActionListener {
 

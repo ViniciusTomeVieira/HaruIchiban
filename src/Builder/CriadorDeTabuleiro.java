@@ -12,7 +12,7 @@ import composite.Tabuleiro;
  *
  * @author Vinicius Tome Vieira e Adroan Heinen
  * @since 01/05/2019
- * @version 1.0
+ * @version 2.0
  */
 public abstract class CriadorDeTabuleiro {
      private Tabuleiro tabuleiro;

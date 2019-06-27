@@ -9,7 +9,9 @@ import control.GerenciadorJogoImpl;
 
 /**
  *
- * @author vinny
+ * @author Vinicius Tome Vieira e Adroan Heinen
+ * @since 01/05/2019
+ * @version 2.0
  */
 public class SelecionarCor extends EstadoJogo{
 

@@ -5,7 +5,7 @@
  */
 package decorator.nenufares;
 
-import javax.swing.Icon;
+
 import javax.swing.ImageIcon;
 import composite.Peca;
 
@@ -13,7 +13,7 @@ import composite.Peca;
  *
  * @author Vinicius Tome Vieira e Adroan Heinen
  * @since 01/05/2019
- * @version 1.0
+ * @version 2.0
  */
 public abstract class Nenufar extends Peca{
     
@@ -27,7 +27,7 @@ public abstract class Nenufar extends Peca{
 
     @Override
     public void setNome(String nome) {
-        super.setNome(nome); //To change body of generated methods, choose Tools | Templates.
+        super.setNome(nome);
     }
     
     

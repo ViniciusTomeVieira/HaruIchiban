@@ -8,11 +8,12 @@ package State;
 import Observer.Observador;
 import composite.Peca;
 import control.GerenciadorJogoImpl;
-import model.Agua;
 
 /**
  *
- * @author vinny
+ * @author Vinicius Tome Vieira e Adroan Heinen
+ * @since 01/05/2019
+ * @version 2.0
  */
 public class JuniorMovePecas extends EstadoJogo{
 

@@ -6,22 +6,20 @@
 package State;
 
 import Observer.Observador;
-import Visitor.MontarImgPontuacao;
-import Visitor.VerificaPadrao;
 import composite.Peca;
 import control.GerenciadorJogoImpl;
 import decorator.nenufares.Nenufar;
 import decorator.nenufares.NenufarBase;
-import decorator.nenufares.NenufarClaro;
+
 import decorator.nenufares.NenufarEscuro;
-import decorator.sapos.SapoAmarelo;
-import decorator.sapos.SapoRosa;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author vinny
+ * @author Vinicius Tome Vieira e Adroan Heinen
+ * @since 01/05/2019
+ * @version 2.0
  */
 public class SeniorEscolheEscuro extends EstadoJogo {
 
@@ -82,22 +80,9 @@ public class SeniorEscolheEscuro extends EstadoJogo {
                 }
                 for (Observador obs : gerenciadorJogo.getObservadores()) {
                     obs.notificarTabuleiroAlterado();
-                }
-//                try {
-//                    gerenciadorJogo.getJogador1().accept(new VerificaPadrao());
-//                    gerenciadorJogo.getJogador2().accept(new VerificaPadrao());
-//                    gerenciadorJogo.getJogador1().accept(new MontarImgPontuacao());
-//                    gerenciadorJogo.getJogador2().accept(new MontarImgPontuacao);
-//                } catch (Exception ex) {
-//                    Logger.getLogger(SeniorEscolheEscuro.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-                
-
+                }               
             }
 
         }
-    }
-
-    
-    
+    }    
 }

@@ -6,7 +6,6 @@
 package composite;
 
 import Visitor.Visitor;
-import control.GerenciadorJogo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -15,7 +14,7 @@ import javax.swing.ImageIcon;
  *
  * @author Vinicius Tome Vieira e Adroan Heinen
  * @since 01/05/2019
- * @version 1.0
+ * @version 2.0
  */
 public class Tabuleiro extends Objeto {
    private Peca[][] tabuleiro = new Peca[5][5];

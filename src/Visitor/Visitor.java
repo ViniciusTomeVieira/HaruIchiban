@@ -10,7 +10,9 @@ import composite.Tabuleiro;
 
 /**
  *
- * @author Jogos
+ * @author Vinicius Tome Vieira e Adroan Heinen
+ * @since 01/05/2019
+ * @version 2.0
  */
 public interface Visitor {
     void visit(Jogador jogador) throws Exception;

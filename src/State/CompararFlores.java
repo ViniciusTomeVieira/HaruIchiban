@@ -12,7 +12,9 @@ import control.GerenciadorJogoImpl;
 
 /**
  *
- * @author Jogos
+ * @author Vinicius Tome Vieira e Adroan Heinen
+ * @since 01/05/2019
+ * @version 2.0
  */
 public class CompararFlores extends EstadoJogo{
 
@@ -37,7 +39,6 @@ public class CompararFlores extends EstadoJogo{
             gerenciadorJogo.getJogador2().setJuniorSenior("Senior");
             gerenciadorJogo.getJogador1().getMao().remove(gerenciadorJogo.getJogador1().getFlorEscolhida());
             gerenciadorJogo.getJogador2().getMao().remove(gerenciadorJogo.getJogador2().getFlorEscolhida());
-            //gerenciadorJogo.trocarJogadorDaVez();
             gerenciadorJogo.setIndiceMensagens(3);
             System.out.println(gerenciadorJogo.getEstadojogo().toString());
             for (Observador obs : gerenciadorJogo.getObservadores()) {
@@ -53,7 +54,6 @@ public class CompararFlores extends EstadoJogo{
             gerenciadorJogo.getJogador2().setJuniorSenior("Junior");
             gerenciadorJogo.getJogador1().getMao().remove(gerenciadorJogo.getJogador1().getFlorEscolhida());
             gerenciadorJogo.getJogador2().getMao().remove(gerenciadorJogo.getJogador2().getFlorEscolhida());            
-            //gerenciadorJogo.trocarJogadorDaVez(); // TA AQUI O PROBLEMA
             gerenciadorJogo.setIndiceMensagens(3);
             System.out.println(gerenciadorJogo.getEstadojogo().toString());
             for (Observador obs : gerenciadorJogo.getObservadores()) {
@@ -81,7 +81,6 @@ public class CompararFlores extends EstadoJogo{
             gerenciadorJogo.getJogador2().setJuniorSenior("Senior");
             gerenciadorJogo.getJogador1().getMao().remove(gerenciadorJogo.getJogador1().getFlorEscolhida());
             gerenciadorJogo.getJogador2().getMao().remove(gerenciadorJogo.getJogador2().getFlorEscolhida());
-            //gerenciadorJogo.trocarJogadorDaVez();
             gerenciadorJogo.setIndiceMensagens(9);
             gerenciadorJogo.setJogadorDaVez(gerenciadorJogo.getJogador1());
             gerenciadorJogo.setMaoDaVez(gerenciadorJogo.getJogador1().getMao());
@@ -98,7 +97,6 @@ public class CompararFlores extends EstadoJogo{
             gerenciadorJogo.getJogador2().setJuniorSenior("Junior");
             gerenciadorJogo.getJogador1().getMao().remove(gerenciadorJogo.getJogador1().getFlorEscolhida());
             gerenciadorJogo.getJogador2().getMao().remove(gerenciadorJogo.getJogador2().getFlorEscolhida());
-            //gerenciadorJogo.trocarJogadorDaVez();
             gerenciadorJogo.setIndiceMensagens(9);
             gerenciadorJogo.setJogadorDaVez(gerenciadorJogo.getJogador2());
             gerenciadorJogo.setMaoDaVez(gerenciadorJogo.getJogador2().getMao());
