@@ -18,7 +18,7 @@ public class VerificarLinhaVertical implements VerificarFlores {
     @Override
     public int verificar(Peca[][] matriz, int linha, int coluna) {
         while (linha < 3) {
-            if (matriz[coluna][linha].getNome().length()==matriz[coluna][linha+1].getNome().length()) {
+            if (matriz[coluna][linha].getNome().length() == matriz[coluna][linha+1].getNome().length() || (matriz[coluna][linha].getNome().length() + 1) == matriz[coluna][linha+1].getNome().length() || (matriz[coluna][linha].getNome().length()) == matriz[coluna][linha+1].getNome().length() + 1){
                 numFlores++;
                 linha++;
                 
