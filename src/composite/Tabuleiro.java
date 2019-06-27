@@ -6,6 +6,7 @@
 package composite;
 
 import Visitor.Visitor;
+import control.GerenciadorJogo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -101,7 +102,7 @@ public class Tabuleiro extends Objeto {
         int index = 0;
         for(int i = 0; i < 5; i++){
             for(int j = 0; j < 5; j++){
-                tabuleiro[i][j] = (Peca)pecas.remove(index);
+                tabuleiro[i][j] = (Peca)pecas.get(index);
                 index++;
         }
         }

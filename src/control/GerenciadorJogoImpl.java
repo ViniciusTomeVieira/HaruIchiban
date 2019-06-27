@@ -708,15 +708,15 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         ImageIcon imagemInserir;
         if (vencedor.equals("Jogador 1 venceu!!!!")) {
             if (jogador1.getCorDaFlor().equals("Rosa")) {
-                imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorRosa");
+                imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorRosa.jpg");
             } else {
-                imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorAmarela");
+                imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorAmarela.jpg");
             }
         } else {
             if (jogador2.getCorDaFlor().equals("Rosa")) {
-                imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorRosa");
+                imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorRosa.jpg");
             } else {
-                imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorAmarela");
+                imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorAmarela.jpg");
             }
         }
 

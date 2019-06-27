@@ -131,6 +131,7 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     @Override
     public void notificarJogoEncerado(String vencedor) {
         JOptionPane.showMessageDialog(rootPane, vencedor);
+        System.exit(0);
     }
 
     @Override
