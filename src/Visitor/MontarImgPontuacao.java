@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
  *
  * @author Jogos
  */
-public class MontarImgPontuacao implements Visitor{
+public class MontarImgPontuacao extends AbstractVisitor{
 
     private int pontuacao;
     private String cor;
@@ -22,7 +22,7 @@ public class MontarImgPontuacao implements Visitor{
     @Override
     public void visit(Jogador jogador) throws Exception {
         pontuacao = jogador.getPontuacao();
-
+        cor=jogador.getCorDaFlor();
     }
 
     public Icon getPontuacao() {
@@ -35,10 +35,4 @@ public class MontarImgPontuacao implements Visitor{
         }
         return null;
     }
-
-    @Override
-    public void visit(Tabuleiro tabuleiro) throws Exception {
-        
-    }
-
 }

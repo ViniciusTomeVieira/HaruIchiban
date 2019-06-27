@@ -94,7 +94,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public Jogador jogador2;
     private Jogador jogadorDaVez;
     private int indiceMensagens = 0;
-    private String[] mensagens = {"  pegue suas cartas", "  escolha uma carta para jogar", " selecione uma carta", " jogue no nenufar escuro", " escolha um nenufar para jogar", " escolha um nenufar para mover", " escolha um nenufar para o sapo", " escolha a direcao a mover", " escolha a nenufar que ficara escura"," jogue sua flor no sapo correspondente", " jogue o sapo em um nenufar claro"};
+    private String[] mensagens = {"  pegue suas cartas", "  escolha uma carta para jogar", " selecione uma carta", " jogue no nenufar escuro", " escolha um nenufar para jogar", " escolha um nenufar para mover", " escolha um nenufar para o sapo", " escolha a direcao a mover", " escolha a nenufar que ficara escura", " jogue sua flor no sapo correspondente", " jogue o sapo em um nenufar claro"};
 
     //Observadores
     private List<Observador> observadores = new ArrayList<>();
@@ -131,7 +131,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public void setEstadojogo(EstadoJogo estadojogo) {
         this.estadojogo = estadojogo;
     }
-
 
     @Override
     public void inicializarTabuleiro(int opcao) throws Exception { // Vai ser alterado
@@ -256,7 +255,7 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     jogadorDaVez = jogador1;
                     maoDaVez = jogador1.getMao();
                     florDaVez = jogador1.getFlores();
-                }else{
+                } else {
                     jogadorDaVez = jogador2;
                     maoDaVez = jogador2.getMao();
                     florDaVez = jogador2.getFlores();
@@ -273,44 +272,41 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                 }
             }
 
-        }else{
-
-        if (estadojogo.getClass() == JuniorEscuro.class) {
-            if (jogador1.getClass() == JogadorJunior.class) {
-                jogadorDaVez = jogador1;
-                maoDaVez = jogador1.getMao();
-                florDaVez = jogador1.getFlores();
-            } else {
-                jogadorDaVez = jogador2;
-                maoDaVez = jogador2.getMao();
-                florDaVez = jogador2.getFlores();
-            }
         } else {
-            if (jogadorDaVez.getNome().equals("Jogador 1")) {
-                jogadorDaVez = jogador2;
-                maoDaVez = jogador2.getMao();
-                florDaVez = jogador2.getFlores();
-            } else {
-                jogadorDaVez = jogador1;
-                maoDaVez = jogador1.getMao();
-                florDaVez = jogador1.getFlores();
-                if (estadojogo.getClass() == JuniorMovePecas.class || estadojogo.getClass() == SeniorEscolhe.class || estadojogo.getClass() == SeniorEscolheEscuro.class) {
+
+            if (estadojogo.getClass() == JuniorEscuro.class) {
+                if (jogador1.getClass() == JogadorJunior.class) {
+                    jogadorDaVez = jogador1;
+                    maoDaVez = jogador1.getMao();
+                    florDaVez = jogador1.getFlores();
                 } else {
-                    estadojogo.proxEstado();
-                    if (estadojogo.getClass() == CompararFlores.class) {
-                        estadojogo.compararFlores();
+                    jogadorDaVez = jogador2;
+                    maoDaVez = jogador2.getMao();
+                    florDaVez = jogador2.getFlores();
+                }
+            } else {
+                if (jogadorDaVez.getNome().equals("Jogador 1")) {
+                    jogadorDaVez = jogador2;
+                    maoDaVez = jogador2.getMao();
+                    florDaVez = jogador2.getFlores();
+                } else {
+                    jogadorDaVez = jogador1;
+                    maoDaVez = jogador1.getMao();
+                    florDaVez = jogador1.getFlores();
+                    if (estadojogo.getClass() == JuniorMovePecas.class || estadojogo.getClass() == SeniorEscolhe.class || estadojogo.getClass() == SeniorEscolheEscuro.class) {
+                    } else {
+                        estadojogo.proxEstado();
+                        if (estadojogo.getClass() == CompararFlores.class) {
+                            estadojogo.compararFlores();
+                        }
                     }
                 }
             }
         }
-    }
-    for (Observador obs : observadores
-
-    
-        ) {
+        for (Observador obs : observadores) {
             obs.notificarJogadorDaVezAlterado();
+        }
     }
-}
 
     public void setIndiceMensagens(int indiceMensagens) {
         this.indiceMensagens = indiceMensagens;
@@ -337,7 +333,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public FabricaJogador getFabricaJogador() {
         return fabricaJogador;
     }
-
 
     @Override
     public EstadoJogo getEstadojogo() {
@@ -366,13 +361,13 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     @Override
     public void clicouNoTabuleiro(int rowAtPoint, int columnAtPoint) {
-        if(!empate){
-        estadojogo.juniorEscuro(columnAtPoint, rowAtPoint);
-        estadojogo.seniorEscolhe(columnAtPoint, rowAtPoint);
-        estadojogo.juniorMovePecas(columnAtPoint, rowAtPoint);
-        estadojogo.seniorEscolheEscuro(columnAtPoint, rowAtPoint);
-        }else{
-            empate(columnAtPoint,rowAtPoint);
+        if (!empate) {
+            estadojogo.juniorEscuro(columnAtPoint, rowAtPoint);
+            estadojogo.seniorEscolhe(columnAtPoint, rowAtPoint);
+            estadojogo.juniorMovePecas(columnAtPoint, rowAtPoint);
+            estadojogo.seniorEscolheEscuro(columnAtPoint, rowAtPoint);
+        } else {
+            empate(columnAtPoint, rowAtPoint);
         }
     }
 
@@ -807,7 +802,6 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 //        }
 //
 //    }
-
     public void verificarVencedor() {
         String vencedor = "";
         if (jogador1.getPontuacao() >= 5) {
@@ -822,24 +816,24 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
 
     private void jogoEncerrado(String vencedor) {
         ImageIcon imagemInserir;
-        if(vencedor.equals("Jogador 1 venceu!!!!")){
-            if(jogador1.getCorDaFlor().equals("Rosa")){
+        if (vencedor.equals("Jogador 1 venceu!!!!")) {
+            if (jogador1.getCorDaFlor().equals("Rosa")) {
                 imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorRosa");
-            }else{
+            } else {
                 imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorAmarela");
-            }                                                   
-        }else{
-            if(jogador2.getCorDaFlor().equals("Rosa")){
+            }
+        } else {
+            if (jogador2.getCorDaFlor().equals("Rosa")) {
                 imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorRosa");
-            }else{
+            } else {
                 imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorAmarela");
             }
         }
-        
-        for(Objeto obj: tabuleiro.getPecas()){
-                obj.setImagem(imagemInserir);
+
+        for (Objeto obj : tabuleiro.getPecas()) {
+            obj.setImagem(imagemInserir);
         }
-        
+
         for (Observador obs : observadores) {
             obs.notificarJogoEncerado(vencedor);
         }
@@ -901,43 +895,43 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     public void atualizarPontuacao() throws Exception {
         VerificaPadrao v1 = new VerificaPadrao();
         tabuleiro.accept(v1);
-        if(jogador1.getCorDaFlor().equals("Rosa")){
-            jogador1.setPontuacao(jogador1.getPontuacao()+v1.getPontuacaoRosa());
-        }else{
-            jogador1.setPontuacao(jogador1.getPontuacao()+v1.getPontuacaoAmarelo());
+        if (jogador1.getCorDaFlor().equals("Rosa")) {
+            jogador1.setPontuacao(jogador1.getPontuacao() + v1.getPontuacaoRosa());
+        } else {
+            jogador1.setPontuacao(jogador1.getPontuacao() + v1.getPontuacaoAmarelo());
         }
-        if(jogador2.getCorDaFlor().equals("Amarela")){
-            jogador2.setPontuacao(jogador2.getPontuacao()+v1.getPontuacaoAmarelo());
-        }else{
-            jogador2.setPontuacao(jogador2.getPontuacao()+v1.getPontuacaoRosa());
+        if (jogador2.getCorDaFlor().equals("Amarela")) {
+            jogador2.setPontuacao(jogador2.getPontuacao() + v1.getPontuacaoAmarelo());
+        } else {
+            jogador2.setPontuacao(jogador2.getPontuacao() + v1.getPontuacaoRosa());
         }
         System.out.println(jogador1.getPontuacao());
         System.out.println(jogador2.getPontuacao());
         MontarImgPontuacao montar = new MontarImgPontuacao();
         jogador1.accept(montar);
-        pontuacao[jogador1.getPontuacao()] = montar.getPontuacao();
+        pontuacao[jogador1.getPontuacao()] = montar.getPontuacao() != null ? montar.getPontuacao() : pontuacao[jogador1.getPontuacao()];
 
         jogador2.accept(montar);
-        pontuacao[pontuacao.length - jogador2.getPontuacao()-1] = montar.getPontuacao();
+        pontuacao[pontuacao.length - jogador2.getPontuacao() - 1] = montar.getPontuacao() != null ? montar.getPontuacao() : pontuacao[pontuacao.length - jogador2.getPontuacao() - 1];
     }
 
     private void empate(int columnAtPoint, int rowAtPoint) {
-     Peca peca = getTabuleiro().getPecaTabuleiro(columnAtPoint, rowAtPoint);
-     Nenufar nenufarBase = new NenufarBase();
-        if(jogadorDaVez.getCorDaFlor().equals("Rosa")){
-            if(peca.getNome().equals("SapoRosa")){
+        Peca peca = getTabuleiro().getPecaTabuleiro(columnAtPoint, rowAtPoint);
+        Nenufar nenufarBase = new NenufarBase();
+        if (jogadorDaVez.getCorDaFlor().equals("Rosa")) {
+            if (peca.getNome().equals("SapoRosa")) {
                 NenufarClaroComFlorRosa nccfr = new NenufarClaroComFlorRosa(nenufarBase);
                 nccfr.selecionarImageNenufar();
                 getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, nenufarBase);
                 jogadorDaVez.setFlorEscolhida(null);
                 sapoRosa = peca;
-                trocarJogadorDaVez();                             
-            }else{
-                if(peca.getNome().equals("NenufarClaro") && jogadorDaVez.getFlorEscolhida() == null){
-                    if(sapoRosa!= null){
+                trocarJogadorDaVez();
+            } else {
+                if (peca.getNome().equals("NenufarClaro") && jogadorDaVez.getFlorEscolhida() == null) {
+                    if (sapoRosa != null) {
                         getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoRosa);
                         sapoRosa = null;
-                    }else{
+                    } else {
                         getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoAmarelo);
                         sapoAmarelo = null;
                         estadojogo = new EscolherFlores(this);
@@ -947,34 +941,34 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
                     }
                 }
             }
-        }else{
-            if(peca.getNome().equals("SapoAmarelo")){
+        } else {
+            if (peca.getNome().equals("SapoAmarelo")) {
                 NenufarClaroComFlorAmarela nccfa = new NenufarClaroComFlorAmarela(nenufarBase);
                 nccfa.selecionarImageNenufar();
                 getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, nenufarBase);
                 jogadorDaVez.setFlorEscolhida(null);
                 sapoAmarelo = peca;
-                trocarJogadorDaVez(); 
-                
-            }else{
-                if(peca.getNome().equals("NenufarClaro") && jogadorDaVez.getClass() == JogadorJunior.class){
-                    if(sapoRosa!= null){
+                trocarJogadorDaVez();
+
+            } else {
+                if (peca.getNome().equals("NenufarClaro") && jogadorDaVez.getClass() == JogadorJunior.class) {
+                    if (sapoRosa != null) {
                         getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoRosa);
                         sapoRosa = null;
-                    }else{
-                        if(sapoAmarelo != null){
-                        getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoAmarelo);
-                        sapoAmarelo = null;
-                        estadojogo = new EscolherFlores(this);
-                        indiceMensagens = 0;
-                        empate = false;
-                        recomecarComJogador1();
+                    } else {
+                        if (sapoAmarelo != null) {
+                            getTabuleiro().setPecaTabuleiro(columnAtPoint, rowAtPoint, sapoAmarelo);
+                            sapoAmarelo = null;
+                            estadojogo = new EscolherFlores(this);
+                            indiceMensagens = 0;
+                            empate = false;
+                            recomecarComJogador1();
                         }
                     }
                 }
             }
         }
-        
+
     }
 
 }
