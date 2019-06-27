@@ -96,5 +96,15 @@ public class Tabuleiro extends Objeto {
     public void accept(Visitor visitor) throws Exception {
         visitor.visit(this);
     }
+
+    public void organizar() {
+        int index = 0;
+        for(int i = 0; i < 5; i++){
+            for(int j = 0; j < 5; j++){
+                tabuleiro[i][j] = (Peca)pecas.remove(index);
+                index++;
+        }
+        }
+    }
    
 }

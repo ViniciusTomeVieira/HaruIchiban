@@ -833,6 +833,12 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         for (Objeto obj : tabuleiro.getPecas()) {
             obj.setImagem(imagemInserir);
         }
+        
+        tabuleiro.organizar();
+        
+        for (Observador obs : observadores) {
+            obs.notificarTabuleiroAlterado();
+        }
 
         for (Observador obs : observadores) {
             obs.notificarJogoEncerado(vencedor);
