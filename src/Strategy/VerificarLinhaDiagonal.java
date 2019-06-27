@@ -36,10 +36,10 @@ public class VerificarLinhaDiagonal implements VerificarFlores{
                 }
             }
         switch (numFlores) {
-            case 4:
+            case 3:
                 System.out.println("retornou 3");
                 return 3;
-            case 5:
+            case 4:
                 System.out.println("retornou 5");
                 return 5;
             default:
