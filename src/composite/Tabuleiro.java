@@ -32,6 +32,12 @@ public class Tabuleiro extends Objeto {
     public Objeto getPeca(int index){
         return pecas.get(index);
     }  
+
+    public List<Objeto> getPecas() {
+        return pecas;
+    }
+    
+    
    
    private int linha;
    
@@ -60,7 +66,7 @@ public class Tabuleiro extends Objeto {
         return tabuleiro;
     }
 
-    public void setTabuleiro(Peca[][] tabuleiro) {
+    public void setTabuleiro(Peca[][] tabuleiro) {      
         this.tabuleiro = tabuleiro;
         povoarLista();
     }

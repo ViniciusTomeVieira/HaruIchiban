@@ -26,6 +26,7 @@ import State.SeniorEscolheEscuro;
 import Strategy.CalcularPontuacao;
 import Visitor.MontarImgPontuacao;
 import Visitor.VerificaPadrao;
+import composite.Objeto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -820,9 +821,27 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
     }
 
     private void jogoEncerrado(String vencedor) {
+        ImageIcon imagemInserir;
+        if(vencedor.equals("Jogador 1 venceu!!!!")){
+            if(jogador1.getCorDaFlor().equals("Rosa")){
+                imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorRosa");
+            }else{
+                imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorAmarela");
+            }                                                   
+        }else{
+            if(jogador2.getCorDaFlor().equals("Rosa")){
+                imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorRosa");
+            }else{
+                imagemInserir = new ImageIcon("imagens/NenufarClaroComFlorAmarela");
+            }
+        }
+        
+        for(Objeto obj: tabuleiro.getPecas()){
+                obj.setImagem(imagemInserir);
+        }
+        
         for (Observador obs : observadores) {
             obs.notificarJogoEncerado(vencedor);
-
         }
     }
 

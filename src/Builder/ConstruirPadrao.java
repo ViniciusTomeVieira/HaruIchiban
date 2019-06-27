@@ -73,6 +73,8 @@ public class ConstruirPadrao extends CriadorDeTabuleiro {
         tabuleiro[4][2] = nenufarBase;
         tabuleiro[4][3] = new Agua();
         tabuleiro[4][4] = nenufarBase;
+        
+        
         super.construirTabuleiro(tabuleiro); //To change body of generated methods, choose Tools | Templates.
     }
 
