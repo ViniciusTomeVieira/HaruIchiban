@@ -123,7 +123,6 @@ public class HaruIchiban extends JFrame implements Observador, ActionListener {
     @Override
     public void notificarRodadaEncerado() {
         JOptionPane.showMessageDialog(rootPane, "Rodada encerrada");
-        jlPlacar.setText(gerenciador.getJogador1().getPontuacao() + " x " + gerenciador.getJogador2().getPontuacao());
         gerenciador.novaRodada();
         repaint();
 

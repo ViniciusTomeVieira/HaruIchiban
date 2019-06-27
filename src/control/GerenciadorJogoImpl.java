@@ -833,9 +833,9 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         for (Objeto obj : tabuleiro.getPecas()) {
             obj.setImagem(imagemInserir);
         }
-        
+
         tabuleiro.organizar();
-        
+
         for (Observador obs : observadores) {
             obs.notificarTabuleiroAlterado();
         }
@@ -915,10 +915,18 @@ public class GerenciadorJogoImpl implements GerenciadorJogo {
         System.out.println(jogador2.getPontuacao());
         MontarImgPontuacao montar = new MontarImgPontuacao();
         jogador1.accept(montar);
-        pontuacao[jogador1.getPontuacao()] = montar.getPontuacao() != null ? montar.getPontuacao() : pontuacao[jogador1.getPontuacao()];
-
+        if (jogador1.getPontuacao() != 0) {
+            pontuacao[jogador1.getPontuacao() - 1] = montar.getPontuacao() != null ? montar.getPontuacao() : pontuacao[jogador1.getPontuacao()];
+        }
         jogador2.accept(montar);
-        pontuacao[pontuacao.length - jogador2.getPontuacao() - 1] = montar.getPontuacao() != null ? montar.getPontuacao() : pontuacao[pontuacao.length - jogador2.getPontuacao() - 1];
+        if (jogador2.getPontuacao() != 0) {
+            pontuacao[pontuacao.length - jogador2.getPontuacao()] = montar.getPontuacao() != null ? montar.getPontuacao() : pontuacao[pontuacao.length - jogador2.getPontuacao() - 1];
+        }
+        if (v1.getPontuacaoAmarelo() != 0 || v1.getPontuacaoRosa() != 0) {
+            for (Observador obs : observadores) {
+                obs.notificarRodadaEncerado();
+            }
+        }
     }
 
     private void empate(int columnAtPoint, int rowAtPoint) {

@@ -65,6 +65,7 @@ public class SeniorEscolheEscuro extends EstadoJogo {
                 gerenciadorJogo.sapo = null;
                 gerenciadorJogo.setSapoInserido(false);
                 gerenciadorJogo.setIndiceMensagens(0);
+                
                 try {
                     gerenciadorJogo.atualizarPontuacao();
                 } catch (Exception ex) {

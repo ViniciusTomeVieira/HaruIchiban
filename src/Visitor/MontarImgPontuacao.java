@@ -29,7 +29,7 @@ public class MontarImgPontuacao extends AbstractVisitor{
         if (pontuacao != 0) {
             if (cor.equals("Rosa")) {
                 return new ImageIcon("Imagens/" + pontuacao + "ver.jpg");
-            } else if (cor.equals("Amarelo")) {
+            } else if (cor.equals("Amarela")) {
                 return new ImageIcon("Imagens/" + pontuacao + "amar.jpg");
             }
         }

@@ -31,26 +31,26 @@ public class CalcularPontuacao {
                         verificar = new VerificarQuadrado();
                         System.out.println("Verificando quadrado");
                         pontuacao += verificar.verificar(matriz, linha, coluna);
-                        if (pontuacao > 5) {
-                            break;
+                        if (pontuacao == 5) {
+                            return pontuacao;
                         }
                         verificar = new VerificarLinhaHorizontal();
                         System.out.println("Verificando horizontal");
                         pontuacao += verificar.verificar(matriz, linha, coluna);
-                        if (pontuacao > 5) {
-                            break;
+                        if (pontuacao == 5) {
+                            return pontuacao;
                         }
                         verificar = new VerificarLinhaVertical();
                         System.out.println("Verificando vertical");
                         pontuacao += verificar.verificar(matriz, linha, coluna);
-                        if (pontuacao > 5) {
-                            break;
+                        if (pontuacao == 5) {
+                            return pontuacao;
                         }
                         verificar = new VerificarLinhaDiagonal();
                         System.out.println("Verificando diagonal");
                         pontuacao += verificar.verificar(matriz, linha, coluna);
-                        if (pontuacao > 5) {
-                            break;
+                        if (pontuacao == 5) {
+                            return pontuacao;
                         }
                     }
                 }
